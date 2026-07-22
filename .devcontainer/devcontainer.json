@@ -1,0 +1,35 @@
+{
+    "name": "Self-Balancing Cube Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "."
+    },
+    "remoteUser": "vscode",
+    "runArgs": [
+        "--privileged"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "llvm-vs-code-extensions.vscode-clangd",
+                "marus25.cortex-debug",
+                "BazelBuild.vscode-bazel",
+                "ms-python.python",
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "clangd.path": "clangd",
+                "clangd.arguments": [
+                    "--query-driver=/usr/bin/arm-none-eabi-g*",
+                    "--background-index",
+                    "--header-insertion=never"
+                ],
+                "C_Cpp.intelliSenseEngine": "disabled",
+                "bazel.buildifierExecutable": "/usr/local/bin/buildifier"
+            }
+        }
+    },
+    "postCreateCommand": "git config --global --add safe.directory '*' && git config --global url.\"https://github.com/\".insteadOf \"git@github.com:\" && jj git init --colocated"
+}
+
