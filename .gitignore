@@ -7,7 +7,7 @@ __pycache__
 
 local.env
 
-bazel-*/
+bazel-*
 
 compile_commands.json
 
