@@ -38,15 +38,22 @@ def _detect_impl(repository_ctx):
         exe_path = gcc_dir.get_child(exe_base + extension)
         paths[t] = str(exe_path).replace("\\", "/")
 
-    # Create empty source file to run preprocessor
-    repository_ctx.file("empty.cc", "")
+    # Create source file with newlib header to run preprocessor
+    repository_ctx.file(
+        "empty.cc",
+        """#if __has_include(<newlib.h>)
+#include <newlib.h>
+#endif
+""",
+    )
     result = repository_ctx.execute([str(gcc_path), "-E", "-Wp,-v", "-xc++", "empty.cc"])
+    if result.return_code != 0:
+        fail("Failed to run arm-none-eabi-gcc preprocessor:\n" + result.stderr)
 
     # Parse system include directories from compiler's verbose preprocessor output
-    lines = result.stderr.replace("\r\n", "\n").split("\n")
-    include_dirs = []
+    raw_dirs = []
     in_search_list = False
-    for line in lines:
+    for line in result.stderr.replace("\r\n", "\n").split("\n"):
         line = line.strip()
         if line == "#include <...> search starts here:":
             in_search_list = True
@@ -58,17 +65,38 @@ def _detect_impl(repository_ctx):
             normalized = line.replace("\\", "/")
             if normalized.endswith(" (framework directory)"):
                 normalized = normalized[:-len(" (framework directory)")]
-            include_dirs.append(normalized)
+            raw_dirs.append(normalized)
 
-    # Fallback to some standard directories if search list is empty
+    # Also extract directories of headers included by the preprocessor (e.g., newlib.h)
+    for line in result.stdout.replace("\r\n", "\n").split("\n"):
+        line = line.strip()
+        if line.startswith("# ") and '"' in line:
+            parts = line.split('"')
+            if len(parts) >= 2:
+                header_file = parts[1].replace("\\", "/")
+                if header_file.startswith("/") or ":" in header_file:
+                    last_slash = header_file.rfind("/")
+                    if last_slash > 0:
+                        raw_dirs.append(header_file[:last_slash])
+
+    # Normalize directories and resolve symlinks (e.g. /usr/lib/arm-none-eabi/include -> /usr/include/newlib)
+    include_dirs = []
+    for d in raw_dirs:
+        p = repository_ctx.path(d)
+        if p.exists:
+            norm_str = str(p).replace("\\", "/")
+            if norm_str not in include_dirs:
+                include_dirs.append(norm_str)
+            real_str = str(p.realpath).replace("\\", "/")
+            if real_str not in include_dirs:
+                include_dirs.append(real_str)
+        else:
+            d_norm = d.replace("\\", "/")
+            if d_norm not in include_dirs:
+                include_dirs.append(d_norm)
+
     if not include_dirs:
-        # Fallback for Linux
-        include_dirs = [
-            "/usr/lib/gcc/arm-none-eabi/14.2.1/include",
-            "/usr/lib/gcc/arm-none-eabi/14.2.1/include-fixed",
-            "/usr/include/newlib",
-            "/usr/arm-none-eabi/include",
-        ]
+        fail("Could not detect system include directories for arm-none-eabi-gcc.\nCompiler output:\n" + result.stderr)
 
     # Generate the paths.bzl containing compiler metadata
     bzl_content = "TOOL_PATHS = {\n"
