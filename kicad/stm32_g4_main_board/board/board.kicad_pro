@@ -78,12 +78,12 @@
       ],
       "drc_exclusions": [
         [
-          "silk_over_copper|25874999|57324999|b61452af-9ca9-4105-a5b0-43ae7dc66021|319d3d08-0219-42a5-a4a8-83c06b2ed06c",
-          ""
+          "starved_thermal|62926250|51069956|fad82af4-b164-4a3b-aacf-44f15dc2d6c7|64db2c2e-dbe7-42d0-95e6-1d9a2e47b9ed|F.Cu",
+          "SH GND connection carries low current."
         ],
         [
-          "silk_over_copper|27012499|56187499|b61452af-9ca9-4105-a5b0-43ae7dc66021|03148d2c-34d0-450a-8619-e67accdb6d18",
-          "We don't need to be able to see the whole line."
+          "starved_thermal|76788000|76900000|eb08803f-8605-4cc4-bb8d-22b5e37c15a1|2cc9ae2c-f8fc-4fa6-b373-dc0231d08ed0|B.Cu",
+          "Has enough connections on other layers."
         ]
       ],
       "meta": {
@@ -220,7 +220,7 @@
       ],
       "track_widths": [
         0.0,
-        0.12,
+        0.15,
         0.2,
         0.4,
         0.8
@@ -526,10 +526,10 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.15,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
-        "diff_pair_width": 0.2,
+        "diff_pair_width": 0.15,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
@@ -537,22 +537,11 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.15,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
-      },
-      {
-        "clearance": 0.15,
-        "diff_pair_gap": 0.3,
-        "diff_pair_width": 0.15,
-        "name": "Signal",
-        "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
-        "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.15,
-        "tuning_profile": ""
       }
     ],
     "meta": {
@@ -560,28 +549,7 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": [
-      {
-        "netclass": "Signal",
-        "pattern": "/USB_D*"
-      },
-      {
-        "netclass": "Signal",
-        "pattern": "/Controller/*"
-      },
-      {
-        "netclass": "Signal",
-        "pattern": "*SPI1*"
-      },
-      {
-        "netclass": "Signal",
-        "pattern": "*ENC?_CS*"
-      },
-      {
-        "netclass": "Signal",
-        "pattern": "*/Shunt*"
-      }
-    ]
+    "netclass_patterns": []
   },
   "pcbnew": {
     "last_paths": {
@@ -746,6 +714,24 @@
           "label": "#",
           "name": "${ITEM_NUMBER}",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Type",
+          "name": "Sim.Type",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -761,14 +747,20 @@
         "CAL"
       ],
       "MCTRL": [
-        "INHA",
-        "INHB",
-        "INHC",
-        "INL",
-        "SOA",
-        "SOB",
-        "SOC",
-        "~{FAULT}"
+        "PHASEA",
+        "PHASEB",
+        "PHASEC",
+        "~{COAST}",
+        "SENSEA",
+        "SENSEB",
+        "SENSEC",
+        "~{FAULT}",
+        "~{CS}"
+      ],
+      "SPI": [
+        "MISO",
+        "MOSI",
+        "SCLK"
       ]
     },
     "connection_grid_size": 50.0,
@@ -811,7 +803,7 @@
         "uuid": "be33a253-a895-4341-ac4c-f55475734dc2"
       }
     ],
-    "used_designators": "D1-7,#PWR1-97,C1-57,#FLG1-3,R1-41,J1-18,NT1-6,U1-10,Q1-19,IC1,SW1-2,Y1,L1,CN1-9,TP1-22,H1-4,F1",
+    "used_designators": "D1-7,#PWR1-97,#PWR105-109,C1-57,C64-65,#FLG1-3,R1-46,J1-18,NT1-6,U1-17,Q1-19,IC1,SW1-3,Y1,L1,CN1-9,TP1-22,H1-4,F1",
     "variants": [
       {
         "name": "CountingCurrentParts"
@@ -825,7 +817,7 @@
     ],
     [
       "0e2f8ed8-9a5d-4a22-bc5f-e8902057a94c",
-      "mchan1"
+      "M1"
     ],
     [
       "9fac298e-8e21-4ee5-9d54-421ad09aecab",
@@ -841,7 +833,7 @@
     ],
     [
       "5c903e03-aea7-41ae-86fb-f44fc0c1cdbb",
-      "mchan2"
+      "M2"
     ],
     [
       "feff06c2-fcc2-44ca-af85-fe406c2e998d",
@@ -857,7 +849,7 @@
     ],
     [
       "7222f6b0-274c-4715-84c9-323480ec97a9",
-      "mchan3"
+      "M3"
     ],
     [
       "feff06c2-fcc2-44ca-af85-fe406c2e998d",
