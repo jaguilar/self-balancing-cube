@@ -1,5 +1,7 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
+package(default_visibility = ["//visibility:public"])
+
 cc_binary(
     name = "cube-tests",
     srcs = [
@@ -64,4 +66,19 @@ cc_binary(
         "@cpputest//:cpputest",
         "@cpputest//:cpputest_ext",
     ],
+)
+
+cc_binary(
+    name = "hello_world",
+    srcs = [
+        "hello_world.cc",
+    ],
+    deps = [
+        "//:cube_common_lib",
+    ],
+)
+
+alias(
+    name = "hello-world",
+    actual = ":hello_world",
 )

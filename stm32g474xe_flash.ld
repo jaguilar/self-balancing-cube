@@ -2,7 +2,7 @@
 ******************************************************************************
 **
 ** @brief       : Linker script for STM32G474xE devices from STM32G4 series
-**                      512KBytes FLASH
+**                      256KBytes FLASH
 **                      32KBytes CCMSRAM
 **                      128KBytes RAM
 **
@@ -34,7 +34,7 @@ MEMORY
 {
   CCMSRAM    (xrw)    : ORIGIN = 0x10000000,   LENGTH = 32K
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K
-  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 512K
+  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 256K
 }
 
 /* Entry Point */

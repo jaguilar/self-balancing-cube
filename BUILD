@@ -168,6 +168,16 @@ cc_binary(
     ],
 )
 
+alias(
+    name = "hello_world",
+    actual = "//tests:hello_world",
+)
+
+alias(
+    name = "hello-world",
+    actual = "//tests:hello_world",
+)
+
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 
 refresh_compile_commands(
