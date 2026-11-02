@@ -19,7 +19,16 @@ fi
 
 BUILD_DIR="${BUILD_DIR:-bazel-bin}"
 TARGET="blink-tests"
-UART_DEV="${UART_PORT:-/dev/ttyUSB0}"
+if [ -z "$UART_PORT" ]; then
+    if [ -e "/dev/ttyACM0" ]; then
+        UART_DEV="/dev/ttyACM0"
+    else
+        UART_DEV="/dev/ttyUSB0"
+    fi
+else
+    UART_DEV="$UART_PORT"
+fi
+UART_BAUD="${UART_BAUD:-115200}"
 
 show_help() {
     echo "Usage: $0 [options] [bazel_args...]"
@@ -64,6 +73,17 @@ fi
 # --- 2. Hardware Phase ---
 if [[ "$MODE" == "hil" || "$MODE" == "flash" ]]; then
     if [[ ! -f "$ELF_FILE" ]]; then
+        ALT_ELF_FILE="$BUILD_DIR/tests/${TARGET//-/_}"
+        if [[ -f "$ALT_ELF_FILE" ]]; then
+            ELF_FILE="$ALT_ELF_FILE"
+        else
+            ALT_ELF_FILE="$BUILD_DIR/tests/${TARGET//_/-}"
+            if [[ -f "$ALT_ELF_FILE" ]]; then
+                ELF_FILE="$ALT_ELF_FILE"
+            fi
+        fi
+    fi
+    if [[ ! -f "$ELF_FILE" ]]; then
         echo -e "${YELLOW}Error: Test binary not found at $ELF_FILE${NC}"
         exit 1
     fi
@@ -75,6 +95,10 @@ fi
 
 # --- 3. Monitor Phase ---
 if [[ "$MODE" == "hil" || "$MODE" == "monitor" ]]; then
-    echo -e "${GREEN}=== Starting UART Monitor on $UART_DEV ===${NC}"
-    python3 scripts/monitor_uart.py --timeout "$TIMEOUT"
+    echo -e "${GREEN}=== Starting UART Monitor on $UART_DEV at $UART_BAUD baud ===${NC}"
+    EXTRA_MONITOR_ARGS=()
+    if [[ "$MODE" == "hil" ]]; then
+        EXTRA_MONITOR_ARGS+=("--no-reset")
+    fi
+    python3 scripts/monitor_uart.py --port "$UART_DEV" --baud "$UART_BAUD" --timeout "$TIMEOUT" "${EXTRA_MONITOR_ARGS[@]}"
 fi

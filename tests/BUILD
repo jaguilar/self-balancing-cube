@@ -56,6 +56,19 @@ cc_binary(
 )
 
 cc_binary(
+    name = "icm42670p-test",
+    srcs = [
+        "main_test.cc",
+        "test_icm42670p.cc",
+    ],
+    deps = [
+        "//:cube_common_lib",
+        "@cpputest//:cpputest",
+        "@cpputest//:cpputest_ext",
+    ],
+)
+
+cc_binary(
     name = "kalman-filter-test",
     srcs = [
         "main_test.cc",
@@ -81,4 +94,24 @@ cc_binary(
 alias(
     name = "hello-world",
     actual = ":hello_world",
+)
+
+cc_binary(
+    name = "icm42670p-attitude",
+    srcs = [
+        "test_icm42670p_attitude.cc",
+    ],
+    deps = [
+        "//:cube_common_lib",
+    ],
+)
+
+alias(
+    name = "icm42670p_attitude",
+    actual = ":icm42670p-attitude",
+)
+
+alias(
+    name = "icm42670p-attitude-test",
+    actual = ":icm42670p-attitude",
 )
