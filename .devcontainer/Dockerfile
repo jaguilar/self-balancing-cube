@@ -59,56 +59,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Symlink arm-none-eabi-gdb to gdb-multiarch for tool compatibility
 RUN ln -sf /usr/bin/gdb-multiarch /usr/local/bin/arm-none-eabi-gdb
 
-# 2. Install Node.js 22 LTS (pi.dev requires Node.js >= 22.19.0) and pi.dev agent
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-    && apt-get install -y --no-install-recommends nodejs \
-    && npm install -g --ignore-scripts @earendil-works/pi-coding-agent \
-    && rm -rf /var/lib/apt/lists/*
-
-# 3. Install Jujutsu (jj) VCS binary from GitHub releases
-ARG JJ_VERSION="v0.46.0"
-RUN set -eux; \
-    ARCH="$(uname -m)"; \
-    case "${ARCH}" in \
-        x86_64) JJ_ARCH="x86_64-unknown-linux-musl" ;; \
-        aarch64) JJ_ARCH="aarch64-unknown-linux-musl" ;; \
-        *) echo "Unsupported architecture for jj: ${ARCH}" && exit 1 ;; \
-    esac; \
-    curl -fsSL "https://github.com/jj-vcs/jj/releases/download/${JJ_VERSION}/jj-${JJ_VERSION}-${JJ_ARCH}.tar.gz" -o /tmp/jj.tar.gz; \
-    mkdir -p /tmp/jj-extract; \
-    tar -xzf /tmp/jj.tar.gz -C /tmp/jj-extract; \
-    find /tmp/jj-extract -type f -name jj -exec mv {} /usr/local/bin/jj \;; \
-    chmod +x /usr/local/bin/jj; \
-    rm -rf /tmp/jj*; \
-    jj --version; \
-    mkdir -p /etc/bash_completion.d; \
-    jj util completion bash > /etc/bash_completion.d/jj
-
-# 4. Install Bazelisk (provides bazel CLI launcher)
-RUN set -eux; \
-    ARCH="$(uname -m)"; \
-    case "${ARCH}" in \
-        x86_64) BAZELISK_ARCH="amd64" ;; \
-        aarch64) BAZELISK_ARCH="arm64" ;; \
-        *) echo "Unsupported architecture for bazelisk: ${ARCH}" && exit 1 ;; \
-    esac; \
-    curl -fsSL "https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-${BAZELISK_ARCH}" -o /usr/local/bin/bazel; \
-    chmod +x /usr/local/bin/bazel; \
-    ln -sf /usr/local/bin/bazel /usr/local/bin/bazelisk
-
-# 5. Install Buildifier (Bazel build file formatter and linter)
-ARG BUILDIFIER_VERSION="v10.1.0"
-RUN set -eux; \
-    ARCH="$(uname -m)"; \
-    case "${ARCH}" in \
-        x86_64) BUILDIFIER_ARCH="amd64" ;; \
-        aarch64) BUILDIFIER_ARCH="arm64" ;; \
-        *) echo "Unsupported architecture for buildifier: ${ARCH}" && exit 1 ;; \
-    esac; \
-    curl -fsSL "https://github.com/bazel-contrib/buildtools/releases/download/${BUILDIFIER_VERSION}/buildifier-linux-${BUILDIFIER_ARCH}" -o /usr/local/bin/buildifier; \
-    chmod +x /usr/local/bin/buildifier; \
-    buildifier --version
-
 # 6. Install Python dependencies used by scripts in the repository
 RUN pip3 install --no-cache-dir --break-system-packages \
     numpy \
