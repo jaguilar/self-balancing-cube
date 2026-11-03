@@ -1,11 +1,25 @@
+build
+!.settings
+
+*.log*
+
+__pycache__
+
+local.env
+
+bazel-*
+
+compile_commands.json
+
+/cmake
 
 ~*
 
 *.gbr
 *.drl
-kicad/**/*-backups
-kicad/**/jlcpcb
-kicad/**/gerbers
-kicad/**/.history
+**/*-backups
+**/jlcpcb
+**/gerbers
+**/.history
 **/fp-info-cache
 *.bak

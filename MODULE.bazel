@@ -1,0 +1,77 @@
+module(
+    name = "blink_test",
+    version = "0.1",
+)
+
+# Hedron's Compile Commands Extractor for Bazel
+# https://github.com/hedronvision/bazel-compile-commands-extractor
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+git_override(
+    module_name = "hedron_compile_commands",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
+    commit = "7fe1eab26d2b8eeb5e1c6a2f38bddb001e3f9696",
+)
+
+bazel_dep(name = "rules_cc", version = "0.0.17")
+bazel_dep(name = "rules_python", version = "1.8.0")
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(python_version = "3.11", is_default = True)
+use_repo(python, "python_3_11")
+register_toolchains("@python_3_11//:all")
+bazel_dep(name = "rules_foreign_cc", version = "0.13.0")
+bazel_dep(name = "platforms", version = "0.0.10")
+
+register_toolchains("//bazel/toolchain:arm_none_eabi_toolchain")
+
+arm_toolchain_ext = use_extension("//bazel/toolchain:repo.bzl", "arm_toolchain_ext")
+use_repo(arm_toolchain_ext, "arm_none_eabi_config")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "eigen",
+    build_file_content = """
+load("@rules_cc//cc:defs.bzl", "cc_library")
+cc_library(
+    name = "eigen",
+    hdrs = glob(["Eigen/**", "unsupported/Eigen/**"]),
+    includes = ["."],
+    visibility = ["//visibility:public"],
+)
+""",
+    strip_prefix = "eigen-3.4.0",
+    urls = ["https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz"],
+)
+
+http_archive(
+    name = "cpputest",
+    build_file_content = """
+load("@rules_cc//cc:defs.bzl", "cc_library")
+cc_library(
+    name = "cpputest",
+    srcs = glob(["src/CppUTest/*.cpp", "src/Platforms/Gcc/*.cpp"]),
+    hdrs = glob(["include/CppUTest/*.h", "include/CppUTest/*"]),
+    includes = ["include"],
+    defines = [
+        "CPPUTEST_MEM_LEAK_DETECTION_DISABLED",
+        "CPPUTEST_HAVE_EXCEPTIONS=0",
+    ],
+    copts = ["-fexceptions"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "cpputest_ext",
+    srcs = glob(["src/CppUTestExt/*.cpp"]),
+    hdrs = glob(["include/CppUTestExt/*.h"]),
+    includes = ["include"],
+    deps = [":cpputest"],
+    copts = ["-fexceptions"],
+    visibility = ["//visibility:public"],
+)
+""",
+    strip_prefix = "cpputest-4.0",
+    urls = ["https://github.com/cpputest/cpputest/archive/v4.0.tar.gz"],
+)
+
+# Consolidated libraries are now in //lib package.

@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "OpenOCD Debug (STM32G4)",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/bazel-bin/cube",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "showDevDebugOutput": "none",
+            "servertype": "openocd",
+            "device": "stm32g4x",
+            "gdbPath": "gdb-multiarch",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "svdFile": "${workspaceFolder}/scripts/STM32G474xx.svd",
+            "preLaunchTask": "Build firmware"
+        }
+    ]
+}
