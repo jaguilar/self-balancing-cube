@@ -1,8 +1,0 @@
-"Reference","Qty","Value","DNP","Exclude from BOM","Exclude from Board","Footprint","MPN","Manufacturer"
-"C3","1","22nF","","","","Capacitor_SMD:C_0805_2012Metric","NFM21CC223R1H3D","Murata"
-"C6","1","470uF","","","","EasyEDA:CAP-TH_BD10.0-P5.00-D0.6-FD","ECA-1HM471","Panasonic"
-"D1","1","SMAJ18A","","","","Diode_SMD:D_SMA","SMAJ18A","Littelfuse"
-"Q1,Q2,Q3,Q4,Q5,Q6","6","CSD18514Q5A","","","","Package_SON:VSONP-8-1EP_5x6_P1.27mm","CSD18514Q5A","TI"
-"R2,R3,R4","3","7mOhm","","","","jaguilar:R_2512_6332Metric_Kelvin","CRE2512-FZ-R007E-3","Bourns"
-"R6","1","45k","","","","Resistor_SMD:R_0805_2012Metric","ERA6AEB4532V","Panasonic"
-"U1","1","DRV8304HRHAR","","","","EasyEDA:VQFN-40_L6.0-W6.0-P0.50-TL-EP","DRV8304HRHAR","TI"

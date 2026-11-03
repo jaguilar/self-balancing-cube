@@ -1,4 +1,0 @@
-(sym_lib_table
-  (version 7)
-  (lib (name "easyeda")(type "KiCad")(uri "${HOME}/projects/sbcb/kicad/front_board/libs/easyeda/easyeda.kicad_sym")(options "")(descr ""))
-)
