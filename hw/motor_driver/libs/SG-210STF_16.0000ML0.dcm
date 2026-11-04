@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SG-210STF_16.0000ML0
+D Standard Clock Oscillators SG-210STF 16.0000ML0: SMD XTAL OSC MHZ +/-50PPM -40-85C 1K TR
+K
+F https://support.epson.biz/td/api/doc_check.php?dl=brief_SG-210STF_en.pdf
+$ENDCMP
+#
+#End Doc Library
