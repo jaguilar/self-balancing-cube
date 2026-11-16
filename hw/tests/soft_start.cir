@@ -1,0 +1,29 @@
+* Nominal soft-start simulation (C1 = 470nF, 5S LiPo = 21.0V)
+.param V_BATT_MAX = 21.0
+.param C_GATE = 470n
+.param R1_VAL = 100k
+.param R2_VAL = 150k
+.param V_TH = -3.0
+
+.include soft_start_common.inc
+
+.tran 20u 150m
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+let i_in = -i(V_batt)
+let v_sg = v(v_in) - v(gate)
+let v_sd = v(v_in) - v(batt_sw)
+let p_mos = v_sd * i_in
+
+meas tran i_peak MAX i_in
+meas tran p_peak MAX p_mos
+meas tran e_total INTEG p_mos from=0 to=150m
+meas tran t_5 WHEN v(batt_bus)=1.05
+meas tran t_95 WHEN v(batt_bus)=19.95
+
+print i_peak p_peak e_total t_5 t_95
+.endc
+.end

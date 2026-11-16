@@ -1,0 +1,47 @@
+* Nominal current-sense simulation (21V bus, +16A phase, G=10 V/V, IDRIVE=15/30mA, SMP=2.5)
+* test_current_sense.py overrides any of these .param lines per test case.
+.param V_BATT = 21.0
+.param I_PHASE = 16.0
+.param G_CSA = 10.0
+.param T_SET_CSA = 400n
+.param V_BIAS = 1.65
+.param I_DRIVEP = 15m
+.param I_DRIVEN = 30m
+.param T_PD_DRV = 180n
+.param T_DEAD_DRV = 120n
+.param T_PWM_EDGE = 200n
+.param T_WAIT = 3.5u
+.param T_LATR = 83n
+.param T_S_ADC = 69n
+.param V_CADC_INIT = 0.0
+.param L_LOOP = 1.5n
+.param L_SHUNT_KELVIN = 1.3n
+.param L_SHUNT_PAD = 0.7n
+.param L_SHUNT = 0.3n
+.param C_CER_PHASE = 11.8u
+.param TT_BODY = 1.15n
+.param C_GS_FET = 2.35n
+.param VTO_FET = 1.8
+.param KP_FET = 80
+
+.include lib/OptiMOS3_40V_Spice.lib
+.include current_sense_common.inc
+
+.options abstol=1e-8 vntol=1e-4 reltol=1e-3 method=gear maxord=2 cshunt=2e-12
+.tran 0.25n 2.2u
+
+.control
+set wr_vecnames
+set wr_singlescale
+run
+let v_sp_com = 0.5 * (v(sp_pin) + v(sn_pin))
+let v_shunt_diff = v(sp_pin) - v(sn_pin)
+let i_shunt = i(L_shunt)
+let v_gs_ls = v(gl) - v(pgnd_bus)
+let v_gs_hs = v(gh) - v(sh_node)
+let v_ds_ls = v(sh_node) - v(sp_kelvin)
+let v_ds_hs = v(vd_hs_int) - v(sh_node)
+
+print v(c_adc)[length(v(c_adc))-1]
+.endc
+.end
