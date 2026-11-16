@@ -23,3 +23,7 @@ compile_commands.json
 **/.history
 **/fp-info-cache
 *.bak
+
+hw/**/ibom.html
+hw/**/production/**
+hw/**/.history

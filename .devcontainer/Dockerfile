@@ -56,6 +56,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     udev \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt update && apt install ngspice -y  --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
 # Symlink arm-none-eabi-gdb to gdb-multiarch for tool compatibility
 RUN ln -sf /usr/bin/gdb-multiarch /usr/local/bin/arm-none-eabi-gdb
 
