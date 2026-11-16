@@ -196,6 +196,20 @@ def load_pins(csv_path: Path, sep: str, signal_alts: bool = True, max_name: int 
     return list(merged.values())
 
 
+def add_epad(pins: list[Pin]) -> str | None:
+    """Add an exposed-pad pin (N+1, e.g. 49 on a 48-pin QFN) stacked onto VSS."""
+    numeric = [int(n) for p in pins for n in p.numbers if n.isdigit()]
+    if not numeric:
+        return None
+    epad_num = str(max(numeric) + 1)
+    vss = next((p for p in pins if p.name.upper() == "VSS"), None)
+    if vss is None:
+        vss = Pin("VSS", [], "ground", "power_in", full="VSS")
+        pins.append(vss)
+    vss.numbers.append(epad_num)
+    return epad_num
+
+
 # ----------------------------------------------------------------------------- generation
 class Writer:
     def __init__(self):
@@ -260,7 +274,8 @@ def bank_of(p: Pin) -> str:
     return m.group(1) if m else p.name.split("_(")[0]   # non-GPIO pins (NRST...) are their own group
 
 
-def build_symbol(name: str, part: str, pins: list[Pin], csv_name: str, max_name: int = MAX_NAME) -> tuple[str, str]:
+def build_symbol(name: str, part: str, pins: list[Pin], csv_name: str,
+                 max_name: int = MAX_NAME, epad_num: str | None = None) -> tuple[str, str]:
     tops = sorted([p for p in pins if p.group == "power"], key=lambda p: natural_key(p.name))
     bots = sorted([p for p in pins if p.group == "ground"], key=lambda p: natural_key(p.name))
     io = sorted([p for p in pins if p.group == "io"], key=lambda p: (natural_key(p.name.split("_(")[0]), natural_key(p.name)))
@@ -297,14 +312,16 @@ def build_symbol(name: str, part: str, pins: list[Pin], csv_name: str, max_name:
         w.line(f"({k} {v})")
     family, line, pkg = guess_package(part, len(pins))
     npins = sum(len(p.numbers) for p in pins)
+    pkg_pins = npins - 1 if epad_num else npins
+    pin_desc = f"{pkg_pins}-pin + EPAD" if epad_num else f"{npins}-pin"
     prop(w, "Reference", "U", hw * 0.75, hh + GRID, 1.524)
     prop(w, "Value", part, hw * 0.75, -hh - GRID, 1.524)
     prop(w, "Footprint", "", hide=True, italic=True)
     prop(w, "Datasheet", "~", hide=True, italic=True)
-    prop(w, "Description", f"{part} ({npins}-pin) pin assignments from CubeMX pinout {csv_name}", hide=True)
+    prop(w, "Description", f"{part} ({pin_desc}) pin assignments from CubeMX pinout {csv_name}", hide=True)
     prop(w, "ki_keywords", f"{family} {line} MCU", hide=True)
     if pkg:
-        prop(w, "ki_fp_filters", f"*{pkg}*{npins}*", hide=True)
+        prop(w, "ki_fp_filters", f"*{pkg}*{pkg_pins}*", hide=True)
 
     w.open(f"(symbol {q(name + '_0_1')}")
     w.open("(rectangle")
@@ -430,6 +447,8 @@ def main():
                     help=f"max pin-name length; longer names are shortened (default {MAX_NAME})")
     ap.add_argument("--no-signal-alternates", action="store_true",
                     help="don't add the CSV Signals column as KiCad alternate functions")
+    ap.add_argument("--epad", action=argparse.BooleanOptionalAction, default=None,
+                    help="add exposed pad pin (N+1) stacked onto VSS (default: auto for QFN packages)")
     ap.add_argument("--regenerate", action="store_true",
                     help="rebuild an existing symbol from scratch (new layout) instead of only updating pin names")
     ap.add_argument("--dry-run", action="store_true", help="report what would happen, write nothing")
@@ -441,6 +460,11 @@ def main():
     part = a.part.strip().upper()
     name = a.name or (f"{part}_{a.tag}" if a.tag else part)
     pins = load_pins(a.csv, a.sep, not a.no_signal_alternates, a.max_name)
+    _, _, pkg = guess_package(part, len(pins))
+    has_epad = (pkg == "QFN") if a.epad is None else a.epad
+    epad_num = add_epad(pins) if has_epad else None
+    if epad_num:
+        print(f"   added EPAD pin {epad_num} -> VSS")
     name_by_number = {n: p.name for p in pins for n in p.numbers}
 
     raw = a.lib.read_bytes().decode("utf-8") if a.lib.exists() else HEADER
@@ -449,7 +473,7 @@ def main():
     if eol == "\r\n":
         text = raw.replace("\r\n", "\n")
 
-    new_text, info = build_symbol(name, part, pins, a.csv.name, a.max_name)
+    new_text, info = build_symbol(name, part, pins, a.csv.name, a.max_name, epad_num=epad_num)
     for p in pins:
         if p.full != p.name:
             print(f"   shortened: {p.full} -> {p.name}")

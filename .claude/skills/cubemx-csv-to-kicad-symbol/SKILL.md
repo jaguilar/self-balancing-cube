@@ -38,6 +38,8 @@ Script: `.claude/skills/cubemx-csv-to-kicad-symbol/cubemx_csv_to_kicad_symbol.py
   the others become KiCad alternates. The CSV Signals column is also added as alternates
   (`--no-signal-alternates` to skip).
 - Pins with identical final names are one stacked pin: number `[24,36,48]`.
+- QFN packages (package letter `U`, e.g. `STM32C562CEU6`) automatically get an exposed pad pin (`N+1`, e.g. pin `49`
+  on a 48-pin QFN) stacked onto `VSS` so it is implicitly connected to ground (`--epad` / `--no-epad` to override).
 - Name = `PIN_(label)`, else `PIN_(signal)` (label wins). Text in parentheses in the CSV pin name
   (`PA13(JTMS/SWDIO)`) is dropped. Signals with their `[tag]` stripped; a bare `GPIO` signal is ignored;
   several signals are joined with `/`. Separator changes with `--sep`.
