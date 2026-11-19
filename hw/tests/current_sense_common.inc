@@ -105,6 +105,11 @@ Cgs     g2    s2    2.33n
 X_hs vd_hs_int gh sh_node BSC059N04LS_VSONP8
 X_ls sh_node gl ls_src BSC059N04LS_VSONP8
 
+* Switch-node RC snubber to PGND (with parasitic ESL)
+R_snub sh_node snub_r {R_SNUB}
+L_snub snub_r snub_c {L_SNUB}
+C_snub snub_c pgnd_bus {C_SNUB}
+
 * Pad/trace ESL between LS FET source and 2512 shunt SP Kelvin tap
 L_shunt_pad ls_src sp_kelvin {L_SHUNT_PAD}
 

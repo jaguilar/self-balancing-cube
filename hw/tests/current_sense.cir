@@ -23,8 +23,10 @@
 .param C_GS_FET = 2.35n
 .param VTO_FET = 1.8
 .param KP_FET = 80
+.param R_SNUB = 2.7
+.param C_SNUB = 2.2n
+.param L_SNUB = 1.0n
 
-.include lib/OptiMOS3_40V_Spice.lib
 .include current_sense_common.inc
 
 .options abstol=1e-8 vntol=1e-4 reltol=1e-3 method=gear maxord=2 cshunt=2e-12
