@@ -71,6 +71,8 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 # 7. Add vscode user to dialout and plugdev groups for USB/serial/ST-Link access
 RUN usermod -aG dialout,plugdev vscode || true
 
+RUN rm -f /etc/sudoers.d/vscode
+
 # 8. Configure user environment
 USER vscode
 ENV PATH="/home/vscode/.local/bin:${PATH}"
