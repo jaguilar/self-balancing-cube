@@ -1,0 +1,7430 @@
+{
+  "metadata": {
+    "part_number": "STM32C562RET6",
+    "package": "LQFP64",
+    "die": "44E",
+    "num_pins": 64,
+    "num_ios": 53,
+    "source_pack": "STMicroelectronics.stm32c5xx_dfp 2.1.0",
+    "pinout_file": "C:\\Users\\aguil\\AppData\\Local\\stm32cube\\packs\\STMicroelectronics\\stm32c5xx_dfp\\2.1.0\\Descriptors\\pinout\\STM32C5(5-6)2R(C-E)Tx(J-_)_pinout.json",
+    "peripherals_file": "C:\\Users\\aguil\\AppData\\Local\\stm32cube\\packs\\STMicroelectronics\\stm32c5xx_dfp\\2.1.0\\Descriptors\\peripherals\\D44E_peripherals.json",
+    "svd_file": "C:\\Users\\aguil\\AppData\\Local\\stm32cube\\packs\\STMicroelectronics\\stm32c5xx_dfp\\2.1.0\\SVD\\STM32C562.svd"
+  },
+  "pins": [
+    {
+      "pin": 1,
+      "pad": "PE2",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "E",
+      "port_index": 2,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_TRACECLK",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF5"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 2,
+      "pad": "PC13",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 13,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "t"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "RTC_TS",
+          "instance": "RTC"
+        }
+      ],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP4",
+          "instance": "PWR"
+        },
+        {
+          "signal": "RTC_OUT1",
+          "instance": "RTC"
+        },
+        {
+          "signal": "TAMP_IN1",
+          "instance": "TAMP"
+        }
+      ]
+    },
+    {
+      "pin": 3,
+      "pad": "PC14-OSC32_IN(OSC32_IN)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 14,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM12_CH1",
+          "instance": "TIM12",
+          "af": "AF2"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "RCC_OSC32_IN",
+          "instance": "RCC"
+        }
+      ]
+    },
+    {
+      "pin": 4,
+      "pad": "PC15-OSC32_OUT(OSC32_OUT)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 15,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM12_CH2",
+          "instance": "TIM12",
+          "af": "AF2"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "RCC_OSC32_OUT",
+          "instance": "RCC"
+        }
+      ]
+    },
+    {
+      "pin": 5,
+      "pad": "PH0-OSC_IN(PH0)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "H",
+      "port_index": 0,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "af": "AF4"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "RCC_OSC_IN",
+          "instance": "RCC"
+        }
+      ]
+    },
+    {
+      "pin": 6,
+      "pad": "PH1-OSC_OUT(PH1)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "H",
+      "port_index": 1,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "af": "AF4"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "RCC_OSC_OUT",
+          "instance": "RCC"
+        }
+      ]
+    },
+    {
+      "pin": 7,
+      "pad": "NRST",
+      "type": "not_configurable",
+      "pin_type": "I/O",
+      "port": null,
+      "port_index": null,
+      "function": "reset",
+      "io_structure": {
+        "type": "RST"
+      },
+      "power_source": "VDD",
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 8,
+      "pad": "PC0",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 0,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "SPI2_RDY",
+          "instance": "SPI2",
+          "af": "AF7"
+        },
+        {
+          "signal": "TIM16_BKIN",
+          "instance": "TIM16",
+          "af": "AF10"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN8",
+          "instance": "ADC1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 8,
+          "signal": "ADC1_IN8"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 9,
+      "pad": "PC1",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 1,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "t",
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_TRACED0",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "af": "AF5"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN9",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN9",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 9,
+          "signal": "ADC1_IN9"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 9,
+          "signal": "ADC2_IN9"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP6",
+          "instance": "PWR"
+        },
+        {
+          "signal": "TAMP_IN2",
+          "instance": "TAMP"
+        }
+      ]
+    },
+    {
+      "pin": 10,
+      "pad": "PC2",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 2,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "PWR_CSLEEP",
+          "instance": "PWR",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM17_CH1",
+          "instance": "TIM17",
+          "af": "AF1"
+        },
+        {
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "af": "AF5"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN10",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN10",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 10,
+          "signal": "ADC1_IN10"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 10,
+          "signal": "ADC2_IN10"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 11,
+      "pad": "PC3",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 3,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "PWR_CSTOP",
+          "instance": "PWR",
+          "af": "AF0"
+        },
+        {
+          "signal": "LPUART1_TX",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "af": "AF5"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN11",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN11",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 11,
+          "signal": "ADC1_IN11"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 11,
+          "signal": "ADC2_IN11"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 12,
+      "pad": "VREF-",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 13,
+      "pad": "VREF+",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 14,
+      "pad": "PA0",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 0,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "t",
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH1",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH1",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_ETR",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_BKIN",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "SPI2_RDY",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI3_RDY",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART2_CTS",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "USART2_NSS",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF9"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM2_ETR",
+          "instance": "TIM2",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN0",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN0",
+          "instance": "ADC2"
+        },
+        {
+          "signal": "COMP1_INP1",
+          "instance": "COMP1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 0,
+          "signal": "ADC1_IN0"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 0,
+          "signal": "ADC2_IN0"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP1",
+          "instance": "PWR"
+        },
+        {
+          "signal": "TAMP_IN2",
+          "instance": "TAMP"
+        }
+      ]
+    },
+    {
+      "pin": 15,
+      "pad": "PA1",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 1,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "t",
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH2",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH2",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_BKIN",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH1N",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "LPTIM1_IN1",
+          "instance": "LPTIM1",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART2_RTS",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN1",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN1",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 1,
+          "signal": "ADC1_IN1"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 1,
+          "signal": "ADC2_IN1"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "TAMP_IN3",
+          "instance": "TAMP"
+        }
+      ]
+    },
+    {
+      "pin": 16,
+      "pad": "PA2",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 2,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "t",
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH3",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH3",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPUART1_RX",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH1",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "af": "AF7"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN2",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN2",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 2,
+          "signal": "ADC1_IN2"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 2,
+          "signal": "ADC2_IN2"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP2",
+          "instance": "PWR"
+        },
+        {
+          "signal": "TAMP_IN3",
+          "instance": "TAMP"
+        }
+      ]
+    },
+    {
+      "pin": 17,
+      "pad": "PA3",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 3,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH4",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH4",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPUART1_TX",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH2",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "COMP1_OUT",
+          "instance": "COMP1",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN3",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "ADC2_IN3",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 3,
+          "signal": "ADC1_IN3"
+        },
+        {
+          "instance": "ADC2",
+          "channel": 3,
+          "signal": "ADC2_IN3"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 18,
+      "pad": "VSS",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 19,
+      "pad": "VDD",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 20,
+      "pad": "PA4",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 4,
+      "function": null,
+      "io_structure": {
+        "type": "TT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM5_ETR",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF4"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_WS",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_NSS",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_WS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_NSS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "af": "AF7"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN4",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "DAC1_OUT1",
+          "instance": "DAC1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 4,
+          "signal": "ADC1_IN4"
+        }
+      ],
+      "dac_channels": [
+        {
+          "instance": "DAC1",
+          "channel": 1,
+          "signal": "DAC1_OUT1"
+        }
+      ],
+      "additional_functions": []
+    },
+    {
+      "pin": 21,
+      "pad": "PA5",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 5,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH1",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM1_CH3",
+          "instance": "TIM1",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH1N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_CTS",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "USART1_NSS",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "TIM2_ETR",
+          "instance": "TIM2",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN5",
+          "instance": "ADC1"
+        },
+        {
+          "signal": "COMP1_INM3",
+          "instance": "COMP1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 5,
+          "signal": "ADC1_IN5"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 22,
+      "pad": "PA6",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 6,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_BKIN",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH1",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_BKIN",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_RTS",
+          "instance": "LPUART1",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN6",
+          "instance": "ADC1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 6,
+          "signal": "ADC1_IN6"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 23,
+      "pad": "PA7",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 7,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH1N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH2",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH1N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH1",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_CTS",
+          "instance": "LPUART1",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC1_IN7",
+          "instance": "ADC1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC1",
+          "channel": 7,
+          "signal": "ADC1_IN7"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 24,
+      "pad": "PC4",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 4,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH4",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM8_BKIN",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S1_MCK",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_RX",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "TIM16_CH1",
+          "instance": "TIM16",
+          "af": "AF10"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC2_IN4",
+          "instance": "ADC2"
+        },
+        {
+          "signal": "COMP1_INM1",
+          "instance": "COMP1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC2",
+          "channel": 4,
+          "signal": "ADC2_IN4"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 25,
+      "pad": "PC5",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 5,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH4N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM8_BKIN2",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM16_CH1N",
+          "instance": "TIM16",
+          "af": "AF10"
+        },
+        {
+          "signal": "COMP1_OUT",
+          "instance": "COMP1",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC2_IN5",
+          "instance": "ADC2"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC2",
+          "channel": 5,
+          "signal": "ADC2_IN5"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 26,
+      "pad": "PB0",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 0,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH2N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH3",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH2N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S3_SDI",
+          "instance": "SPI3",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI3_MISO",
+          "instance": "SPI3",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_CTS",
+          "instance": "UART4",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC2_IN6",
+          "instance": "ADC2"
+        },
+        {
+          "signal": "COMP1_INP2",
+          "instance": "COMP1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC2",
+          "channel": 6,
+          "signal": "ADC2_IN6"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 27,
+      "pad": "PB1",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 1,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH3N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH4",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH3N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF4"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_RX",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "COMP1_OUT",
+          "instance": "COMP1",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC2_IN7",
+          "instance": "ADC2"
+        },
+        {
+          "signal": "COMP1_INM2",
+          "instance": "COMP1"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC2",
+          "channel": 7,
+          "signal": "ADC2_IN7"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 28,
+      "pad": "PB2",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 2,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "a"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RTC_OUT2",
+          "instance": "RTC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM8_CH4N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "SPI1_RDY",
+          "instance": "SPI1",
+          "af": "AF4"
+        },
+        {
+          "signal": "LPTIM1_CH1",
+          "instance": "LPTIM1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF7"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF7"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "ADC2_IN8",
+          "instance": "ADC2"
+        },
+        {
+          "signal": "COMP1_INP3",
+          "instance": "COMP1"
+        },
+        {
+          "signal": "RCC_LSCO",
+          "instance": "RCC"
+        }
+      ],
+      "adc_channels": [
+        {
+          "instance": "ADC2",
+          "channel": 8,
+          "signal": "ADC2_IN8"
+        }
+      ],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 29,
+      "pad": "PB10",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 10,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM2_CH3",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM8_CH1",
+          "instance": "TIM8",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPTIM1_IN1",
+          "instance": "LPTIM1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C2_SCL",
+          "instance": "I2C2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_TX",
+          "instance": "USART3",
+          "af": "AF7"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 30,
+      "pad": "VCAP",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 31,
+      "pad": "VSS",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 32,
+      "pad": "VDD",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 33,
+      "pad": "PB12",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 12,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_BKIN",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM8_CH3",
+          "instance": "TIM8",
+          "af": "AF2"
+        },
+        {
+          "signal": "I2C2_SDA",
+          "instance": "I2C2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_CK",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        },
+        {
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 34,
+      "pad": "PB13",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 13,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH1N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM8_CH2",
+          "instance": "TIM8",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPTIM1_CH1",
+          "instance": "LPTIM1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C2_SMBA",
+          "instance": "I2C2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_CTS",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "USART3_NSS",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_RX",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        },
+        {
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 35,
+      "pad": "PB14",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 14,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH2N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM12_CH1",
+          "instance": "TIM12",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH2N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_SDI",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_MISO",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART3_RTS",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_RTS",
+          "instance": "UART4",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 36,
+      "pad": "PB15",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 15,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RTC_REFIN",
+          "instance": "RTC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM1_CH3N",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM12_CH2",
+          "instance": "TIM12",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH3N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "af": "AF6"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF7"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_CTS",
+          "instance": "UART4",
+          "af": "AF8"
+        },
+        {
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [
+        {
+          "signal": "PWR_PVD_IN",
+          "instance": "PWR"
+        }
+      ],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 37,
+      "pad": "PC6",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 6,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM5_CH1",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH1",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S2_MCK",
+          "instance": "SPI2",
+          "af": "AF5"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 38,
+      "pad": "PC7",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 7,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM5_CH2",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH2",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S3_MCK",
+          "instance": "SPI3",
+          "af": "AF6"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 39,
+      "pad": "PC8",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 8,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_TRACED1",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM5_CH3",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH3",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "UART5_RTS",
+          "instance": "UART5",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 40,
+      "pad": "PC9",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 9,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RCC_MCO2",
+          "instance": "RCC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM5_CH4",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH4",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "RCC_AUDIOCLK",
+          "instance": "RCC",
+          "af": "AF5"
+        },
+        {
+          "signal": "UART5_CTS",
+          "instance": "UART5",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 41,
+      "pad": "PA8",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 8,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RCC_MCO1",
+          "instance": "RCC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM1_CH1",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_BKIN2",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH2",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "SPI1_RDY",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S2_SDO",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI2_MOSI",
+          "instance": "SPI2",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_CK",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "TIM5_CH4",
+          "instance": "TIM5",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM2_CH4",
+          "instance": "TIM2",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 42,
+      "pad": "PA9",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 9,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RCC_MCO2",
+          "instance": "RCC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM1_CH2",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPUART1_TX",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "TIM15_CH1N",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "TIM5_ETR",
+          "instance": "TIM5",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM8_CH2N",
+          "instance": "TIM8",
+          "af": "AF13"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 43,
+      "pad": "PA10",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 10,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH3",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "LPUART1_RX",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "af": "AF7"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 44,
+      "pad": "PA11",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 11,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f",
+          "u"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_CH4",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "LPUART1_CTS",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "USART2_TX",
+          "instance": "USART2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_CTS",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "USART1_NSS",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "I2C2_SCL",
+          "instance": "I2C2",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "USB_DM",
+          "instance": "USB"
+        }
+      ]
+    },
+    {
+      "pin": 45,
+      "pad": "PA12",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 12,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f",
+          "u"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM1_ETR",
+          "instance": "TIM1",
+          "af": "AF1"
+        },
+        {
+          "signal": "LPUART1_RTS",
+          "instance": "LPUART1",
+          "af": "AF3"
+        },
+        {
+          "signal": "USART2_RX",
+          "instance": "USART2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_CK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_SCK",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_RTS",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "I2C2_SDA",
+          "instance": "I2C2",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "USB_DP",
+          "instance": "USB"
+        }
+      ]
+    },
+    {
+      "pin": 46,
+      "pad": "PA13(JTMS/SWDIO)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 13,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_JTMS",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "DEBUG_SWDIO",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "COMP1_OUT",
+          "instance": "COMP1",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 47,
+      "pad": "VSS",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 48,
+      "pad": "VDD",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 49,
+      "pad": "PA14(JTCK/SWCLK)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 14,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_JTCK",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "DEBUG_SWCLK",
+          "instance": "DEBUG",
+          "af": "AF0"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 50,
+      "pad": "PA15(JTDI)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "A",
+      "port_index": 15,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_JTDI",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM2_CH1",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM1_CH2N",
+          "instance": "TIM1",
+          "af": "AF2"
+        },
+        {
+          "signal": "LPTIM1_ETR",
+          "instance": "LPTIM1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C2_SMBA",
+          "instance": "I2C2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_WS",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_NSS",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_WS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_NSS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART2_CK",
+          "instance": "USART2",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_RTS",
+          "instance": "UART4",
+          "af": "AF8"
+        },
+        {
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "af": "AF11"
+        },
+        {
+          "signal": "TIM8_CH4N",
+          "instance": "TIM8",
+          "af": "AF13"
+        },
+        {
+          "signal": "TIM2_ETR",
+          "instance": "TIM2",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 51,
+      "pad": "PC10",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 10,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM8_CH1N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART3_TX",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 52,
+      "pad": "PC11",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 11,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM8_CH2N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S3_SDI",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_MISO",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART3_RX",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 53,
+      "pad": "PC12",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "C",
+      "port_index": 12,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_TRACED3",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM15_CH1",
+          "instance": "TIM15",
+          "af": "AF2"
+        },
+        {
+          "signal": "TIM8_CH3N",
+          "instance": "TIM8",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART3_CK",
+          "instance": "USART3",
+          "af": "AF7"
+        },
+        {
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 54,
+      "pad": "PD2",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "D",
+      "port_index": 2,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_TRACED2",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM15_BKIN",
+          "instance": "TIM15",
+          "af": "AF4"
+        },
+        {
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "af": "AF8"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP7",
+          "instance": "PWR"
+        }
+      ]
+    },
+    {
+      "pin": 55,
+      "pad": "PB3(JTDO/TRACESWO)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 3,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_JTDO",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "DEBUG_TRACESWO",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM2_CH2",
+          "instance": "TIM2",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH3",
+          "instance": "TIM5",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C2_SDA",
+          "instance": "I2C2",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_CK",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_SCK",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "LPUART1_TX",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2C2_SCL",
+          "instance": "I2C2",
+          "af": "AF9"
+        },
+        {
+          "signal": "CRS_SYNC",
+          "instance": "CRS",
+          "af": "AF10"
+        },
+        {
+          "signal": "USART3_TX",
+          "instance": "USART3",
+          "af": "AF11"
+        },
+        {
+          "signal": "TIM8_CH1",
+          "instance": "TIM8",
+          "af": "AF13"
+        },
+        {
+          "signal": "UART5_RTS",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 56,
+      "pad": "PB4(NJTRST)",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 4,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "DEBUG_NJTRST",
+          "instance": "DEBUG",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM5_CH1",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "LPTIM1_CH2",
+          "instance": "LPTIM1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_SDI",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_MISO",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_SDI",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_MISO",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF7"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_CTS",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "I2C2_SDA",
+          "instance": "I2C2",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM16_BKIN",
+          "instance": "TIM16",
+          "af": "AF10"
+        },
+        {
+          "signal": "USART3_RX",
+          "instance": "USART3",
+          "af": "AF11"
+        },
+        {
+          "signal": "TIM8_CH2",
+          "instance": "TIM8",
+          "af": "AF13"
+        },
+        {
+          "signal": "UART5_CTS",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 57,
+      "pad": "PB5",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 5,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM17_BKIN",
+          "instance": "TIM17",
+          "af": "AF1"
+        },
+        {
+          "signal": "TIM5_CH2",
+          "instance": "TIM5",
+          "af": "AF2"
+        },
+        {
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C1_SMBA",
+          "instance": "I2C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S1_SDO",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI1_MOSI",
+          "instance": "SPI1",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_SDO",
+          "instance": "SPI3",
+          "af": "AF7"
+        },
+        {
+          "signal": "SPI3_MOSI",
+          "instance": "SPI3",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_RTS",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        },
+        {
+          "signal": "USART3_CK",
+          "instance": "USART3",
+          "af": "AF11"
+        },
+        {
+          "signal": "TIM8_CH3",
+          "instance": "TIM8",
+          "af": "AF13"
+        },
+        {
+          "signal": "UART5_RX",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 58,
+      "pad": "PB6",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 6,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S3_SDI",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_MISO",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_TX",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_TX",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM16_CH1N",
+          "instance": "TIM16",
+          "af": "AF10"
+        },
+        {
+          "signal": "USART3_CTS",
+          "instance": "USART3",
+          "af": "AF11"
+        },
+        {
+          "signal": "USART3_NSS",
+          "instance": "USART3",
+          "af": "AF11"
+        },
+        {
+          "signal": "TIM8_CH4",
+          "instance": "TIM8",
+          "af": "AF13"
+        },
+        {
+          "signal": "UART5_TX",
+          "instance": "UART5",
+          "af": "AF14"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 59,
+      "pad": "PB7",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 7,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM17_CH1N",
+          "instance": "TIM17",
+          "af": "AF1"
+        },
+        {
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "USART1_RX",
+          "instance": "USART1",
+          "af": "AF7"
+        },
+        {
+          "signal": "LPUART1_RX",
+          "instance": "LPUART1",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        },
+        {
+          "signal": "TIM16_CH1",
+          "instance": "TIM16",
+          "af": "AF10"
+        },
+        {
+          "signal": "USART3_RTS",
+          "instance": "USART3",
+          "af": "AF11"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": [
+        {
+          "signal": "PWR_WKUP5",
+          "instance": "PWR"
+        }
+      ]
+    },
+    {
+      "pin": 60,
+      "pad": "PH2-BOOT0",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "H",
+      "port_index": 2,
+      "function": "boot",
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "RCC_MCO1",
+          "instance": "RCC",
+          "af": "AF0"
+        },
+        {
+          "signal": "TIM17_CH1N",
+          "instance": "TIM17",
+          "af": "AF1"
+        },
+        {
+          "signal": "LPTIM1_IN2",
+          "instance": "LPTIM1",
+          "af": "AF3"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 61,
+      "pad": "PB8",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 8,
+      "function": null,
+      "io_structure": {
+        "type": "FT",
+        "options": [
+          "f"
+        ]
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "TIM17_CH1",
+          "instance": "TIM17",
+          "af": "AF1"
+        },
+        {
+          "signal": "I3C1_SCL",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C1_SCL",
+          "instance": "I2C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S3_WS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_NSS",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "UART4_RX",
+          "instance": "UART4",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_RX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 62,
+      "pad": "PB9",
+      "type": "gpio",
+      "pin_type": "I/O",
+      "port": "B",
+      "port_index": 9,
+      "function": null,
+      "io_structure": {
+        "type": "FT"
+      },
+      "power_source": "VDD",
+      "gpio": true,
+      "alternate_functions": [
+        {
+          "signal": "I3C1_SDA",
+          "instance": "I3C1",
+          "af": "AF3"
+        },
+        {
+          "signal": "I2C1_SDA",
+          "instance": "I2C1",
+          "af": "AF4"
+        },
+        {
+          "signal": "I2S2_WS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "SPI2_NSS",
+          "instance": "SPI2",
+          "af": "AF5"
+        },
+        {
+          "signal": "I2S3_CK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "SPI3_SCK",
+          "instance": "SPI3",
+          "af": "AF6"
+        },
+        {
+          "signal": "UART4_TX",
+          "instance": "UART4",
+          "af": "AF8"
+        },
+        {
+          "signal": "FDCAN1_TX",
+          "instance": "FDCAN1",
+          "af": "AF9"
+        }
+      ],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 63,
+      "pad": "VSS",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    },
+    {
+      "pin": 64,
+      "pad": "VDD",
+      "type": "not_configurable",
+      "pin_type": "S",
+      "port": null,
+      "port_index": null,
+      "function": "power_supply",
+      "io_structure": null,
+      "power_source": null,
+      "gpio": false,
+      "alternate_functions": [],
+      "analog_functions": [],
+      "adc_channels": [],
+      "dac_channels": [],
+      "additional_functions": []
+    }
+  ],
+  "signals": {
+    "ADC1_IN0": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN1": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN10": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN11": [
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN2": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN3": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN4": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN5": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN6": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN7": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN8": [
+      {
+        "pin": 8,
+        "pad": "PC0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC1_IN9": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN0": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN1": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN10": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN11": [
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN2": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN3": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN4": [
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN5": [
+      {
+        "pin": 25,
+        "pad": "PC5",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN6": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN7": [
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN8": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "ADC2_IN9": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INM1": [
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INM2": [
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INM3": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INP1": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INP2": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_INP3": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "COMP1_OUT": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 25,
+        "pad": "PC5",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 46,
+        "pad": "PA13(JTMS/SWDIO)",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "CRS_SYNC": [
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF10"
+      }
+    ],
+    "DAC1_OUT1": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "DEBUG_JTCK": [
+      {
+        "pin": 49,
+        "pad": "PA14(JTCK/SWCLK)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_JTDI": [
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_JTDO": [
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_JTMS": [
+      {
+        "pin": 46,
+        "pad": "PA13(JTMS/SWDIO)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_NJTRST": [
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_SWCLK": [
+      {
+        "pin": 49,
+        "pad": "PA14(JTCK/SWCLK)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_SWDIO": [
+      {
+        "pin": 46,
+        "pad": "PA13(JTMS/SWDIO)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACECLK": [
+      {
+        "pin": 1,
+        "pad": "PE2",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACED0": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACED1": [
+      {
+        "pin": 39,
+        "pad": "PC8",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACED2": [
+      {
+        "pin": 54,
+        "pad": "PD2",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACED3": [
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "DEBUG_TRACESWO": [
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "FDCAN1_RX": [
+      {
+        "pin": 3,
+        "pad": "PC14-OSC32_IN(OSC32_IN)",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 60,
+        "pad": "PH2-BOOT0",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF9"
+      }
+    ],
+    "FDCAN1_TX": [
+      {
+        "pin": 2,
+        "pad": "PC13",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF9"
+      }
+    ],
+    "I2C1_SCL": [
+      {
+        "pin": 6,
+        "pad": "PH1-OSC_OUT(PH1)",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "I2C1_SDA": [
+      {
+        "pin": 5,
+        "pad": "PH0-OSC_IN(PH0)",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "I2C1_SMBA": [
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "I2C2_SCL": [
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF9"
+      }
+    ],
+    "I2C2_SDA": [
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF9"
+      }
+    ],
+    "I2C2_SMBA": [
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "I2S1_CK": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S1_MCK": [
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S1_SDI": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S1_SDO": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S1_WS": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S2_CK": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S2_MCK": [
+      {
+        "pin": 37,
+        "pad": "PC6",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S2_SDI": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S2_SDO": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "I2S2_WS": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "I2S3_CK": [
+      {
+        "pin": 1,
+        "pad": "PE2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "I2S3_MCK": [
+      {
+        "pin": 38,
+        "pad": "PC7",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "I2S3_SDI": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "I2S3_SDO": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "I2S3_WS": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "I3C1_SCL": [
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "I3C1_SDA": [
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "LPTIM1_CH1": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "LPTIM1_CH2": [
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "LPTIM1_ETR": [
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "LPTIM1_IN1": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "LPTIM1_IN2": [
+      {
+        "pin": 1,
+        "pad": "PE2",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 60,
+        "pad": "PH2-BOOT0",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "LPUART1_CTS": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "LPUART1_RTS": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "LPUART1_RX": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 43,
+        "pad": "PA10",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "LPUART1_TX": [
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "PWR_CSLEEP": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "PWR_CSTOP": [
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "PWR_PVD_IN": [
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "PWR_WKUP1": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "PWR_WKUP2": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "PWR_WKUP4": [
+      {
+        "pin": 2,
+        "pad": "PC13",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "PWR_WKUP5": [
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "PWR_WKUP6": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "PWR_WKUP7": [
+      {
+        "pin": 54,
+        "pad": "PD2",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RCC_AUDIOCLK": [
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "RCC_LSCO": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "RCC_MCO1": [
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF0"
+      },
+      {
+        "pin": 60,
+        "pad": "PH2-BOOT0",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "RCC_MCO2": [
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF0"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "RCC_OSC32_IN": [
+      {
+        "pin": 3,
+        "pad": "PC14-OSC32_IN(OSC32_IN)",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RCC_OSC32_OUT": [
+      {
+        "pin": 4,
+        "pad": "PC15-OSC32_OUT(OSC32_OUT)",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RCC_OSC_IN": [
+      {
+        "pin": 5,
+        "pad": "PH0-OSC_IN(PH0)",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RCC_OSC_OUT": [
+      {
+        "pin": 6,
+        "pad": "PH1-OSC_OUT(PH1)",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RTC_OUT1": [
+      {
+        "pin": 2,
+        "pad": "PC13",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "RTC_OUT2": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "RTC_REFIN": [
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF0"
+      }
+    ],
+    "RTC_TS": [
+      {
+        "pin": 2,
+        "pad": "PC13",
+        "type": "analog",
+        "af": null
+      }
+    ],
+    "SPI1_MISO": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI1_MOSI": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI1_NSS": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI1_RDY": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI1_SCK": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI2_MISO": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI2_MOSI": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 11,
+        "pad": "PC3",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "SPI2_NSS": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF9"
+      },
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI2_RDY": [
+      {
+        "pin": 8,
+        "pad": "PC0",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI2_SCK": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF5"
+      }
+    ],
+    "SPI3_MISO": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "SPI3_MOSI": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "SPI3_NSS": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "SPI3_RDY": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "SPI3_SCK": [
+      {
+        "pin": 1,
+        "pad": "PE2",
+        "type": "alternate",
+        "af": "AF5"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF6"
+      }
+    ],
+    "TAMP_IN1": [
+      {
+        "pin": 2,
+        "pad": "PC13",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "TAMP_IN2": [
+      {
+        "pin": 9,
+        "pad": "PC1",
+        "type": "additional",
+        "af": null
+      },
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "TAMP_IN3": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "additional",
+        "af": null
+      },
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "TIM12_CH1": [
+      {
+        "pin": 3,
+        "pad": "PC14-OSC32_IN(OSC32_IN)",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM12_CH2": [
+      {
+        "pin": 4,
+        "pad": "PC15-OSC32_OUT(OSC32_OUT)",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM15_BKIN": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 54,
+        "pad": "PD2",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "TIM15_CH1": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM15_CH1N": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "TIM15_CH2": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "TIM16_BKIN": [
+      {
+        "pin": 8,
+        "pad": "PC0",
+        "type": "alternate",
+        "af": "AF10"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF10"
+      }
+    ],
+    "TIM16_CH1": [
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "alternate",
+        "af": "AF10"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF10"
+      }
+    ],
+    "TIM16_CH1N": [
+      {
+        "pin": 25,
+        "pad": "PC5",
+        "type": "alternate",
+        "af": "AF10"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF10"
+      }
+    ],
+    "TIM17_BKIN": [
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM17_CH1": [
+      {
+        "pin": 10,
+        "pad": "PC2",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM17_CH1N": [
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 60,
+        "pad": "PH2-BOOT0",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_BKIN": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH1": [
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH1N": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH2": [
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH2N": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM1_CH3": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 43,
+        "pad": "PA10",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH3N": [
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH4": [
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_CH4N": [
+      {
+        "pin": 25,
+        "pad": "PC5",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM1_ETR": [
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM2_CH1": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM2_CH2": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM2_CH3": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF1"
+      }
+    ],
+    "TIM2_CH4": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "alternate",
+        "af": "AF1"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "TIM2_ETR": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "TIM5_CH1": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 37,
+        "pad": "PC6",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM5_CH2": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 38,
+        "pad": "PC7",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF2"
+      }
+    ],
+    "TIM5_CH3": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 39,
+        "pad": "PC8",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM5_CH4": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "TIM5_ETR": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "TIM8_BKIN": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM8_BKIN2": [
+      {
+        "pin": 25,
+        "pad": "PC5",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM8_CH1": [
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 37,
+        "pad": "PC6",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF13"
+      }
+    ],
+    "TIM8_CH1N": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM8_CH2": [
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 38,
+        "pad": "PC7",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF13"
+      }
+    ],
+    "TIM8_CH2N": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF13"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM8_CH3": [
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF2"
+      },
+      {
+        "pin": 39,
+        "pad": "PC8",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF13"
+      }
+    ],
+    "TIM8_CH3N": [
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "TIM8_CH4": [
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF13"
+      }
+    ],
+    "TIM8_CH4N": [
+      {
+        "pin": 28,
+        "pad": "PB2",
+        "type": "alternate",
+        "af": "AF3"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF13"
+      }
+    ],
+    "TIM8_ETR": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF3"
+      }
+    ],
+    "UART4_CTS": [
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "UART4_RTS": [
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "UART4_RX": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 61,
+        "pad": "PB8",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "UART4_TX": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF6"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 62,
+        "pad": "PB9",
+        "type": "alternate",
+        "af": "AF8"
+      }
+    ],
+    "UART5_CTS": [
+      {
+        "pin": 40,
+        "pad": "PC9",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "UART5_RTS": [
+      {
+        "pin": 39,
+        "pad": "PC8",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "UART5_RX": [
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 54,
+        "pad": "PD2",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "UART5_TX": [
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF14"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF8"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF14"
+      }
+    ],
+    "USART1_CK": [
+      {
+        "pin": 41,
+        "pad": "PA8",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART1_CTS": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART1_NSS": [
+      {
+        "pin": 21,
+        "pad": "PA5",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART1_RTS": [
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART1_RX": [
+      {
+        "pin": 23,
+        "pad": "PA7",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 36,
+        "pad": "PB15",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 43,
+        "pad": "PA10",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART1_TX": [
+      {
+        "pin": 22,
+        "pad": "PA6",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF4"
+      },
+      {
+        "pin": 42,
+        "pad": "PA9",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF11"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART2_CK": [
+      {
+        "pin": 20,
+        "pad": "PA4",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 50,
+        "pad": "PA15(JTDI)",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART2_CTS": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART2_NSS": [
+      {
+        "pin": 14,
+        "pad": "PA0",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART2_RTS": [
+      {
+        "pin": 15,
+        "pad": "PA1",
+        "type": "alternate",
+        "af": "AF7"
+      }
+    ],
+    "USART2_RX": [
+      {
+        "pin": 17,
+        "pad": "PA3",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "USART2_TX": [
+      {
+        "pin": 16,
+        "pad": "PA2",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 26,
+        "pad": "PB0",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "alternate",
+        "af": "AF4"
+      }
+    ],
+    "USART3_CK": [
+      {
+        "pin": 33,
+        "pad": "PB12",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 53,
+        "pad": "PC12",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 57,
+        "pad": "PB5",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USART3_CTS": [
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USART3_NSS": [
+      {
+        "pin": 34,
+        "pad": "PB13",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 58,
+        "pad": "PB6",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USART3_RTS": [
+      {
+        "pin": 35,
+        "pad": "PB14",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 59,
+        "pad": "PB7",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USART3_RX": [
+      {
+        "pin": 24,
+        "pad": "PC4",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 27,
+        "pad": "PB1",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 52,
+        "pad": "PC11",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 56,
+        "pad": "PB4(NJTRST)",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USART3_TX": [
+      {
+        "pin": 29,
+        "pad": "PB10",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 51,
+        "pad": "PC10",
+        "type": "alternate",
+        "af": "AF7"
+      },
+      {
+        "pin": 55,
+        "pad": "PB3(JTDO/TRACESWO)",
+        "type": "alternate",
+        "af": "AF11"
+      }
+    ],
+    "USB_DM": [
+      {
+        "pin": 44,
+        "pad": "PA11",
+        "type": "additional",
+        "af": null
+      }
+    ],
+    "USB_DP": [
+      {
+        "pin": 45,
+        "pad": "PA12",
+        "type": "additional",
+        "af": null
+      }
+    ]
+  },
+  "timers": {
+    "LPTIM1": {
+      "type": "lptim",
+      "configuration": "Low-power timer",
+      "counter_bits": 16,
+      "channels": 2,
+      "complementary_channels": 0,
+      "supports_encoder": true,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": false,
+      "raw_features": {
+        "auton": 0,
+        "encoder_ck": 1,
+        "in_mux_size": 4,
+        "nb_cc": 2,
+        "nb_cc_trig": 4,
+        "nb_trig": 8,
+        "optionreg_out": 0
+      },
+      "exposed_signals": {
+        "LPTIM1_CH1": [
+          {
+            "pin": 28,
+            "pad": "PB2",
+            "type": "alternate",
+            "af": "AF5"
+          },
+          {
+            "pin": 34,
+            "pad": "PB13",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "LPTIM1_CH2": [
+          {
+            "pin": 56,
+            "pad": "PB4(NJTRST)",
+            "type": "alternate",
+            "af": "AF4"
+          }
+        ],
+        "LPTIM1_ETR": [
+          {
+            "pin": 50,
+            "pad": "PA15(JTDI)",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "LPTIM1_IN1": [
+          {
+            "pin": 15,
+            "pad": "PA1",
+            "type": "alternate",
+            "af": "AF5"
+          },
+          {
+            "pin": 29,
+            "pad": "PB10",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "LPTIM1_IN2": [
+          {
+            "pin": 1,
+            "pad": "PE2",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 16,
+            "pad": "PA2",
+            "type": "alternate",
+            "af": "AF5"
+          },
+          {
+            "pin": 60,
+            "pad": "PH2-BOOT0",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ]
+      }
+    },
+    "TIM1": {
+      "type": "tim",
+      "configuration": "Advanced-control",
+      "counter_bits": 16,
+      "channels": 7,
+      "complementary_channels": 4,
+      "supports_encoder": true,
+      "supports_encoder_index": true,
+      "supports_dma": true,
+      "supports_etr": true,
+      "supports_break": true,
+      "raw_features": {
+        "bk_impl": 3,
+        "cnt_dir": 2,
+        "cnt_width": 16,
+        "dma_impl": 2,
+        "etr_impl": 3,
+        "nb_of_cc": 7,
+        "nb_of_dt": 4,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 2
+      },
+      "exposed_signals": {
+        "TIM1_BKIN": [
+          {
+            "pin": 22,
+            "pad": "PA6",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 33,
+            "pad": "PB12",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH1": [
+          {
+            "pin": 41,
+            "pad": "PA8",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH1N": [
+          {
+            "pin": 23,
+            "pad": "PA7",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 34,
+            "pad": "PB13",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH2": [
+          {
+            "pin": 42,
+            "pad": "PA9",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH2N": [
+          {
+            "pin": 26,
+            "pad": "PB0",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 35,
+            "pad": "PB14",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 50,
+            "pad": "PA15(JTDI)",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ],
+        "TIM1_CH3": [
+          {
+            "pin": 21,
+            "pad": "PA5",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 43,
+            "pad": "PA10",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH3N": [
+          {
+            "pin": 27,
+            "pad": "PB1",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 36,
+            "pad": "PB15",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH4": [
+          {
+            "pin": 44,
+            "pad": "PA11",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_CH4N": [
+          {
+            "pin": 25,
+            "pad": "PC5",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM1_ETR": [
+          {
+            "pin": 45,
+            "pad": "PA12",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ]
+      }
+    },
+    "TIM12": {
+      "type": "tim",
+      "configuration": "Lite (2 channels)",
+      "counter_bits": 16,
+      "channels": 2,
+      "complementary_channels": 0,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": false,
+      "supports_etr": false,
+      "supports_break": false,
+      "raw_features": {
+        "bk_impl": 0,
+        "cnt_dir": 1,
+        "cnt_width": 16,
+        "dma_impl": 0,
+        "etr_impl": 0,
+        "nb_of_cc": 2,
+        "nb_of_dt": 0,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 0
+      },
+      "exposed_signals": {
+        "TIM12_CH1": [
+          {
+            "pin": 3,
+            "pad": "PC14-OSC32_IN(OSC32_IN)",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 35,
+            "pad": "PB14",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ],
+        "TIM12_CH2": [
+          {
+            "pin": 4,
+            "pad": "PC15-OSC32_OUT(OSC32_OUT)",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 36,
+            "pad": "PB15",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ]
+      }
+    },
+    "TIM15": {
+      "type": "tim",
+      "configuration": "Lite dead-time (2 channels)",
+      "counter_bits": 16,
+      "channels": 2,
+      "complementary_channels": 1,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": true,
+      "raw_features": {
+        "bk_impl": 2,
+        "cnt_dir": 2,
+        "cnt_width": 16,
+        "dma_impl": 2,
+        "etr_impl": 0,
+        "nb_of_cc": 2,
+        "nb_of_dt": 1,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 1
+      },
+      "exposed_signals": {
+        "TIM15_BKIN": [
+          {
+            "pin": 14,
+            "pad": "PA0",
+            "type": "alternate",
+            "af": "AF4"
+          },
+          {
+            "pin": 54,
+            "pad": "PD2",
+            "type": "alternate",
+            "af": "AF4"
+          }
+        ],
+        "TIM15_CH1": [
+          {
+            "pin": 16,
+            "pad": "PA2",
+            "type": "alternate",
+            "af": "AF4"
+          },
+          {
+            "pin": 23,
+            "pad": "PA7",
+            "type": "alternate",
+            "af": "AF4"
+          },
+          {
+            "pin": 53,
+            "pad": "PC12",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ],
+        "TIM15_CH1N": [
+          {
+            "pin": 15,
+            "pad": "PA1",
+            "type": "alternate",
+            "af": "AF4"
+          },
+          {
+            "pin": 42,
+            "pad": "PA9",
+            "type": "alternate",
+            "af": "AF4"
+          }
+        ],
+        "TIM15_CH2": [
+          {
+            "pin": 17,
+            "pad": "PA3",
+            "type": "alternate",
+            "af": "AF4"
+          },
+          {
+            "pin": 41,
+            "pad": "PA8",
+            "type": "alternate",
+            "af": "AF4"
+          }
+        ]
+      }
+    },
+    "TIM16": {
+      "type": "tim",
+      "configuration": "Lite dead-time (1 channel)",
+      "counter_bits": 16,
+      "channels": 1,
+      "complementary_channels": 1,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": true,
+      "raw_features": {
+        "bk_impl": 2,
+        "cnt_dir": 2,
+        "cnt_width": 16,
+        "dma_impl": 2,
+        "etr_impl": 0,
+        "nb_of_cc": 1,
+        "nb_of_dt": 1,
+        "nb_of_sm": 0,
+        "optionreg_out": 0,
+        "rcr_impl": 1
+      },
+      "exposed_signals": {
+        "TIM16_BKIN": [
+          {
+            "pin": 8,
+            "pad": "PC0",
+            "type": "alternate",
+            "af": "AF10"
+          },
+          {
+            "pin": 56,
+            "pad": "PB4(NJTRST)",
+            "type": "alternate",
+            "af": "AF10"
+          }
+        ],
+        "TIM16_CH1": [
+          {
+            "pin": 24,
+            "pad": "PC4",
+            "type": "alternate",
+            "af": "AF10"
+          },
+          {
+            "pin": 59,
+            "pad": "PB7",
+            "type": "alternate",
+            "af": "AF10"
+          }
+        ],
+        "TIM16_CH1N": [
+          {
+            "pin": 25,
+            "pad": "PC5",
+            "type": "alternate",
+            "af": "AF10"
+          },
+          {
+            "pin": 58,
+            "pad": "PB6",
+            "type": "alternate",
+            "af": "AF10"
+          }
+        ]
+      }
+    },
+    "TIM17": {
+      "type": "tim",
+      "configuration": "Lite dead-time (1 channel)",
+      "counter_bits": 16,
+      "channels": 1,
+      "complementary_channels": 1,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": true,
+      "raw_features": {
+        "bk_impl": 2,
+        "cnt_dir": 2,
+        "cnt_width": 16,
+        "dma_impl": 2,
+        "etr_impl": 0,
+        "nb_of_cc": 1,
+        "nb_of_dt": 1,
+        "nb_of_sm": 0,
+        "optionreg_out": 2,
+        "rcr_impl": 1
+      },
+      "exposed_signals": {
+        "TIM17_BKIN": [
+          {
+            "pin": 57,
+            "pad": "PB5",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM17_CH1": [
+          {
+            "pin": 10,
+            "pad": "PC2",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 61,
+            "pad": "PB8",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM17_CH1N": [
+          {
+            "pin": 59,
+            "pad": "PB7",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 60,
+            "pad": "PH2-BOOT0",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ]
+      }
+    },
+    "TIM2": {
+      "type": "tim",
+      "configuration": "General-purpose",
+      "counter_bits": 32,
+      "channels": 4,
+      "complementary_channels": 0,
+      "supports_encoder": true,
+      "supports_encoder_index": true,
+      "supports_dma": true,
+      "supports_etr": true,
+      "supports_break": false,
+      "raw_features": {
+        "bk_impl": 0,
+        "cnt_dir": 2,
+        "cnt_width": 32,
+        "dma_impl": 2,
+        "etr_impl": 3,
+        "nb_of_cc": 4,
+        "nb_of_dt": 0,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 0
+      },
+      "exposed_signals": {
+        "TIM2_CH1": [
+          {
+            "pin": 14,
+            "pad": "PA0",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 21,
+            "pad": "PA5",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 50,
+            "pad": "PA15(JTDI)",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM2_CH2": [
+          {
+            "pin": 15,
+            "pad": "PA1",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 55,
+            "pad": "PB3(JTDO/TRACESWO)",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM2_CH3": [
+          {
+            "pin": 16,
+            "pad": "PA2",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 29,
+            "pad": "PB10",
+            "type": "alternate",
+            "af": "AF1"
+          }
+        ],
+        "TIM2_CH4": [
+          {
+            "pin": 17,
+            "pad": "PA3",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 24,
+            "pad": "PC4",
+            "type": "alternate",
+            "af": "AF1"
+          },
+          {
+            "pin": 41,
+            "pad": "PA8",
+            "type": "alternate",
+            "af": "AF14"
+          }
+        ],
+        "TIM2_ETR": [
+          {
+            "pin": 14,
+            "pad": "PA0",
+            "type": "alternate",
+            "af": "AF14"
+          },
+          {
+            "pin": 21,
+            "pad": "PA5",
+            "type": "alternate",
+            "af": "AF14"
+          },
+          {
+            "pin": 50,
+            "pad": "PA15(JTDI)",
+            "type": "alternate",
+            "af": "AF14"
+          }
+        ]
+      }
+    },
+    "TIM5": {
+      "type": "tim",
+      "configuration": "General-purpose",
+      "counter_bits": 32,
+      "channels": 4,
+      "complementary_channels": 0,
+      "supports_encoder": true,
+      "supports_encoder_index": true,
+      "supports_dma": true,
+      "supports_etr": true,
+      "supports_break": false,
+      "raw_features": {
+        "bk_impl": 0,
+        "cnt_dir": 2,
+        "cnt_width": 32,
+        "dma_impl": 2,
+        "etr_impl": 3,
+        "nb_of_cc": 4,
+        "nb_of_dt": 0,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 0
+      },
+      "exposed_signals": {
+        "TIM5_CH1": [
+          {
+            "pin": 14,
+            "pad": "PA0",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 22,
+            "pad": "PA6",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 37,
+            "pad": "PC6",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 56,
+            "pad": "PB4(NJTRST)",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ],
+        "TIM5_CH2": [
+          {
+            "pin": 15,
+            "pad": "PA1",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 23,
+            "pad": "PA7",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 38,
+            "pad": "PC7",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 57,
+            "pad": "PB5",
+            "type": "alternate",
+            "af": "AF2"
+          }
+        ],
+        "TIM5_CH3": [
+          {
+            "pin": 16,
+            "pad": "PA2",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 26,
+            "pad": "PB0",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 39,
+            "pad": "PC8",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 55,
+            "pad": "PB3(JTDO/TRACESWO)",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM5_CH4": [
+          {
+            "pin": 17,
+            "pad": "PA3",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 27,
+            "pad": "PB1",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 40,
+            "pad": "PC9",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 41,
+            "pad": "PA8",
+            "type": "alternate",
+            "af": "AF8"
+          }
+        ],
+        "TIM5_ETR": [
+          {
+            "pin": 20,
+            "pad": "PA4",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 42,
+            "pad": "PA9",
+            "type": "alternate",
+            "af": "AF8"
+          }
+        ]
+      }
+    },
+    "TIM6": {
+      "type": "tim",
+      "configuration": "Basic",
+      "counter_bits": 16,
+      "channels": 0,
+      "complementary_channels": 0,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": false,
+      "raw_features": {
+        "bk_impl": 0,
+        "cnt_dir": 1,
+        "cnt_width": 16,
+        "dma_impl": 1,
+        "etr_impl": 0,
+        "nb_of_cc": 0,
+        "nb_of_dt": 0,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 0
+      },
+      "exposed_signals": {}
+    },
+    "TIM7": {
+      "type": "tim",
+      "configuration": "Basic",
+      "counter_bits": 16,
+      "channels": 0,
+      "complementary_channels": 0,
+      "supports_encoder": false,
+      "supports_encoder_index": false,
+      "supports_dma": true,
+      "supports_etr": false,
+      "supports_break": false,
+      "raw_features": {
+        "bk_impl": 0,
+        "cnt_dir": 1,
+        "cnt_width": 16,
+        "dma_impl": 1,
+        "etr_impl": 0,
+        "nb_of_cc": 0,
+        "nb_of_dt": 0,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 0
+      },
+      "exposed_signals": {}
+    },
+    "TIM8": {
+      "type": "tim",
+      "configuration": "Advanced-control",
+      "counter_bits": 16,
+      "channels": 7,
+      "complementary_channels": 4,
+      "supports_encoder": true,
+      "supports_encoder_index": true,
+      "supports_dma": true,
+      "supports_etr": true,
+      "supports_break": true,
+      "raw_features": {
+        "bk_impl": 3,
+        "cnt_dir": 2,
+        "cnt_width": 16,
+        "dma_impl": 2,
+        "etr_impl": 3,
+        "nb_of_cc": 7,
+        "nb_of_dt": 4,
+        "nb_of_sm": 1,
+        "optionreg_out": 0,
+        "rcr_impl": 2
+      },
+      "exposed_signals": {
+        "TIM8_BKIN": [
+          {
+            "pin": 15,
+            "pad": "PA1",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 22,
+            "pad": "PA6",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 24,
+            "pad": "PC4",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM8_BKIN2": [
+          {
+            "pin": 25,
+            "pad": "PC5",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 41,
+            "pad": "PA8",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM8_CH1": [
+          {
+            "pin": 29,
+            "pad": "PB10",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 37,
+            "pad": "PC6",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 55,
+            "pad": "PB3(JTDO/TRACESWO)",
+            "type": "alternate",
+            "af": "AF13"
+          }
+        ],
+        "TIM8_CH1N": [
+          {
+            "pin": 21,
+            "pad": "PA5",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 23,
+            "pad": "PA7",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 51,
+            "pad": "PC10",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM8_CH2": [
+          {
+            "pin": 34,
+            "pad": "PB13",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 38,
+            "pad": "PC7",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 56,
+            "pad": "PB4(NJTRST)",
+            "type": "alternate",
+            "af": "AF13"
+          }
+        ],
+        "TIM8_CH2N": [
+          {
+            "pin": 26,
+            "pad": "PB0",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 35,
+            "pad": "PB14",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 42,
+            "pad": "PA9",
+            "type": "alternate",
+            "af": "AF13"
+          },
+          {
+            "pin": 52,
+            "pad": "PC11",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM8_CH3": [
+          {
+            "pin": 33,
+            "pad": "PB12",
+            "type": "alternate",
+            "af": "AF2"
+          },
+          {
+            "pin": 39,
+            "pad": "PC8",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 57,
+            "pad": "PB5",
+            "type": "alternate",
+            "af": "AF13"
+          }
+        ],
+        "TIM8_CH3N": [
+          {
+            "pin": 27,
+            "pad": "PB1",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 36,
+            "pad": "PB15",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 53,
+            "pad": "PC12",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ],
+        "TIM8_CH4": [
+          {
+            "pin": 40,
+            "pad": "PC9",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 58,
+            "pad": "PB6",
+            "type": "alternate",
+            "af": "AF13"
+          }
+        ],
+        "TIM8_CH4N": [
+          {
+            "pin": 28,
+            "pad": "PB2",
+            "type": "alternate",
+            "af": "AF3"
+          },
+          {
+            "pin": 50,
+            "pad": "PA15(JTDI)",
+            "type": "alternate",
+            "af": "AF13"
+          }
+        ],
+        "TIM8_ETR": [
+          {
+            "pin": 14,
+            "pad": "PA0",
+            "type": "alternate",
+            "af": "AF3"
+          }
+        ]
+      }
+    }
+  }
+}
