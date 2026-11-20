@@ -5,11 +5,21 @@
         "context": "."
     },
     "remoteUser": "vscode",
+    // Make STLink debug and tty interfaces available to the devcontainer.
     "runArgs": [
-        "--privileged"
+        "--device-cgroup-rule=c 189:* rmw",
+        "--device-cgroup-rule=c 166:* rmw",
+        "--cap-drop=ALL",
+        "--security-opt=no-new-privileges:true",
+        "--security-opt=seccomp=unconfined",
+        "--security-opt=apparmor=unconfined"
     ],
+    // Allow hotplug access to the devices, but since the cgroup rules above
+    // are not permissive, other devices will not be accessible to the 
+    // devcontainer.
     "mounts": [
-        "source=/dev,target=/dev,type=bind"
+        "source=/dev,target=/dev,type=bind",
+        "source=${localWorkspaceFolder}/.git,target=${containerWorkspaceFolder}/.git,type=bind,readonly"
     ],
     "features": {
         "ghcr.io/devcontainers-community/features/bazel:1": {}
@@ -36,6 +46,6 @@
             }
         }
     },
-    "postCreateCommand": "git config --global --add safe.directory '*' && git config --global url.\"https://github.com/\".insteadOf \"git@github.com:\" && jj git init --colocated"
+    "postCreateCommand": ""
 }
 
