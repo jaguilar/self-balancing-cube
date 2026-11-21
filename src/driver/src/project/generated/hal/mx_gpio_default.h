@@ -34,20 +34,20 @@ extern "C" {
 /******************************************************************************/
 
 /* Primary aliases for GPIO PB4(NJTRST) pin */
-#define DRV8304_NSS_PORT                                HAL_GPIOB
-#define DRV8304_NSS_PIN                                 HAL_GPIO_PIN_4
+#define DRV_NSS_PORT                                    HAL_GPIOB
+#define DRV_NSS_PIN                                     HAL_GPIO_PIN_4
 
 /* Primary aliases for GPIO PB6 pin */
-#define MOTOR_EN_PORT                                   HAL_GPIOB
-#define MOTOR_EN_PIN                                    HAL_GPIO_PIN_6
+#define DRV_EN_PORT                                     HAL_GPIOB
+#define DRV_EN_PIN                                      HAL_GPIO_PIN_6
 
 /* Primary aliases for GPIO PB7 pin */
-#define NFAULT_PORT                                     HAL_GPIOB
-#define NFAULT_PIN                                      HAL_GPIO_PIN_7
+#define DRV_NFAULT_PORT                                 HAL_GPIOB
+#define DRV_NFAULT_PIN                                  HAL_GPIO_PIN_7
 
 /* Primary aliases for GPIO PB8 pin */
-#define COAST_PORT                                      HAL_GPIOB
-#define COAST_PIN                                       HAL_GPIO_PIN_8
+#define DRV_COAST_PORT                                  HAL_GPIOB
+#define DRV_COAST_PIN                                   HAL_GPIO_PIN_8
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

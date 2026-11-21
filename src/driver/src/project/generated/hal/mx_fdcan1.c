@@ -104,11 +104,23 @@ hal_fdcan_handle_t *mx_fdcan1_init(void)
 
   /* ### FDCAN1 GPIO Configuration ########################### */
   /* GPIO Clocks activation */
-  HAL_RCC_GPIOB_EnableClock();
-
   HAL_RCC_GPIOA_EnableClock();
 
+  HAL_RCC_GPIOB_EnableClock();
+
   hal_gpio_config_t  gpio_config;
+
+  /**
+    [GPIO Pin] ------> [Signal Name]
+
+       PA12    ------>   FDCAN1_TX
+    **/
+  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
+  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio_config.pull        = HAL_GPIO_PULL_NO;
+  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
+  gpio_config.alternate   = HAL_GPIO_AF_9;
+  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_12, &gpio_config);
 
   /**
     [GPIO Pin] ------> [Signal Name]
@@ -122,18 +134,6 @@ hal_fdcan_handle_t *mx_fdcan1_init(void)
   gpio_config.alternate   = HAL_GPIO_AF_9;
   HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_12, &gpio_config);
 
-  /**
-    [GPIO Pin] ------> [Signal Name] ------> [Labels]
-
-       PA12    ------>   FDCAN1_TX   ------>  FDCAN1_TX
-    **/
-  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
-  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
-  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
-  gpio_config.alternate   = HAL_GPIO_AF_9;
-  HAL_GPIO_Init(FDCAN1_TX_PORT, FDCAN1_TX_PIN, &gpio_config);
-
   return &hFDCAN1;
 }
 
@@ -146,11 +146,11 @@ void mx_fdcan1_deinit(void)
 
   HAL_RCC_FDCAN_DisableClock();
 
+  /* De-initialize all GPIOA pins associated with FDCAN1 */
+  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_12);
+
   /* De-initialize all GPIOB pins associated with FDCAN1 */
   HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_12);
-
-  /* De-initialize all GPIOA pins associated with FDCAN1 */
-  HAL_GPIO_DeInit(FDCAN1_TX_PORT, FDCAN1_TX_PIN);
 }
 
 hal_fdcan_handle_t *mx_fdcan1_gethandle(void)

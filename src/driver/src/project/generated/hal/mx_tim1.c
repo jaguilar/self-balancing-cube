@@ -122,6 +122,12 @@ hal_tim_handle_t *mx_tim1_init(void)
   {
     return NULL;
   }
+  /* Master Mode Configuration */
+  if (HAL_TIM_SetTriggerOutput(&hTIM1, HAL_TIM_TRGO_UPDATE) != HAL_OK)
+  {
+    return NULL;
+  }
+
   /* ### TIM1 GPIO Configuration ########################### */
   /* GPIO Clocks activation */
   HAL_RCC_GPIOA_EnableClock();
@@ -131,16 +137,16 @@ hal_tim_handle_t *mx_tim1_init(void)
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PA11    ------>   TIM1_CH4   ------>  OUT_C, M_PWM_C
-       PA9     ------>   TIM1_CH2   ------>  OUT_B, M_PWM_B
-       PA8     ------>   TIM1_CH1   ------>  OUT_A, M_PWM_A
+       PA8     ------>   TIM1_CH1   ------>  DRV_PWM_A, M_PWM_A
+       PA9     ------>   TIM1_CH2   ------>  DRV_PWM_B, M_PWM_B
+       PA11    ------>   TIM1_CH4   ------>  DRV_PWM_C, M_PWM_C
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_1;
-  HAL_GPIO_Init(HAL_GPIOA, OUT_C_PIN | OUT_B_PIN | OUT_A_PIN, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, DRV_PWM_A_PIN | DRV_PWM_B_PIN | DRV_PWM_C_PIN, &gpio_config);
 
   return &hTIM1;
 }
@@ -154,7 +160,7 @@ void mx_tim1_deinit(void)
   HAL_RCC_TIM1_Reset();
 
   /* De-initialize all GPIOA pins associated with TIM1 */
-  HAL_GPIO_DeInit(HAL_GPIOA, OUT_A_PIN | OUT_B_PIN | OUT_C_PIN);
+  HAL_GPIO_DeInit(HAL_GPIOA, DRV_PWM_A_PIN | DRV_PWM_B_PIN | DRV_PWM_C_PIN);
 }
 
 hal_tim_handle_t *mx_tim1_gethandle(void)

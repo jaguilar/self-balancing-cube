@@ -29,13 +29,9 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/** Primary aliases for SPI2_MOSI pin */
-#define USART1_RX_PORT                        HAL_GPIOB
-#define USART1_RX_PIN                         HAL_GPIO_PIN_15
-
-/** Primary aliases for SPI2_MISO pin */
-#define SPI1_MOSI_PORT                        HAL_GPIOA
-#define SPI1_MOSI_PIN                         HAL_GPIO_PIN_7
+/** Primary aliases for SPI2_NSS pin */
+#define ENC_NSS_PORT                          HAL_GPIOB
+#define ENC_NSS_PIN                           HAL_GPIO_PIN_1
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

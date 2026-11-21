@@ -50,7 +50,7 @@ hal_spi_handle_t *mx_spi2_init(void)
   spi_config.data_width = HAL_SPI_DATA_WIDTH_8_BIT;
   spi_config.clock_polarity = HAL_SPI_CLOCK_POLARITY_LOW;
   spi_config.clock_phase = HAL_SPI_CLOCK_PHASE_1_EDGE;
-  spi_config.baud_rate_prescaler = HAL_SPI_BAUD_RATE_PRESCALER_2;
+  spi_config.baud_rate_prescaler = HAL_SPI_BAUD_RATE_PRESCALER_16;
   spi_config.first_bit = HAL_SPI_MSB_FIRST;
   spi_config.nss_pin_management = HAL_SPI_NSS_PIN_MGMT_OUTPUT;
 
@@ -61,9 +61,9 @@ hal_spi_handle_t *mx_spi2_init(void)
 
   hal_spi_nss_config_t spi_nss_config;
 
-  spi_nss_config.nss_pulse = HAL_SPI_NSS_PULSE_DISABLE;
+  spi_nss_config.nss_pulse = HAL_SPI_NSS_PULSE_ENABLE;
   spi_nss_config.nss_polarity = HAL_SPI_NSS_POLARITY_LOW;
-  spi_nss_config.nss_mssi_delay = HAL_SPI_NSS_MSSI_DELAY_0_CYCLE;
+  spi_nss_config.nss_mssi_delay = HAL_SPI_NSS_MSSI_DELAY_2_CYCLE;
 
   if (HAL_SPI_SetConfigNSS(&hSPI2, &spi_nss_config) != HAL_OK)
   {
@@ -72,37 +72,37 @@ hal_spi_handle_t *mx_spi2_init(void)
 
   /* ### SPI2 GPIO Configuration ########################### */
   /* GPIO Clocks activation */
-  HAL_RCC_GPIOB_EnableClock();
-
   HAL_RCC_GPIOA_EnableClock();
+
+  HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
-    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+    [GPIO Pin] ------> [Signal Name]
 
-       PB1     ------>   SPI2_NSS   ------>
-       PB15    ------>   SPI2_MOSI   ------>  USART1_RX
-    **/
-  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
-  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
-  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
-  gpio_config.alternate   = HAL_GPIO_AF_5;
-  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_1 | USART1_RX_PIN, &gpio_config);
-
-  /**
-    [GPIO Pin] ------> [Signal Name] ------> [Labels]
-
-       PA7     ------>   SPI2_MISO   ------>  SPI1_MOSI
-       PA5     ------>   SPI2_SCK   ------>
+       PA5     ------>   SPI2_SCK
+       PA7     ------>   SPI2_MISO
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
   gpio_config.alternate   = HAL_GPIO_AF_6;
-  HAL_GPIO_Init(HAL_GPIOA, SPI1_MOSI_PIN | HAL_GPIO_PIN_5, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_7, &gpio_config);
+
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PB15    ------>   SPI2_MOSI   ------>
+       PB1     ------>   SPI2_NSS   ------>  ENC_NSS
+    **/
+  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
+  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio_config.pull        = HAL_GPIO_PULL_NO;
+  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_HIGH;
+  gpio_config.alternate   = HAL_GPIO_AF_5;
+  HAL_GPIO_Init(HAL_GPIOB, HAL_GPIO_PIN_15 | ENC_NSS_PIN, &gpio_config);
 
   return &hSPI2;
 }
@@ -115,11 +115,11 @@ void mx_spi2_deinit(void)
 
   HAL_RCC_SPI2_DisableClock();
 
-  /* De-initialize all GPIOB pins associated with SPI2 */
-  HAL_GPIO_DeInit(HAL_GPIOB, HAL_GPIO_PIN_1 | USART1_RX_PIN);
-
   /* De-initialize all GPIOA pins associated with SPI2 */
-  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | SPI1_MOSI_PIN);
+  HAL_GPIO_DeInit(HAL_GPIOA, HAL_GPIO_PIN_5 | HAL_GPIO_PIN_7);
+
+  /* De-initialize all GPIOB pins associated with SPI2 */
+  HAL_GPIO_DeInit(HAL_GPIOB, ENC_NSS_PIN | HAL_GPIO_PIN_15);
 }
 
 hal_spi_handle_t *mx_spi2_gethandle(void)

@@ -32,6 +32,10 @@ extern "C" {
 /* Aliases of channels labels */
 #define LED_DATA_CHANNEL  HAL_TIM_CHANNEL_3
 
+/** Primary aliases for TIM2_CH3 pin */
+#define LED_DATA_PORT                         HAL_GPIOB
+#define LED_DATA_PIN                          HAL_GPIO_PIN_10
+
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

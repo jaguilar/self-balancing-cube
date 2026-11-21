@@ -29,13 +29,17 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/** Primary aliases for COMP1_INP2 pin */
-#define STATUS_LED_PORT                       HAL_GPIOB
-#define STATUS_LED_PIN                        HAL_GPIO_PIN_0
-
 /** Primary aliases for COMP1_OUT pin */
 #define BRAKE_EN_PORT                         HAL_GPIOA
 #define BRAKE_EN_PIN                          HAL_GPIO_PIN_3
+
+/** Primary aliases for COMP1_INP2 pin */
+#define VM_SENSE_PORT                         HAL_GPIOB
+#define VM_SENSE_PIN                          HAL_GPIO_PIN_0
+
+/** Secondary aliases for COMP1_INP2 pin */
+#define BRAKE_COMP_PORT                       HAL_GPIOB
+#define BRAKE_COMP_PIN                        HAL_GPIO_PIN_0
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

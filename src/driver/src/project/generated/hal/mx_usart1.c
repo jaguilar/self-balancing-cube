@@ -73,18 +73,6 @@ hal_uart_handle_t *mx_usart1_uart_init(void)
   /**
     [GPIO Pin] ------> [Signal Name]
 
-       PA6     ------>   USART1_TX
-    **/
-  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
-  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
-  gpio_config.pull        = HAL_GPIO_PULL_UP;
-  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
-  gpio_config.alternate   = HAL_GPIO_AF_7;
-  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_6, &gpio_config);
-
-  /**
-    [GPIO Pin] ------> [Signal Name]
-
        PA10    ------>   USART1_RX
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
@@ -93,6 +81,18 @@ hal_uart_handle_t *mx_usart1_uart_init(void)
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_7;
   HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_10, &gpio_config);
+
+  /**
+    [GPIO Pin] ------> [Signal Name]
+
+       PA6     ------>   USART1_TX
+    **/
+  gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
+  gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio_config.pull        = HAL_GPIO_PULL_UP;
+  gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
+  gpio_config.alternate   = HAL_GPIO_AF_7;
+  HAL_GPIO_Init(HAL_GPIOA, HAL_GPIO_PIN_6, &gpio_config);
 
   return &hUSART1;
 }

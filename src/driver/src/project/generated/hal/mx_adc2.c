@@ -90,29 +90,29 @@ hal_adc_handle_t *mx_adc2_init(void)
 
   /* ### ADC2 GPIO Configuration ########################### */
   /* GPIO Clocks activation */
-  HAL_RCC_GPIOB_EnableClock();
-
   HAL_RCC_GPIOA_EnableClock();
+
+  HAL_RCC_GPIOB_EnableClock();
 
   hal_gpio_config_t  gpio_config;
 
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PB0     ------>   ADC2_IN6   ------>  STATUS_LED
+       PA2     ------>   ADC2_IN2   ------>  DRV_SENSE_B
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(STATUS_LED_PORT, STATUS_LED_PIN, &gpio_config);
+  HAL_GPIO_Init(DRV_SENSE_B_PORT, DRV_SENSE_B_PIN, &gpio_config);
 
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PA2     ------>   ADC2_IN2   ------>  SENSE_B
+       PB0     ------>   ADC2_IN6   ------>  VM_SENSE
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(SENSE_B_PORT, SENSE_B_PIN, &gpio_config);
+  HAL_GPIO_Init(VM_SENSE_PORT, VM_SENSE_PIN, &gpio_config);
 
   return &hADC2;
 }
@@ -121,11 +121,11 @@ void mx_adc2_deinit(void)
 {
   (void)HAL_ADC_DeInit(&hADC2);
 
-  /* De-initialize all GPIOB pins associated with ADC2 */
-  HAL_GPIO_DeInit(STATUS_LED_PORT, STATUS_LED_PIN);
-
   /* De-initialize all GPIOA pins associated with ADC2 */
-  HAL_GPIO_DeInit(SENSE_B_PORT, SENSE_B_PIN);
+  HAL_GPIO_DeInit(DRV_SENSE_B_PORT, DRV_SENSE_B_PIN);
+
+  /* De-initialize all GPIOB pins associated with ADC2 */
+  HAL_GPIO_DeInit(VM_SENSE_PORT, VM_SENSE_PIN);
 }
 
 hal_adc_handle_t *mx_adc2_gethandle(void)

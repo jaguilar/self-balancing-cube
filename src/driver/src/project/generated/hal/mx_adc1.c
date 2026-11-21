@@ -43,6 +43,7 @@ hal_adc_handle_t *mx_adc1_init(void)
   }
 
   hal_adc_config_t adc_config;
+  hal_adc_channel_config_t adc_channel_config;
 
   adc_config.resolution          = HAL_ADC_RESOLUTION_12_BIT;
   adc_config.sampling_mode       = HAL_ADC_SAMPLING_MODE_NORMAL;
@@ -69,6 +70,20 @@ hal_adc_handle_t *mx_adc1_init(void)
   HAL_ADC_SetConfigChannel(&hADC1, HAL_ADC_CHANNEL_x , &adc_channel_config);
 */
 
+/* ==================== Group Injected ====================*/
+  hal_adc_inj_config_t inj_config;
+  inj_config.trigger_src        = HAL_ADC_INJ_TRIG_TIM1_TRGO;
+  inj_config.trigger_edge       = HAL_ADC_INJ_TRIG_EDGE_RISING;
+    inj_config.sequencer_length   = 1;
+  inj_config.sequencer_discont  = HAL_ADC_INJ_SEQ_DISCONT_DISABLE;
+  HAL_ADC_INJ_SetConfig(&hADC1, &inj_config);
+
+  adc_channel_config.group           = HAL_ADC_GROUP_INJECTED;
+  adc_channel_config.sequencer_rank  = 1;
+  adc_channel_config.sampling_time   = HAL_ADC_SAMPLING_TIME_5CYCLES;
+  adc_channel_config.input_mode      = HAL_ADC_IN_SINGLE_ENDED;
+  HAL_ADC_SetConfigChannel(&hADC1, HAL_ADC_CHANNEL_1, &adc_channel_config);
+
   /****************************************************************************/
   /* Configuration of additional features (optional)                          */
   /****************************************************************************/
@@ -82,11 +97,11 @@ hal_adc_handle_t *mx_adc1_init(void)
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PA1     ------>   ADC1_IN1   ------>  SENSE_A, DRV_SENSE_A
+       PA1     ------>   ADC1_IN1   ------>  DRV_SENSE_A
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(SENSE_A_PORT, SENSE_A_PIN, &gpio_config);
+  HAL_GPIO_Init(DRV_SENSE_A_PORT, DRV_SENSE_A_PIN, &gpio_config);
 
   return &hADC1;
 }
@@ -96,7 +111,7 @@ void mx_adc1_deinit(void)
   (void)HAL_ADC_DeInit(&hADC1);
 
   /* De-initialize all GPIOA pins associated with ADC1 */
-  HAL_GPIO_DeInit(SENSE_A_PORT, SENSE_A_PIN);
+  HAL_GPIO_DeInit(DRV_SENSE_A_PORT, DRV_SENSE_A_PIN);
 }
 
 hal_adc_handle_t *mx_adc1_gethandle(void)

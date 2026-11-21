@@ -34,13 +34,13 @@ extern "C" {
 #define DRV_SENSE_B_CHANNEL HAL_ADC_CHANNEL_2
 #define VM_SENSE_CHANNEL HAL_ADC_CHANNEL_6
 
-/** Primary aliases for ADC2_IN6 pin */
-#define STATUS_LED_PORT                       HAL_GPIOB
-#define STATUS_LED_PIN                        HAL_GPIO_PIN_0
-
 /** Primary aliases for ADC2_IN2 pin */
-#define SENSE_B_PORT                          HAL_GPIOA
-#define SENSE_B_PIN                           HAL_GPIO_PIN_2
+#define DRV_SENSE_B_PORT                      HAL_GPIOA
+#define DRV_SENSE_B_PIN                       HAL_GPIO_PIN_2
+
+/** Primary aliases for ADC2_IN6 pin */
+#define VM_SENSE_PORT                         HAL_GPIOB
+#define VM_SENSE_PIN                          HAL_GPIO_PIN_0
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

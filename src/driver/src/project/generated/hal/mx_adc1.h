@@ -35,10 +35,6 @@ extern "C" {
 #define DRV_SENSE_A_CHANNEL HAL_ADC_CHANNEL_1
 
 /** Primary aliases for ADC1_IN1 pin */
-#define SENSE_A_PORT                          HAL_GPIOA
-#define SENSE_A_PIN                           HAL_GPIO_PIN_1
-
-/** Secondary aliases for ADC1_IN1 pin */
 #define DRV_SENSE_A_PORT                      HAL_GPIOA
 #define DRV_SENSE_A_PIN                       HAL_GPIO_PIN_1
 
