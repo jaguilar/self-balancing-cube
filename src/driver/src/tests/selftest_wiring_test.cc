@@ -21,13 +21,13 @@ struct WiringPair {
 
 constexpr uint32_t kSettleDelayMs = 20U;
 
-// 13 of the 15 jumper pairs from docs/motor_selftest_wiring.md.
+// 12 jumper pairs from docs/motor_selftest_wiring.md.
 // Intentionally omitted:
 //   - brake_en (PA3 <-> PA15)
 //   - drv_sense_b (PA2 <-> PC4)
 // PA2 (TX) and PA3 (RX) are used by Nucleo-C562RE ST-Link VCP USART2,
 // so PA2, PA3, PC4, and PA15 are left untouched.
-constexpr std::array<WiringPair, 13> kWiringPairs{{
+constexpr auto kWiringPairs = std::to_array<WiringPair>({
     {.signal = "drv_pwm_a",
      .dut = {HAL_GPIOA, HAL_GPIO_PIN_8, "PA8"},
      .harness = {HAL_GPIOC, HAL_GPIO_PIN_6, "PC6"}},
@@ -64,7 +64,7 @@ constexpr std::array<WiringPair, 13> kWiringPairs{{
     {.signal = "drv_nfault",
      .dut = {HAL_GPIOB, HAL_GPIO_PIN_7, "PB7"},
      .harness = {HAL_GPIOC, HAL_GPIO_PIN_5, "PC5"}},
-}};
+});
 
 void ConfigureInput(const GpioPin& p) {
   hal_gpio_config_t cfg{};

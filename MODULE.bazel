@@ -58,6 +58,7 @@ cc_library(
     defines = [
         "CPPUTEST_MEM_LEAK_DETECTION_DISABLED",
         "CPPUTEST_HAVE_EXCEPTIONS=0",
+        "CPPUTEST_HAVE_GETTIMEOFDAY",
     ],
     copts = [
         "-fexceptions",
