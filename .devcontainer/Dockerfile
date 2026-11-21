@@ -43,8 +43,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libnewlib-arm-none-eabi \
     libstdc++-arm-none-eabi-newlib \
     gdb-multiarch \
-    # OpenOCD for STM32 flashing and hardware debugging
-    openocd \
+    # OpenOCD build and USB/adapter dependencies
+    autoconf \
+    automake \
+    libtool \
+    pkg-config \
+    texinfo \
+    libusb-1.0-0-dev \
+    libhidapi-dev \
+    libftdi1-dev \
     # Clangd & formatting tools for C/C++ development
     clangd \
     clang-format \
@@ -73,6 +80,28 @@ RUN pip3 install --no-cache-dir --break-system-packages \
 RUN usermod -aG dialout,plugdev vscode || true
 
 RUN rm -f /etc/sudoers.d/vscode
+
+# Build and install STMicroelectronics fork of OpenOCD (supports STM32C5x)
+RUN git clone --depth 1 --branch openocd-cubeide-r7 https://github.com/STMicroelectronics/OpenOCD.git /tmp/openocd \
+    && cd /tmp/openocd \
+    && git submodule update --init jimtcl \
+    && ./bootstrap nosubmodule \
+    && ./configure --prefix=/usr/local \
+        --enable-stlink \
+        --enable-cmsis-dap \
+        --enable-ftdi \
+        --disable-internal-libjaylink \
+        --disable-werror \
+    && make -j"$(nproc)" \
+    && make install \
+    && rm -rf /tmp/openocd
+
+# Install STM32C5 flash loaders (.xldr) and register them in stm32c5x.cfg
+RUN mkdir -p /usr/local/share/openocd/loaders \
+    && curl -fsSL "https://raw.githubusercontent.com/STMicroelectronics/stm32c5xx-dfp/HEAD/Flash/STM32C5%5B34%5Dx.xldr" -o /usr/local/share/openocd/loaders/STM32C534x.xldr \
+    && curl -fsSL "https://raw.githubusercontent.com/STMicroelectronics/stm32c5xx-dfp/HEAD/Flash/STM32C5%5B56%5Dx.xldr" -o /usr/local/share/openocd/loaders/STM32C556x.xldr \
+    && curl -fsSL "https://raw.githubusercontent.com/STMicroelectronics/stm32c5xx-dfp/HEAD/Flash/STM32C5%5B9A%5Dx.xldr" -o /usr/local/share/openocd/loaders/STM32C59Ax.xldr \
+    && python3 -c 'import pathlib, re; p = pathlib.Path("/usr/local/share/openocd/scripts/target/stm32c5x.cfg"); s = p.read_text(); r, n1 = re.subn(r"set dev_id_loader\s*\{\s*\}", "set dev_id_loader {\n    0x44E \"/usr/local/share/openocd/loaders/STM32C556x.xldr\"\n    0x44F \"/usr/local/share/openocd/loaders/STM32C534x.xldr\"\n    0x45A \"/usr/local/share/openocd/loaders/STM32C59Ax.xldr\"\n}", s, count=1); assert n1 == 1, "Failed to patch dev_id_loader in stm32c5x.cfg"; r, n2 = re.subn(r"\$_CHIPNAME\.cpu configure -event examine-end \{", "$_CHIPNAME.cpu configure -event examine-end {\n    global dev_id_loader\n    set _CHIPNAME [stm32c5x_get_chipname]", r, count=1); assert n2 == 1, "Failed to patch examine-end in stm32c5x.cfg"; p.write_text(r)'
 
 # 8. Configure user environment
 USER vscode
