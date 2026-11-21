@@ -141,27 +141,27 @@ hal_tim_handle_t *mx_tim5_init(void)
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PA4     ------>   TIM5_ETR   ------>  ENCODER_I
-       PA0     ------>   TIM5_CH1   ------>  ENCODER_A
+       PA0     ------>   TIM5_CH1   ------>  ENC_A, ENCODER_A
+       PA4     ------>   TIM5_ETR   ------>  ENC_I, ENCODER_I
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_2;
-  HAL_GPIO_Init(HAL_GPIOA, ENCODER_I_PIN | ENCODER_A_PIN, &gpio_config);
+  HAL_GPIO_Init(HAL_GPIOA, ENC_A_PIN | ENC_I_PIN, &gpio_config);
 
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
 
-       PB5     ------>   TIM5_CH2   ------>  ENCODER_B
+       PB5     ------>   TIM5_CH2   ------>  ENC_B, ENCODER_B
     **/
   gpio_config.mode        = HAL_GPIO_MODE_ALTERNATE;
   gpio_config.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
   gpio_config.pull        = HAL_GPIO_PULL_NO;
   gpio_config.speed       = HAL_GPIO_SPEED_FREQ_LOW;
   gpio_config.alternate   = HAL_GPIO_AF_2;
-  HAL_GPIO_Init(ENCODER_B_PORT, ENCODER_B_PIN, &gpio_config);
+  HAL_GPIO_Init(ENC_B_PORT, ENC_B_PIN, &gpio_config);
 
   /* Enable the Timer global interrupt */
   HAL_CORTEX_NVIC_SetPriority(TIM5_IRQn, HAL_CORTEX_NVIC_PREEMP_PRIORITY_0, HAL_CORTEX_NVIC_SUB_PRIORITY_0);
@@ -179,10 +179,10 @@ void mx_tim5_deinit(void)
   HAL_RCC_TIM5_Reset();
 
   /* De-initialize all GPIOA pins associated with TIM5 */
-  HAL_GPIO_DeInit(HAL_GPIOA, ENCODER_A_PIN | ENCODER_I_PIN);
+  HAL_GPIO_DeInit(HAL_GPIOA, ENC_A_PIN | ENC_I_PIN);
 
   /* De-initialize all GPIOB pins associated with TIM5 */
-  HAL_GPIO_DeInit(ENCODER_B_PORT, ENCODER_B_PIN);
+  HAL_GPIO_DeInit(ENC_B_PORT, ENC_B_PIN);
 
   /* Disable Timer global interrupt */
   HAL_CORTEX_NVIC_DisableIRQ(TIM5_IRQn);

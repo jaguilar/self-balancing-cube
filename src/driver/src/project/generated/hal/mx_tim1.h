@@ -36,29 +36,29 @@ extern "C" {
 
 #define MCHAN3_CHANNEL  HAL_TIM_CHANNEL_4
 
-/** Primary aliases for TIM1_CH4 pin */
-#define OUT_C_PORT                            HAL_GPIOA
-#define OUT_C_PIN                             HAL_GPIO_PIN_11
+/** Primary aliases for TIM1_CH1 pin */
+#define DRV_PWM_A_PORT                        HAL_GPIOA
+#define DRV_PWM_A_PIN                         HAL_GPIO_PIN_8
 
-/** Secondary aliases for TIM1_CH4 pin */
-#define M_PWM_C_PORT                          HAL_GPIOA
-#define M_PWM_C_PIN                           HAL_GPIO_PIN_11
+/** Secondary aliases for TIM1_CH1 pin */
+#define M_PWM_A_PORT                          HAL_GPIOA
+#define M_PWM_A_PIN                           HAL_GPIO_PIN_8
 
 /** Primary aliases for TIM1_CH2 pin */
-#define OUT_B_PORT                            HAL_GPIOA
-#define OUT_B_PIN                             HAL_GPIO_PIN_9
+#define DRV_PWM_B_PORT                        HAL_GPIOA
+#define DRV_PWM_B_PIN                         HAL_GPIO_PIN_9
 
 /** Secondary aliases for TIM1_CH2 pin */
 #define M_PWM_B_PORT                          HAL_GPIOA
 #define M_PWM_B_PIN                           HAL_GPIO_PIN_9
 
-/** Primary aliases for TIM1_CH1 pin */
-#define OUT_A_PORT                            HAL_GPIOA
-#define OUT_A_PIN                             HAL_GPIO_PIN_8
+/** Primary aliases for TIM1_CH4 pin */
+#define DRV_PWM_C_PORT                        HAL_GPIOA
+#define DRV_PWM_C_PIN                         HAL_GPIO_PIN_11
 
-/** Secondary aliases for TIM1_CH1 pin */
-#define M_PWM_A_PORT                          HAL_GPIOA
-#define M_PWM_A_PIN                           HAL_GPIO_PIN_8
+/** Secondary aliases for TIM1_CH4 pin */
+#define M_PWM_C_PORT                          HAL_GPIOA
+#define M_PWM_C_PIN                           HAL_GPIO_PIN_11
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

@@ -29,17 +29,29 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/** Primary aliases for TIM5_ETR pin */
-#define ENCODER_I_PORT                        HAL_GPIOA
-#define ENCODER_I_PIN                         HAL_GPIO_PIN_4
+/** Primary aliases for TIM5_CH1 pin */
+#define ENC_A_PORT                            HAL_GPIOA
+#define ENC_A_PIN                             HAL_GPIO_PIN_0
+
+/** Secondary aliases for TIM5_CH1 pin */
+#define ENCODER_A_PORT                        HAL_GPIOA
+#define ENCODER_A_PIN                         HAL_GPIO_PIN_0
 
 /** Primary aliases for TIM5_CH2 pin */
+#define ENC_B_PORT                            HAL_GPIOB
+#define ENC_B_PIN                             HAL_GPIO_PIN_5
+
+/** Secondary aliases for TIM5_CH2 pin */
 #define ENCODER_B_PORT                        HAL_GPIOB
 #define ENCODER_B_PIN                         HAL_GPIO_PIN_5
 
-/** Primary aliases for TIM5_CH1 pin */
-#define ENCODER_A_PORT                        HAL_GPIOA
-#define ENCODER_A_PIN                         HAL_GPIO_PIN_0
+/** Primary aliases for TIM5_ETR pin */
+#define ENC_I_PORT                            HAL_GPIOA
+#define ENC_I_PIN                             HAL_GPIO_PIN_4
+
+/** Secondary aliases for TIM5_ETR pin */
+#define ENCODER_I_PORT                        HAL_GPIOA
+#define ENCODER_I_PIN                         HAL_GPIO_PIN_4
 
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/

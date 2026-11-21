@@ -35,26 +35,26 @@ system_status_t mx_gpio_default_init(void)
 
   /*
     GPIO pin labels :
-    PB4   ---------> DRV8304_NSS
+    PB4   ---------> DRV_NSS
     */
   /* Configure PB4 GPIO pin in input mode */
   gpio_config.mode            = HAL_GPIO_MODE_INPUT;
   gpio_config.pull            = HAL_GPIO_PULL_UP;
-  if (HAL_GPIO_Init(DRV8304_NSS_PORT, DRV8304_NSS_PIN, &gpio_config) != HAL_OK)
+  if (HAL_GPIO_Init(DRV_NSS_PORT, DRV_NSS_PIN, &gpio_config) != HAL_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
 
   /*
     GPIO pin labels :
-    PB6   ---------> MOTOR_EN
-    PB7   ---------> NFAULT
-    PB8   ---------> COAST
+    PB6   ---------> DRV_EN
+    PB7   ---------> DRV_NFAULT
+    PB8   ---------> DRV_COAST
     */
   /* Configure PB6, PB7, PB8 GPIO pins in input mode */
   gpio_config.mode            = HAL_GPIO_MODE_INPUT;
   gpio_config.pull            = HAL_GPIO_PULL_NO;
-  if (HAL_GPIO_Init(HAL_GPIOB, MOTOR_EN_PIN | NFAULT_PIN | COAST_PIN, &gpio_config) != HAL_OK)
+  if (HAL_GPIO_Init(HAL_GPIOB, DRV_EN_PIN | DRV_NFAULT_PIN | DRV_COAST_PIN, &gpio_config) != HAL_OK)
   {
     return SYSTEM_PERIPHERAL_ERROR;
   }
@@ -65,7 +65,7 @@ system_status_t mx_gpio_default_init(void)
 system_status_t mx_gpio_default_deinit(void)
 {
   /* De-initialize pins of GPIOB port */
-  HAL_GPIO_DeInit(HAL_GPIOB, DRV8304_NSS_PIN | MOTOR_EN_PIN | NFAULT_PIN | COAST_PIN);
+  HAL_GPIO_DeInit(HAL_GPIOB, DRV_NSS_PIN | DRV_EN_PIN | DRV_NFAULT_PIN | DRV_COAST_PIN);
 
   return SYSTEM_OK;
 }

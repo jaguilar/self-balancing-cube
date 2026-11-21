@@ -2219,31 +2219,31 @@
   "pinout-non-accessible-pins": []
 }"""
 "File: STM32C562CEU6_project/.settings/hw-composition.store.json" = """
-{
-  "name": "STM32C562CEU6_project",
-  "boards": [
-    {
-      "type": "VIRTUAL",
-      "mcuUID": "STMicroelectronics.stm32c5xx_dfp.2.1.0$STMicroelectronics:13::STM32C562CEU6",
-      "uid": "5bc36631-0504-453f-9dd1-b183bd7a9c7f"
-    }
-  ],
-  "version": 3,
-  "constraints": []
+{\r
+  "name": "STM32C562CEU6_project",\r
+  "boards": [\r
+    {\r
+      "type": "VIRTUAL",\r
+      "mcuUID": "STMicroelectronics.stm32c5xx_dfp.2.1.0$STMicroelectronics:13::STM32C562CEU6",\r
+      "uid": "5bc36631-0504-453f-9dd1-b183bd7a9c7f"\r
+    }\r
+  ],\r
+  "version": 3,\r
+  "constraints": []\r
 }"""
 "File: STM32C562CEU6_project/STM32C562CEU6_project.hw" = "{}"
 "File: STM32C562CEU6_project/project.cube" = """
-{
-  "traits": [
-    {
-      "id": "bf7717e6-07f3-4848-a074-f936711d9523",
-      "name": "hardware",
-      "files": [
-        "STM32C562CEU6_project.hw"
-      ]
-    }
-  ],
-  "children": []
+{\r
+  "traits": [\r
+    {\r
+      "id": "bf7717e6-07f3-4848-a074-f936711d9523",\r
+      "name": "hardware",\r
+      "files": [\r
+        "STM32C562CEU6_project.hw"\r
+      ]\r
+    }\r
+  ],\r
+  "children": []\r
 }"""
 "File: motor_driver_48.csolution.yml" = """
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/2.11.0/tools/projmgr/schemas/csolution.schema.json

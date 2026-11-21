@@ -53,20 +53,11 @@ hal_comp_handle_t *mx_comp1_init(void)
 
   /* ### COMP1 GPIO Configuration ########################### */
   /* GPIO Clocks activation */
-  HAL_RCC_GPIOB_EnableClock();
-
   HAL_RCC_GPIOA_EnableClock();
 
+  HAL_RCC_GPIOB_EnableClock();
+
   hal_gpio_config_t  gpio_config;
-
-  /**
-    [GPIO Pin] ------> [Signal Name] ------> [Labels]
-
-       PB0     ------>   COMP1_INP2   ------>  STATUS_LED
-    **/
-  gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
-  gpio_config.pull        = HAL_GPIO_PULL_NO;
-  HAL_GPIO_Init(STATUS_LED_PORT, STATUS_LED_PIN, &gpio_config);
 
   /**
     [GPIO Pin] ------> [Signal Name] ------> [Labels]
@@ -80,6 +71,15 @@ hal_comp_handle_t *mx_comp1_init(void)
   gpio_config.alternate   = HAL_GPIO_AF_14;
   HAL_GPIO_Init(BRAKE_EN_PORT, BRAKE_EN_PIN, &gpio_config);
 
+  /**
+    [GPIO Pin] ------> [Signal Name] ------> [Labels]
+
+       PB0     ------>   COMP1_INP2   ------>  VM_SENSE, BRAKE_COMP
+    **/
+  gpio_config.mode        = HAL_GPIO_MODE_ANALOG;
+  gpio_config.pull        = HAL_GPIO_PULL_NO;
+  HAL_GPIO_Init(VM_SENSE_PORT, VM_SENSE_PIN, &gpio_config);
+
   return &hCOMP1;
 }
 
@@ -91,11 +91,11 @@ void mx_comp1_deinit(void)
 
   HAL_RCC_COMP12_Reset();
 
-  /* De-initialize all GPIOB pins associated with COMP1 */
-  HAL_GPIO_DeInit(STATUS_LED_PORT, STATUS_LED_PIN);
-
   /* De-initialize all GPIOA pins associated with COMP1 */
   HAL_GPIO_DeInit(BRAKE_EN_PORT, BRAKE_EN_PIN);
+
+  /* De-initialize all GPIOB pins associated with COMP1 */
+  HAL_GPIO_DeInit(VM_SENSE_PORT, VM_SENSE_PIN);
 }
 
 hal_comp_handle_t *mx_comp1_gethandle(void)

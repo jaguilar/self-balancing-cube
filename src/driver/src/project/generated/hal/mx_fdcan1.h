@@ -29,10 +29,6 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-/** Primary aliases for FDCAN1_TX pin */
-#define FDCAN1_TX_PORT                        HAL_GPIOA
-#define FDCAN1_TX_PIN                         HAL_GPIO_PIN_12
-
 /* Exported macros -----------------------------------------------------------*/
 /* Exported variables --------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
