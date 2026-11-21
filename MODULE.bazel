@@ -85,4 +85,11 @@ cc_library(
     urls = ["https://github.com/cpputest/cpputest/archive/v4.0.tar.gz"],
 )
 
+http_archive(
+    name = "segger_rtt",
+    build_file = "//third_party/segger_rtt:segger_rtt.BUILD",
+    strip_prefix = "RTT-8.58.0",
+    urls = ["https://github.com/SEGGERMicro/RTT/archive/refs/tags/V8.58.0.tar.gz"],
+)
+
 # Consolidated libraries are now in //lib package.

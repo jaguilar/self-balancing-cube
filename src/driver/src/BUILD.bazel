@@ -124,22 +124,15 @@ cc_library(
 )
 
 cc_library(
-    name = "utilities",
+    name = "core_utilities",
     srcs = [
-        "utilities/basic_stdio/basic_stdio_core.c",
-        "utilities/basic_stdio/interface_io/basic_stdio_itfio_uart.c",
-        "utilities/syscalls/syscalls.c",
         "utilities/syscalls/sysmem.c",
         "utilities/thread_safe_libc/GCC/newlib_lock_glue.c",
     ],
     hdrs = glob([
-        "utilities/basic_stdio/*.h",
-        "utilities/basic_stdio/interface_io/*.h",
         "utilities/thread_safe_libc/*.h",
     ]),
     includes = [
-        "utilities/basic_stdio",
-        "utilities/basic_stdio/interface_io",
         "utilities/thread_safe_libc",
     ],
     deps = [
@@ -150,18 +143,60 @@ cc_library(
 )
 
 cc_library(
-    name = "driver_bsp",
+    name = "uart_stdio_syscalls",
+    srcs = [
+        "utilities/basic_stdio/basic_stdio_core.c",
+        "utilities/basic_stdio/interface_io/basic_stdio_itfio_uart.c",
+        "utilities/syscalls/syscalls.c",
+    ],
+    hdrs = glob([
+        "utilities/basic_stdio/*.h",
+        "utilities/basic_stdio/interface_io/*.h",
+    ]),
+    includes = [
+        "utilities/basic_stdio",
+        "utilities/basic_stdio/interface_io",
+    ],
+    deps = [
+        ":freertos",
+        ":stm32c5_hal_drivers",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "utilities",
+    deps = [
+        ":core_utilities",
+        ":uart_stdio_syscalls",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "driver_bsp_core",
     srcs = glob([
         "project/generated/hal/*.c",
         "project/generated/middleware/*.c",
-        "project/generated/utilities/*.c",
     ]),
     deps = [
+        ":core_utilities",
         ":freertos",
         ":hal_timebase_tim",
         ":stm32c5_hal_drivers",
-        ":utilities",
         "//src/driver/src/project/user_modifiable:device_startup",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "driver_bsp",
+    srcs = glob([
+        "project/generated/utilities/*.c",
+    ]),
+    deps = [
+        ":driver_bsp_core",
+        ":utilities",
     ],
     alwayslink = True,
 )

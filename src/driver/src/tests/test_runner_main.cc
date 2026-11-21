@@ -7,14 +7,13 @@
 #include <string_view>
 
 #include "CppUTest/CommandLineTestRunner.h"
-#include "basic_stdio_core.h"
-#include "board_config.h"
+#include "SEGGER_RTT.h"
 #include "mx_cortex_mpu.h"
 #include "mx_cortex_nvic.h"
 #include "mx_icache.h"
 #include "mx_rcc.h"
+#include "rtt_syscalls.h"
 #include "stm32_hal.h"
-#include "stm32c5xx_ll_usart.h"
 
 namespace {
 
@@ -62,35 +61,21 @@ bool InitMinimalSystem() {
   return true;
 }
 
-void FlushUartAndReset(hal_uart_handle_t* huart) {
+void FlushRttAndReset() {
   std::fflush(stdout);
   std::fflush(stderr);
-  auto* usart = reinterpret_cast<USART_TypeDef*>(static_cast<uintptr_t>(huart->instance));
   const uint32_t start = HAL_GetTick();
-  while (LL_USART_IsActiveFlag_TC(usart) == 0U && (HAL_GetTick() - start) < 50U) {
+  while (SEGGER_RTT_GetBytesInBuffer(0U) > 0U && (HAL_GetTick() - start) < 500U) {
   }
   HAL_Delay(20);
   NVIC_SystemReset();
 }
 
-void ClearUartErrors(hal_uart_handle_t* huart) {
-  auto* usart = reinterpret_cast<USART_TypeDef*>(static_cast<uintptr_t>(huart->instance));
-  LL_USART_ClearFlag_ORE(usart);
-  LL_USART_ClearFlag_FE(usart);
-  LL_USART_ClearFlag_NE(usart);
-  LL_USART_ClearFlag_PE(usart);
-}
-
-std::size_t ReadCommandLine(hal_uart_handle_t* huart, char* buf, std::size_t max_len) {
+std::size_t ReadCommandLine(char* buf, std::size_t max_len) {
   std::size_t len = 0;
   while (true) {
     uint8_t ch = 0;
-    const hal_status_t status = HAL_UART_Receive(huart, &ch, 1U, 100U);
-    if (status == HAL_TIMEOUT) {
-      continue;
-    }
-    if (status != HAL_OK) {
-      ClearUartErrors(huart);
+    if (SEGGER_RTT_Read(0U, &ch, 1U) == 0U) {
       continue;
     }
     if (ch == '\r') {
@@ -109,7 +94,7 @@ std::size_t ReadCommandLine(hal_uart_handle_t* huart, char* buf, std::size_t max
   }
 }
 
-void RunSuiteCommand(hal_uart_handle_t* huart, char* arg) {
+void RunSuiteCommand(char* arg) {
   while (*arg == ' ') {
     ++arg;
   }
@@ -148,7 +133,7 @@ void RunSuiteCommand(hal_uart_handle_t* huart, char* arg) {
 
   const int failures = CommandLineTestRunner::RunAllTests(argc, argv);
   std::printf("\r\nRESULT %d\r\n", failures);
-  FlushUartAndReset(huart);
+  FlushRttAndReset();
 }
 
 }  // namespace
@@ -181,12 +166,7 @@ int main() {
     ErrorLoop();
   }
 
-  hal_uart_handle_t* huart = board::InitDebugUart();
-  if (huart == nullptr) {
-    ErrorLoop();
-  }
-
-  BASIC_STDIO_Init(huart);
+  RttSyscallsInit();
   std::setvbuf(stdout, nullptr, _IONBF, 0);
   std::setvbuf(stderr, nullptr, _IONBF, 0);
 
@@ -196,13 +176,13 @@ int main() {
 
   char cmd[128]{};
   while (true) {
-    ReadCommandLine(huart, cmd, sizeof(cmd));
+    ReadCommandLine(cmd, sizeof(cmd));
     const std::string_view cmd_view{cmd};
 
     if (cmd_view == "RESET") {
-      FlushUartAndReset(huart);
+      FlushRttAndReset();
     } else if (cmd_view.starts_with("RUN ")) {
-      RunSuiteCommand(huart, cmd + 4);
+      RunSuiteCommand(cmd + 4);
     } else {
       std::printf("ERROR unknown command\r\n");
     }

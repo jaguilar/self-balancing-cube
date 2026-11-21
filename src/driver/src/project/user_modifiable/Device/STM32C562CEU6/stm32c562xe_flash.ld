@@ -123,6 +123,20 @@ SECTIONS
     __zero_table_end__ = .;
   } > ROM
 
+  .rtt (NOLOAD) :
+  {
+    . = ALIGN(8);
+    __rtt_start__ = .;
+    KEEP(*(.rtt.cb))
+    KEEP(*(.rtt.cb*))
+    KEEP(*(.rtt.buf))
+    KEEP(*(.rtt.buf*))
+    KEEP(*(.rtt))
+    KEEP(*(.rtt*))
+    . = ALIGN(8);
+    __rtt_end__ = .;
+  } > RAM
+
   .data :
   {
     . = ALIGN(8);

@@ -1,0 +1,7 @@
+exports_files(["segger_rtt.BUILD"])
+
+alias(
+    name = "segger_rtt",
+    actual = "@segger_rtt//:segger_rtt",
+    visibility = ["//visibility:public"],
+)

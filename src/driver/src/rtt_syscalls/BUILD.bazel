@@ -1,0 +1,13 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "rtt_syscalls",
+    srcs = ["rtt_syscalls.cc"],
+    hdrs = ["rtt_syscalls.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = ["//third_party/segger_rtt"],
+    alwayslink = True,
+)

@@ -76,11 +76,12 @@ def mcu_py_test(
         srcs = srcs,
         local = True,
         tags = list(tags) + ["exclusive"],
-        data = list(data) + [":" + elf_fg, ":" + stamp_fg],
+        data = list(data) + [":" + elf_fg, ":" + stamp_fg, "//scripts:openocd_rtt.sh"],
         deps = list(deps) + ["//src/driver/src/tests:testrunner"],
         env = {
             "MCU_FIRMWARE_ELF": "$(rootpath :" + elf_fg + ")",
             "MCU_FIRMWARE_STAMP": "$(rootpath :" + stamp_fg + ")",
+            "OPENOCD_RTT_SCRIPT": "$(rootpath //scripts:openocd_rtt.sh)",
         },
         **kwargs
     )

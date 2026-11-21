@@ -30,8 +30,9 @@ cc_binary(
     deps = [
         ":hello_world",
         ":selftest_wiring",
-        "//src/driver/src:board_config",
-        "//src/driver/src:driver_bsp",
+        "//src/driver/src:driver_bsp_core",
+        "//src/driver/src/rtt_syscalls",
+        "//third_party/segger_rtt",
         "@cpputest//:cpputest",
     ],
 )
