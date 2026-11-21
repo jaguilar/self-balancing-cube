@@ -3,6 +3,20 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 package(default_visibility = ["//visibility:public"])
 
 cc_library(
+    name = "arduino_foc_base_headers",
+    hdrs = [
+        "Arduino-FOC/src/common/base_classes/BLDCDriver.h",
+        "Arduino-FOC/src/common/base_classes/FOCDriver.h",
+        "stm32_arduino_shim/src/Arduino.h",
+        "stm32_arduino_shim/src/perf_counter.h",
+    ],
+    includes = [
+        "Arduino-FOC/src",
+        "stm32_arduino_shim/src",
+    ],
+)
+
+cc_library(
     name = "arduino_foc",
     srcs = [
         "Arduino-FOC/src/BLDCMotor.cpp",

@@ -214,6 +214,18 @@ cc_library(
     deps = [":stm32c5_hal_drivers"],
 )
 
+cc_library(
+    name = "motor_driver",
+    srcs = ["motor_driver.cc"],
+    hdrs = ["motor_driver.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_base_headers",
+    ],
+)
+
 cc_binary(
     name = "driver_app",
     srcs = ["project/main.c"],
