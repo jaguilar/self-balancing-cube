@@ -26,6 +26,8 @@ DEFAULT_EXCLUDED_PINS = {
     "PC14": "LSE OSC32_IN (32 kHz crystal on Nucleo)",
     "PC15": "LSE OSC32_OUT (32 kHz crystal on Nucleo)",
     "PC13": "User Button B1 on Nucleo",
+    "PB8": "CAN FD transceiver on Nucleo (not on ST morpho header)",
+    "PB9": "CAN FD transceiver on Nucleo (not on ST morpho header)",
 }
 
 
@@ -153,7 +155,7 @@ def solve_harness(
                             (tim_name, [(sigs[0], p0, af0), (sigs[1], p1, af1), (sigs[2], p2, af2)])
                         )
 
-    # 2. Candidate SPI slave peripherals (SCK, MISO, MOSI, NSS)
+    # 2. Candidate SPI slave peripherals (SCK, MISO, MOSI; NSS handled via EXTI + software NSS)
     spi_instances = sorted(
         {
             af["instance"]
@@ -164,7 +166,7 @@ def solve_harness(
     )
     spi_candidates: list[tuple[str, dict[str, tuple[str, str]]]] = []
     for spi in spi_instances:
-        req = [f"{spi}_SCK", f"{spi}_MISO", f"{spi}_MOSI", f"{spi}_NSS"]
+        req = [f"{spi}_SCK", f"{spi}_MISO", f"{spi}_MOSI"]
         opts = {
             sig: [(p, _find_af(mcu_pins[p], sig)) for p in free_pins if _find_af(mcu_pins[p], sig)]
             for sig in req
@@ -178,20 +180,16 @@ def solve_harness(
                 for p_mosi, af_mosi in opts[req[2]]:
                     if p_mosi in (p_sck, p_miso):
                         continue
-                    for p_nss, af_nss in opts[req[3]]:
-                        if p_nss in (p_sck, p_miso, p_mosi):
-                            continue
-                        spi_candidates.append(
-                            (
-                                spi,
-                                {
-                                    "SCK": (p_sck, af_sck),
-                                    "MISO": (p_miso, af_miso),
-                                    "MOSI": (p_mosi, af_mosi),
-                                    "NSS": (p_nss, af_nss),
-                                },
-                            )
+                    spi_candidates.append(
+                        (
+                            spi,
+                            {
+                                "SCK": (p_sck, af_sck),
+                                "MISO": (p_miso, af_miso),
+                                "MOSI": (p_mosi, af_mosi),
+                            },
                         )
+                    )
 
     # 3. Candidate 1-channel PWM timers for RC-filtered analog DACs
     #    (vm_sense PB0, drv_sense_a PA1, drv_sense_b PA2)
@@ -272,14 +270,17 @@ def solve_harness(
                         used_p4 = used_p3 | set(abi_pins)
                         rem_after_abi = [p for p in remaining if p not in used_p4]
 
-                        # Need 5 more GPIOs:
-                        # 1x drv_nss monitor (EXTI/GPIO), 1x brake_en readback (GPIO/EXTI),
-                        # 3x DRV8304 control (drv_en, drv_nfault, drv_coast)
-                        if len(rem_after_abi) < 5:
+                        # Need 3 more GPIOs (or 4 if PB8/drv_coast is not excluded):
+                        # 1x brake_en readback (GPIO/EXTI),
+                        # 2x/3x DRV8304 control (drv_en, drv_nfault, and optionally drv_coast)
+                        include_drv_coast = "PB8" not in excluded_pins
+                        needed_gpios = 4 if include_drv_coast else 3
+                        if len(rem_after_abi) < needed_gpios:
                             continue
 
-                        drv_nss_pin, brake_pin, drv_en_pin, drv_nfault_pin, drv_coast_pin = rem_after_abi[:5]
-                        spare_pins = rem_after_abi[5:]
+                        brake_pin, drv_en_pin, drv_nfault_pin = rem_after_abi[:3]
+                        drv_coast_pin = rem_after_abi[3] if include_drv_coast else None
+                        spare_pins = rem_after_abi[needed_gpios:]
 
                         assignments: list[JumperAssignment] = []
 
@@ -327,12 +328,10 @@ def solve_harness(
                                 f"{abi_timer} + DMA -> GPIO{abi_port}->BSRR",
                             )
 
-                        # SPI Slave
+                        # SPI Slave (NSS handled internally via EXTI on PB1/PB4 + software NSS)
                         add("SPI Comms", "PA5", spi_map["SCK"][0], spi_inst, f"{spi_inst}_SCK", spi_map["SCK"][1], "DUT -> Harness", "SPI Slave clock")
                         add("SPI Comms", "PA7", spi_map["MISO"][0], spi_inst, f"{spi_inst}_MISO", spi_map["MISO"][1], "Harness -> DUT", "SPI Slave MISO -> Master MISO")
                         add("SPI Comms", "PB15", spi_map["MOSI"][0], spi_inst, f"{spi_inst}_MOSI", spi_map["MOSI"][1], "DUT -> Harness", "Master MOSI -> SPI Slave MOSI")
-                        add("SPI Comms", "PB1", spi_map["NSS"][0], spi_inst, f"{spi_inst}_NSS", spi_map["NSS"][1], "DUT -> Harness", "Encoder chip-select (HW NSS)")
-                        add("SPI Comms", "PB4", drv_nss_pin, "GPIO/EXTI", "GPIO_IN (drv_nss)", "GPIO", "DUT -> Harness", "DRV8304 chip-select monitor")
 
                         # Battery sense, Current sense & Brake comparator
                         add(
@@ -370,7 +369,8 @@ def solve_harness(
                         # DRV8304 control GPIOs
                         add("DRV8304 Control", "PB6", drv_en_pin, "GPIO", "GPIO_IN (drv_en)", "GPIO", "DUT -> Harness", "Verify gate-drive enable")
                         add("DRV8304 Control", "PB7", drv_nfault_pin, "GPIO", "GPIO_OUT (drv_nfault)", "GPIO", "Harness -> DUT", "Active-low fault injection")
-                        add("DRV8304 Control", "PB8", drv_coast_pin, "GPIO", "GPIO_IN (drv_coast)", "GPIO", "DUT -> Harness", "Verify coast mode")
+                        if drv_coast_pin is not None:
+                            add("DRV8304 Control", "PB8", drv_coast_pin, "GPIO", "GPIO_IN (drv_coast)", "GPIO", "DUT -> Harness", "Verify coast mode")
 
                         return SolveResult(
                             assignments=assignments,
@@ -423,7 +423,7 @@ def format_markdown(result: SolveResult, dut_peripherals: set[str]) -> str:
     lines = [
         "# Nucleo-C562RE Motor Driver Self-Test Wiring Report",
         "",
-        "Generated by `tools/selftest_pin_solver.py` from `src/driver/motor_driver_48-pinout.csv` and `docs/stm32c562ret6_lqfp64.json`.",
+        "Generated by `tools/motor_selftest_pin_solver.py` from `src/driver/motor_driver_48-pinout.csv` and `docs/stm32c562ret6_lqfp64.json`.",
         "",
         "## Jumper Wiring Table",
         "",
@@ -454,6 +454,10 @@ def format_markdown(result: SolveResult, dut_peripherals: set[str]) -> str:
             "",
             "### 2. FDCAN1 Self-Test",
             "- The STM32C562RET6 has only one FDCAN instance (`FDCAN1`, on `PA12`/`PB12`), so FDCAN communication should be verified using **FDCAN1 internal loopback mode** (no external jumpers required).",
+            "",
+            "### 3. SPI Chip-Selects (`enc_nss` / `drv_nss`) & `drv_coast` (`PB8`)",
+            "- `enc_nss` (`PB1`) and `drv_nss` (`PB4`) do not need external jumpers: monitor them directly via EXTI on `PB1`/`PB4` and run `SPI3` in Software Slave Management mode (`SSM = 1`, `SSI = 0`).",
+            "- `PB8` (`drv_coast`) is routed to the onboard CAN FD transceiver and is not exposed on the ST morpho header; verify coast mode in software via `GPIOB->ODR` (or remap `drv_coast` in the Nucleo test build).",
             "",
             "## Resource Summary",
             "",

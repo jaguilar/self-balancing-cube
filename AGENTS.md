@@ -1,0 +1,1 @@
+- Always run `openocd` commands with `BypassSandbox: true` (do not try sandboxed mode first).
