@@ -1,0 +1,186 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "cmsis_headers",
+    hdrs = glob(["arch/cmsis/CMSIS/Core/Include/**/*.h"]),
+    includes = ["arch/cmsis/CMSIS/Core/Include"],
+)
+
+cc_library(
+    name = "stm32c5_dfp_headers",
+    hdrs = glob([
+        "stm32c5xx_dfp/Include/*.h",
+        "stm32c5xx_dfp/RTE_Components.h",
+    ]),
+    includes = [
+        "stm32c5xx_dfp/Include",
+        "stm32c5xx_dfp",
+    ],
+    defines = ["STM32C562xx"],
+    deps = [
+        ":cmsis_headers",
+        ":generated_config_headers",
+        "//src/driver/src/project/user_modifiable:rte_headers",
+    ],
+)
+
+cc_library(
+    name = "generated_config_headers",
+    hdrs = glob([
+        "project/main.h",
+        "project/generated/hal/*.h",
+        "project/generated/middleware/*.h",
+        "project/generated/utilities/*.h",
+    ]),
+    includes = [
+        "project",
+        "project/generated/hal",
+        "project/generated/middleware",
+        "project/generated/utilities",
+    ],
+)
+
+cc_library(
+    name = "freertos",
+    srcs = [
+        "middleware/freertos/croutine.c",
+        "middleware/freertos/event_groups.c",
+        "middleware/freertos/list.c",
+        "middleware/freertos/portable/Common/mpu_wrappers.c",
+        "middleware/freertos/portable/Common/mpu_wrappers_v2.c",
+        "middleware/freertos/portable/GCC/ARM_CM33_NTZ/non_secure/mpu_wrappers_v2_asm.c",
+        "middleware/freertos/portable/GCC/ARM_CM33_NTZ/non_secure/port.c",
+        "middleware/freertos/portable/GCC/ARM_CM33_NTZ/non_secure/portasm.c",
+        "middleware/freertos/portable/MemMang/heap_4.c",
+        "middleware/freertos/queue.c",
+        "middleware/freertos/tasks.c",
+        "middleware/freertos/timers.c",
+    ],
+    hdrs = glob([
+        "middleware/freertos/include/**/*.h",
+        "middleware/freertos/portable/GCC/ARM_CM33_NTZ/non_secure/**/*.h",
+    ]),
+    includes = [
+        "middleware/freertos/include",
+        "middleware/freertos/portable/GCC/ARM_CM33_NTZ/non_secure",
+    ],
+    deps = [
+        ":cmsis_headers",
+        ":generated_config_headers",
+    ],
+)
+
+cc_library(
+    name = "stm32c5_hal_drivers",
+    srcs = [
+        "stm32c5xx_drivers/hal/stm32c5xx_hal.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_adc.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_comp.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_cordic.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_cortex.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_dma.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_fdcan.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_flash.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_flash_itf.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_gpio.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_icache.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_pwr.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_rcc.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_spi.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_tim.c",
+        "stm32c5xx_drivers/hal/stm32c5xx_hal_uart.c",
+        "stm32c5xx_drivers/os_port/freertos/stm32_hal_os.c",
+        "stm32c5xx_drivers/utils/fdcan_timing/stm32_utils_fdcan.c",
+    ],
+    hdrs = glob([
+        "stm32c5xx_drivers/hal/**/*.h",
+        "stm32c5xx_drivers/ll/**/*.h",
+        "stm32c5xx_drivers/os_port/freertos/**/*.h",
+        "stm32c5xx_drivers/utils/fdcan_timing/**/*.h",
+    ]),
+    includes = [
+        "stm32c5xx_drivers/hal",
+        "stm32c5xx_drivers/ll",
+        "stm32c5xx_drivers/os_port/freertos",
+        "stm32c5xx_drivers/utils/fdcan_timing",
+    ],
+    deps = [
+        ":freertos",
+        ":generated_config_headers",
+        ":stm32c5_dfp_headers",
+    ],
+)
+
+cc_library(
+    name = "hal_timebase_tim",
+    srcs = ["stm32c5xx_drivers/timebases/stm32_hal_timebase_tim.c"],
+    deps = [
+        ":generated_config_headers",
+        ":stm32c5_hal_drivers",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "utilities",
+    srcs = [
+        "utilities/basic_stdio/basic_stdio_core.c",
+        "utilities/basic_stdio/interface_io/basic_stdio_itfio_uart.c",
+        "utilities/syscalls/syscalls.c",
+        "utilities/syscalls/sysmem.c",
+        "utilities/thread_safe_libc/GCC/newlib_lock_glue.c",
+    ],
+    hdrs = glob([
+        "utilities/basic_stdio/*.h",
+        "utilities/basic_stdio/interface_io/*.h",
+        "utilities/thread_safe_libc/*.h",
+    ]),
+    includes = [
+        "utilities/basic_stdio",
+        "utilities/basic_stdio/interface_io",
+        "utilities/thread_safe_libc",
+    ],
+    deps = [
+        ":freertos",
+        ":stm32c5_hal_drivers",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "driver_bsp",
+    srcs = glob([
+        "project/generated/hal/*.c",
+        "project/generated/middleware/*.c",
+        "project/generated/utilities/*.c",
+    ]),
+    deps = [
+        ":freertos",
+        ":hal_timebase_tim",
+        ":stm32c5_hal_drivers",
+        ":utilities",
+        "//src/driver/src/project/user_modifiable:device_startup",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "board_config",
+    srcs = ["board_config.cc"],
+    hdrs = ["board_config.h"],
+    copts = ["-std=c++23"],
+    defines = select({
+        "//bazel/platforms:nucleo_c552re": ["BOARD_NUCLEO_C552RE"],
+        "//conditions:default": [],
+    }),
+    includes = ["."],
+    deps = [":stm32c5_hal_drivers"],
+)
+
+cc_binary(
+    name = "driver_app",
+    srcs = ["project/main.c"],
+    deps = [":driver_bsp"],
+)

@@ -1,0 +1,63 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load(":firmware_test.bzl", "mcu_py_test", "stamped_firmware")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "hello_world",
+    srcs = ["hello_world.cc"],
+    copts = ["-std=c++23"],
+    deps = ["@cpputest//:cpputest"],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "selftest_wiring",
+    srcs = ["selftest_wiring_test.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        "//src/driver/src:stm32c5_hal_drivers",
+        "@cpputest//:cpputest",
+    ],
+    alwayslink = True,
+)
+
+cc_binary(
+    name = "test_runner_firmware",
+    srcs = ["test_runner_main.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        ":hello_world",
+        ":selftest_wiring",
+        "//src/driver/src:board_config",
+        "//src/driver/src:driver_bsp",
+        "@cpputest//:cpputest",
+    ],
+)
+
+py_binary(
+    name = "stamp_elf",
+    srcs = ["stamp_elf.py"],
+)
+
+stamped_firmware(
+    name = "test_runner_firmware_stamped",
+    firmware = ":test_runner_firmware",
+)
+
+py_library(
+    name = "testrunner",
+    srcs = ["testrunner.py"],
+    imports = ["."],
+)
+
+mcu_py_test(
+    name = "hello_world_test",
+    srcs = ["hello_world_test.py"],
+)
+
+mcu_py_test(
+    name = "selftest_wiring_test",
+    srcs = ["selftest_wiring_test.py"],
+)

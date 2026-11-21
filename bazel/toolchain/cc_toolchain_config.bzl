@@ -17,8 +17,8 @@ def _impl(ctx):
     ]
 
     target_flags = [
-        "-mcpu=cortex-m4",
-        "-mfpu=fpv4-sp-d16",
+        "-mcpu=" + ctx.attr.cpu,
+        "-mfpu=" + ctx.attr.fpu,
         "-mfloat-abi=hard",
         "-Wdouble-promotion",
         "-Wfloat-conversion",
@@ -30,20 +30,20 @@ def _impl(ctx):
 
     c_flags = target_flags + ["-std=c11"]
     cxx_flags = target_flags + [
-        "-std=c++20",
+        "-std=" + ctx.attr.cxx_std,
         "-fno-rtti",
         "-fno-exceptions",
         "-fno-threadsafe-statics",
     ]
 
     linker_flags = [
-        "-mcpu=cortex-m4",
-        "-mfpu=fpv4-sp-d16",
+        "-mcpu=" + ctx.attr.cpu,
+        "-mfpu=" + ctx.attr.fpu,
         "-mfloat-abi=hard",
         "--specs=nano.specs",
         "-u",
         "_printf_float",
-        "-Wl,-Map=blink-test.map",
+        "-Wl,-Map=" + ctx.attr.map_file,
         "-Wl,--cref",
         "-Wl,--gc-sections",
         "-Wl,--print-memory-usage",
@@ -105,6 +105,10 @@ cc_toolchain_config = rule(
     implementation = _impl,
     attrs = {
         "linker_script": attr.label(allow_single_file = True),
+        "cpu": attr.string(default = "cortex-m4"),
+        "fpu": attr.string(default = "fpv4-sp-d16"),
+        "cxx_std": attr.string(default = "c++20"),
+        "map_file": attr.string(default = "blink-test.map"),
     },
     provides = [CcToolchainConfigInfo],
 )

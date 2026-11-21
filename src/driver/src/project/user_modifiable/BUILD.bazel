@@ -1,0 +1,36 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["Device/STM32C562CEU6/stm32c562xe_flash.ld"])
+
+alias(
+    name = "stm32c562xe_flash.ld",
+    actual = "Device/STM32C562CEU6/stm32c562xe_flash.ld",
+)
+
+cc_library(
+    name = "rte_headers",
+    hdrs = [
+        "_debug_GCC_STM32C562CEU6/Pre_Include_Global.h",
+        "_debug_GCC_STM32C562CEU6/RTE_Components.h",
+    ],
+    includes = ["_debug_GCC_STM32C562CEU6"],
+    defines = [
+        "USE_EXTERNAL_ENV",
+        "STM32_THREAD_SAFE_FREERTOS_ALLOW_LOCKS=1U",
+    ],
+)
+
+cc_library(
+    name = "device_startup",
+    srcs = [
+        "Device/STM32C562CEU6/startup_stm32c562xx.c",
+        "Device/STM32C562CEU6/system_stm32c5xx.c",
+    ],
+    deps = [
+        "//src/driver/src:cmsis_headers",
+        "//src/driver/src:stm32c5_dfp_headers",
+    ],
+    alwayslink = True,
+)

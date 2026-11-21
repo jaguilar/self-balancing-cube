@@ -8,18 +8,21 @@ exports_files([
 
 cc_library(
     name = "stm32cubemx_headers",
-    hdrs = glob([
-        "Core/Inc/**/*.h",
-        "Drivers/STM32G4xx_HAL_Driver/Inc/**/*.h",
-        "Drivers/STM32G4xx_HAL_Driver/Inc/Legacy/**/*.h",
-        "Middlewares/Third_Party/FreeRTOS/Source/include/**/*.h",
-        "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/**/*.h",
-        "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/**/*.h",
-        "Drivers/CMSIS/Device/ST/STM32G4xx/Include/**/*.h",
-        "Drivers/CMSIS/Include/**/*.h",
-        "Drivers/CMSIS/DSP/Include/**/*.h",
-        "src/**/*.h",
-    ]),
+    hdrs = glob(
+        [
+            "Core/Inc/**/*.h",
+            "Drivers/STM32G4xx_HAL_Driver/Inc/**/*.h",
+            "Drivers/STM32G4xx_HAL_Driver/Inc/Legacy/**/*.h",
+            "Middlewares/Third_Party/FreeRTOS/Source/include/**/*.h",
+            "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/**/*.h",
+            "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/**/*.h",
+            "Drivers/CMSIS/Device/ST/STM32G4xx/Include/**/*.h",
+            "Drivers/CMSIS/Include/**/*.h",
+            "Drivers/CMSIS/DSP/Include/**/*.h",
+            "src/**/*.h",
+        ],
+        exclude = ["src/driver/**"],
+    ),
     includes = [
         "Core/Inc",
         "Drivers/STM32G4xx_HAL_Driver/Inc",

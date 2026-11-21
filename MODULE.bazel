@@ -21,7 +21,10 @@ register_toolchains("@python_3_11//:all")
 bazel_dep(name = "rules_foreign_cc", version = "0.13.0")
 bazel_dep(name = "platforms", version = "0.0.10")
 
-register_toolchains("//bazel/toolchain:arm_none_eabi_toolchain")
+register_toolchains(
+    "//bazel/toolchain:arm_none_eabi_toolchain",
+    "//bazel/toolchain:stm32c5_toolchain",
+)
 
 arm_toolchain_ext = use_extension("//bazel/toolchain:repo.bzl", "arm_toolchain_ext")
 use_repo(arm_toolchain_ext, "arm_none_eabi_config")
@@ -56,7 +59,11 @@ cc_library(
         "CPPUTEST_MEM_LEAK_DETECTION_DISABLED",
         "CPPUTEST_HAVE_EXCEPTIONS=0",
     ],
-    copts = ["-fexceptions"],
+    copts = [
+        "-fexceptions",
+        "-Wno-double-promotion",
+        "-Wno-float-conversion",
+    ],
     visibility = ["//visibility:public"],
 )
 
@@ -66,7 +73,11 @@ cc_library(
     hdrs = glob(["include/CppUTestExt/*.h"]),
     includes = ["include"],
     deps = [":cpputest"],
-    copts = ["-fexceptions"],
+    copts = [
+        "-fexceptions",
+        "-Wno-double-promotion",
+        "-Wno-float-conversion",
+    ],
     visibility = ["//visibility:public"],
 )
 """,
