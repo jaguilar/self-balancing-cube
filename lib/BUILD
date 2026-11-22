@@ -7,12 +7,31 @@ cc_library(
     hdrs = [
         "Arduino-FOC/src/common/base_classes/BLDCDriver.h",
         "Arduino-FOC/src/common/base_classes/FOCDriver.h",
+        "Arduino-FOC/src/common/base_classes/Sensor.h",
         "stm32_arduino_shim/src/Arduino.h",
         "stm32_arduino_shim/src/perf_counter.h",
     ],
     includes = [
         "Arduino-FOC/src",
         "stm32_arduino_shim/src",
+    ],
+)
+
+cc_library(
+    name = "arduino_foc_sensor",
+    srcs = [
+        "Arduino-FOC/src/common/base_classes/Sensor.cpp",
+        "Arduino-FOC/src/common/time_utils.cpp",
+    ],
+    hdrs = [
+        "Arduino-FOC/src/common/base_classes/Sensor.h",
+        "Arduino-FOC/src/common/foc_utils.h",
+        "Arduino-FOC/src/common/time_utils.h",
+    ],
+    includes = ["Arduino-FOC/src"],
+    deps = [
+        ":arduino_foc_base_headers",
+        "//src/driver/src:stm32c5_dfp_headers",
     ],
 )
 

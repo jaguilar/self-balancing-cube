@@ -35,11 +35,24 @@ cc_library(
     alwayslink = True,
 )
 
+cc_library(
+    name = "angle_sensor_test_lib",
+    srcs = ["angle_sensor_test.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        "//src/driver/src:angle_sensor",
+        "//src/driver/src:stm32c5_hal_drivers",
+        "@cpputest//:cpputest",
+    ],
+    alwayslink = True,
+)
+
 cc_binary(
     name = "test_runner_firmware",
     srcs = ["test_runner_main.cc"],
     copts = ["-std=c++23"],
     deps = [
+        ":angle_sensor_test_lib",
         ":hello_world",
         ":motor_driver_test_lib",
         ":selftest_wiring",
@@ -79,4 +92,9 @@ mcu_py_test(
 mcu_py_test(
     name = "motor_driver_test",
     srcs = ["motor_driver_test.py"],
+)
+
+mcu_py_test(
+    name = "angle_sensor_test",
+    srcs = ["angle_sensor_test.py"],
 )

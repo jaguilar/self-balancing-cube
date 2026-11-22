@@ -226,6 +226,31 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "arduino_time_shim",
+    srcs = ["arduino_time_shim.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_base_headers",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
+    name = "angle_sensor",
+    srcs = ["angle_sensor.cc"],
+    hdrs = ["angle_sensor.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":arduino_time_shim",
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_base_headers",
+        "//lib:arduino_foc_sensor",
+    ],
+)
+
 cc_binary(
     name = "driver_app",
     srcs = ["project/main.c"],
