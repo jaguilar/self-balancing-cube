@@ -81,6 +81,9 @@ class StTimerMotorDriver : public BLDCDriver {
   void setPwm(float ua, float ub, float uc) override;
   void setPhaseState(PhaseState sa, PhaseState sb, PhaseState sc) override;
 
+  hal_tim_handle_t* timer_handle() { return &htim_; }
+  const hal_tim_handle_t* timer_handle() const { return &htim_; }
+
  private:
   StTimerMotorConfig config_;
   std::array<PwmChannelConfig, 3> phases_;

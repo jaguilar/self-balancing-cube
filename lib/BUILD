@@ -36,6 +36,28 @@ cc_library(
 )
 
 cc_library(
+    name = "arduino_foc_current_sense",
+    srcs = [
+        "Arduino-FOC/src/common/base_classes/CurrentSense.cpp",
+        "Arduino-FOC/src/common/foc_utils.cpp",
+        "Arduino-FOC/src/common/time_utils.cpp",
+    ],
+    hdrs = [
+        "Arduino-FOC/src/common/base_classes/CurrentSense.h",
+        "Arduino-FOC/src/common/base_classes/StepperDriver.h",
+        "Arduino-FOC/src/common/foc_utils.h",
+        "Arduino-FOC/src/common/time_utils.h",
+        "Arduino-FOC/src/communication/SimpleFOCDebug.h",
+    ],
+    defines = ["SIMPLEFOC_DISABLE_DEBUG"],
+    includes = ["Arduino-FOC/src"],
+    deps = [
+        ":arduino_foc_base_headers",
+        "//src/driver/src:stm32c5_dfp_headers",
+    ],
+)
+
+cc_library(
     name = "arduino_foc",
     srcs = [
         "Arduino-FOC/src/BLDCMotor.cpp",

@@ -251,6 +251,20 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "current_sense",
+    srcs = ["current_sense.cc"],
+    hdrs = ["current_sense.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":arduino_time_shim",
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_base_headers",
+        "//lib:arduino_foc_current_sense",
+    ],
+)
+
 cc_binary(
     name = "driver_app",
     srcs = ["project/main.c"],
