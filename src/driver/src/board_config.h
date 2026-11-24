@@ -88,6 +88,16 @@ static constexpr stfoc::StTimerMotorConfig motor_driver_config(
               .port = HAL_GPIOB,
               .pin = HAL_GPIO_PIN_6,
           },
+      .drv_coast =
+          {
+              .port = HAL_GPIOB,
+              .pin = HAL_GPIO_PIN_8,
+          },
+      .drv_nfault =
+          {
+              .port = HAL_GPIOB,
+              .pin = HAL_GPIO_PIN_7,
+          },
       .pwm_freq = pwm_freq,
   };
 }

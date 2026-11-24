@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <atomic>
 #include <cstdint>
 
 #include "stm32_hal.h"
@@ -27,6 +28,8 @@ struct StTimerMotorConfig {
   PwmChannelConfig phase_b;
   PwmChannelConfig phase_c;
   GpioPinConfig drv_en;
+  GpioPinConfig drv_coast;
+  GpioPinConfig drv_nfault;
   uint32_t pwm_freq;
 };
 
@@ -45,10 +48,23 @@ class StTimerMotorDriver : public BLDCDriver {
   void setPwm(float ua, float ub, float uc) override;
   void setPhaseState(PhaseState sa, PhaseState sb, PhaseState sc) override;
 
+  void setCoast(bool coast);
+  bool isCoasting() const { return coast_mode_; }
+
+  bool hasFault() const {
+    return fault_latched_.load(std::memory_order_acquire);
+  }
+  bool isFaultPinActive() const;
+  void clearFault() { fault_latched_.store(false, std::memory_order_release); }
+
+  void handleFaultIrq();
+
   hal_tim_handle_t* timer_handle() { return &htim_; }
   const hal_tim_handle_t* timer_handle() const { return &htim_; }
 
  private:
+  void updateCoastPin();
+
   StTimerMotorConfig config_;
   std::array<PwmChannelConfig, 3> phases_;
   std::array<PhaseState, 3> phase_state_{
@@ -62,6 +78,8 @@ class StTimerMotorDriver : public BLDCDriver {
   uint32_t arr_value_{0};
   float inv_voltage_power_supply_{0.0f};
   bool enabled_{false};
+  bool coast_mode_{false};
+  std::atomic<bool> fault_latched_{false};
 };
 
 }  // namespace stfoc

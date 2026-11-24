@@ -57,6 +57,8 @@ constexpr std::array<HarnessPwmChannel, 3> kHarnessPwmChannels = {{
 
 constexpr hal_gpio_t kHarnessDrvEnPort = HAL_GPIOC;
 constexpr uint32_t kHarnessDrvEnPin = HAL_GPIO_PIN_3;
+constexpr hal_gpio_t kHarnessFaultPort = HAL_GPIOC;
+constexpr uint32_t kHarnessFaultPin = HAL_GPIO_PIN_5;
 
 bool IsCcFlagSet(hal_tim_channel_t channel) {
   switch (channel) {
@@ -107,6 +109,15 @@ class Tim8Harness {
     CHECK_EQUAL(HAL_OK, HAL_GPIO_Init(kHarnessDrvEnPort, kHarnessDrvEnPin,
                                       &drv_en_in_cfg));
 
+    hal_gpio_config_t fault_out_cfg{};
+    fault_out_cfg.mode = HAL_GPIO_MODE_OUTPUT;
+    fault_out_cfg.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+    fault_out_cfg.pull = HAL_GPIO_PULL_NO;
+    fault_out_cfg.speed = HAL_GPIO_SPEED_FREQ_LOW;
+    fault_out_cfg.init_state = HAL_GPIO_PIN_SET;
+    CHECK_EQUAL(HAL_OK, HAL_GPIO_Init(kHarnessFaultPort, kHarnessFaultPin,
+                                      &fault_out_cfg));
+
     for (const auto& ch : kHarnessPwmChannels) {
       hal_gpio_config_t ic_gpio_cfg{};
       ic_gpio_cfg.mode = HAL_GPIO_MODE_ALTERNATE;
@@ -156,12 +167,24 @@ class Tim8Harness {
       HAL_GPIO_DeInit(ch.port, ch.pin);
     }
     HAL_GPIO_DeInit(kHarnessDrvEnPort, kHarnessDrvEnPin);
+    HAL_GPIO_DeInit(kHarnessFaultPort, kHarnessFaultPin);
     initialized_ = false;
   }
 
   bool ReadDrvEn() const {
     return HAL_GPIO_ReadPin(kHarnessDrvEnPort, kHarnessDrvEnPin) ==
            HAL_GPIO_PIN_SET;
+  }
+
+  // PB8 (drv_coast) is routed to the onboard CAN FD transceiver on the Nucleo
+  // and is not exposed on the morpho header; verify its driven state via ODR.
+  bool ReadCoastOutput() const {
+    return (GPIOB->ODR & HAL_GPIO_PIN_8) != 0U;
+  }
+
+  void SetFault(bool active) {
+    HAL_GPIO_WritePin(kHarnessFaultPort, kHarnessFaultPin,
+                      active ? HAL_GPIO_PIN_RESET : HAL_GPIO_PIN_SET);
   }
 
   PwmMeasurement Measure(std::size_t idx) {
@@ -345,6 +368,97 @@ TEST(MotorDriver, SetPhaseState) {
 
   driver->setPhaseState(PhaseState::PHASE_ON, PhaseState::PHASE_ON,
                         PhaseState::PHASE_ON);
+  HAL_Delay(1);
+  for (std::size_t i = 0; i < 3; ++i) {
+    const auto m = harness.Measure(i);
+    CHECK_TRUE(m.has_edges);
+    DOUBLES_EQUAL(0.50, m.duty_cycle, 0.02);
+  }
+}
+
+TEST(MotorDriver, CoastControl) {
+  driver->voltage_power_supply = 12.0f;
+  driver->voltage_limit = 12.0f;
+
+  LONGS_EQUAL(1, driver->init());
+  CHECK_FALSE(driver->isCoasting());
+  CHECK_FALSE(harness.ReadCoastOutput());
+
+  driver->enable();
+  CHECK_TRUE(harness.ReadDrvEn());
+  CHECK_TRUE(harness.ReadCoastOutput());
+
+  driver->setCoast(true);
+  CHECK_TRUE(driver->isCoasting());
+  CHECK_TRUE(harness.ReadDrvEn());
+  CHECK_FALSE(harness.ReadCoastOutput());
+
+  driver->setCoast(false);
+  CHECK_FALSE(driver->isCoasting());
+  CHECK_TRUE(harness.ReadCoastOutput());
+
+  driver->disable();
+  CHECK_FALSE(harness.ReadDrvEn());
+  CHECK_FALSE(harness.ReadCoastOutput());
+
+  // Entering coast mode while disabled keeps coast pin low upon enable().
+  driver->setCoast(true);
+  CHECK_FALSE(harness.ReadCoastOutput());
+  driver->enable();
+  CHECK_TRUE(harness.ReadDrvEn());
+  CHECK_FALSE(harness.ReadCoastOutput());
+
+  driver->setCoast(false);
+  CHECK_TRUE(harness.ReadCoastOutput());
+}
+
+TEST(MotorDriver, FaultImmediatelyDisablesOutput) {
+  driver->voltage_power_supply = 12.0f;
+  driver->voltage_limit = 12.0f;
+
+  LONGS_EQUAL(1, driver->init());
+  CHECK_FALSE(driver->hasFault());
+  CHECK_FALSE(driver->isFaultPinActive());
+
+  driver->enable();
+  CHECK_TRUE(harness.ReadDrvEn());
+  CHECK_TRUE(harness.ReadCoastOutput());
+  HAL_Delay(1);
+  CHECK_TRUE(harness.Measure(0).has_edges);
+
+  // Inject active-low fault on PC5 -> PB7 (drv_nfault).
+  harness.SetFault(true);
+
+  CHECK_TRUE(driver->hasFault());
+  CHECK_TRUE(driver->isFaultPinActive());
+  CHECK_FALSE(harness.ReadDrvEn());
+  CHECK_FALSE(harness.ReadCoastOutput());
+  for (std::size_t i = 0; i < 3; ++i) {
+    const auto m = harness.Measure(i);
+    CHECK_FALSE(m.has_edges);
+    CHECK_FALSE(m.pin_high);
+  }
+
+  // Re-enabling while fault pin is active or fault flag is latched must fail.
+  driver->enable();
+  CHECK_FALSE(harness.ReadDrvEn());
+  CHECK_FALSE(harness.ReadCoastOutput());
+
+  // Release fault pin: latched flag remains set for the FOC loop to observe.
+  harness.SetFault(false);
+  CHECK_FALSE(driver->isFaultPinActive());
+  CHECK_TRUE(driver->hasFault());
+
+  driver->enable();
+  CHECK_FALSE(harness.ReadDrvEn());
+
+  // Clearing the latched fault allows re-enabling the driver.
+  driver->clearFault();
+  CHECK_FALSE(driver->hasFault());
+
+  driver->enable();
+  CHECK_TRUE(harness.ReadDrvEn());
+  CHECK_TRUE(harness.ReadCoastOutput());
   HAL_Delay(1);
   for (std::size_t i = 0; i < 3; ++i) {
     const auto m = harness.Measure(i);
