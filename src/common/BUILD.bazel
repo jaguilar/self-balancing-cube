@@ -1,0 +1,20 @@
+load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "motor_protocol",
+    srcs = ["motor_protocol.cc"],
+    hdrs = ["motor_protocol.h"],
+    copts = ["-std=c++23"],
+)
+
+cc_test(
+    name = "motor_protocol_test",
+    srcs = ["motor_protocol_test.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        ":motor_protocol",
+        "@cpputest//:cpputest",
+    ],
+)
