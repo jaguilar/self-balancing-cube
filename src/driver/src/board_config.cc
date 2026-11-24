@@ -34,7 +34,7 @@ void EnableGpioClock(hal_gpio_t port) {
 }  // namespace
 
 hal_uart_handle_t* InitDebugUart() {
-  constexpr DebugUartConfig cfg = debug_uart_config();
+  constexpr DebugUartConfig cfg = GetDebugUartConfig();
 
   if (HAL_UART_Init(&debug_uart_handle, cfg.instance) != HAL_OK) {
     return nullptr;

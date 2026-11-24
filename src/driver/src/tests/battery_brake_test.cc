@@ -104,7 +104,7 @@ class Tim12StimHarness {
 
 stfoc::StBatteryBrakeConfig NucleoTestConfig(
     float brake_threshold_v = kBrakeThresholdV) {
-  auto cfg = board::battery_brake_config(brake_threshold_v);
+  auto cfg = board::GetBatteryBrakeConfig(brake_threshold_v);
   // Leave PA3 untouched on Nucleo-C562RE (connected to ST-Link VCP RX).
   CHECK_FALSE(cfg.enable_output_pin);
   return cfg;
@@ -211,12 +211,12 @@ TEST(BatteryBrake, AdcReadingsAcrossCurveWithComparatorActive) {
 TEST(BatteryBrake, ConcurrentWithInjectedCurrentSenseOnAdc2) {
   // Start TIM1 PWM and StAdcCurrentSense (which runs TIM1 TRGO2 hardware-
   // triggered injected conversions on ADC1 and ADC2 at 25 kHz).
-  stfoc::StTimerMotorDriver driver(board::motor_driver_config(25000U));
+  stfoc::StTimerMotorDriver driver(board::GetMotorDriverConfig(25000U));
   driver.voltage_power_supply = 18.5f;
   driver.voltage_limit = 18.5f;
   LONGS_EQUAL(1, driver.init());
 
-  auto cs_cfg = board::current_sense_config();
+  auto cs_cfg = board::GetCurrentSenseConfig();
   stfoc::StAdcCurrentSense current_sense(cs_cfg);
   LONGS_EQUAL(0, current_sense.init());
 

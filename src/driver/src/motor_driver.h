@@ -42,28 +42,28 @@ class StTimerMotorDriver : public BLDCDriver {
   StTimerMotorDriver& operator=(const StTimerMotorDriver&) = delete;
 
   int init() override;
-  void deinit();
+  void Deinit();
   void enable() override;
   void disable() override;
   void setPwm(float ua, float ub, float uc) override;
   void setPhaseState(PhaseState sa, PhaseState sb, PhaseState sc) override;
 
-  void setCoast(bool coast);
-  bool isCoasting() const { return coast_mode_; }
+  void SetCoast(bool coast);
+  bool IsCoasting() const { return coast_mode_; }
 
-  bool hasFault() const {
+  bool HasFault() const {
     return fault_latched_.load(std::memory_order_acquire);
   }
-  bool isFaultPinActive() const;
-  void clearFault() { fault_latched_.store(false, std::memory_order_release); }
+  bool IsFaultPinActive() const;
+  void ClearFault() { fault_latched_.store(false, std::memory_order_release); }
 
-  void handleFaultIrq();
+  void HandleFaultIrq();
 
   hal_tim_handle_t* timer_handle() { return &htim_; }
   const hal_tim_handle_t* timer_handle() const { return &htim_; }
 
  private:
-  void updateCoastPin();
+  void UpdateCoastPin();
 
   StTimerMotorConfig config_;
   std::array<PwmChannelConfig, 3> phases_;

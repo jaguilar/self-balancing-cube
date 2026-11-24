@@ -4,6 +4,7 @@
 
 #include "angle_sensor.h"
 #include "battery_brake.h"
+#include "can_driver.h"
 #include "current_sense.h"
 #include "motor_driver.h"
 #include "stm32_hal.h"
@@ -35,7 +36,7 @@ struct DebugUartConfig {
 };
 
 /// Returns the debug/VCP UART configuration for the active board target.
-static constexpr DebugUartConfig debug_uart_config() {
+static constexpr DebugUartConfig GetDebugUartConfig() {
   if constexpr (kTarget == Target::kNucleoC552RE) {
     return DebugUartConfig{
         .instance = HAL_UART2,
@@ -55,7 +56,7 @@ static constexpr DebugUartConfig debug_uart_config() {
 
 /// Returns the motor PWM driver configuration matching
 /// src/driver/motor_driver_48-pinout.csv.
-static constexpr stfoc::StTimerMotorConfig motor_driver_config(
+static constexpr stfoc::StTimerMotorConfig GetMotorDriverConfig(
     uint32_t pwm_freq = 25000U) {
   return stfoc::StTimerMotorConfig{
       .timer_instance = HAL_TIM1,
@@ -105,7 +106,7 @@ static constexpr stfoc::StTimerMotorConfig motor_driver_config(
 /// Returns the AS5047P angle sensor configuration matching
 /// docs/motor_selftest_wiring.md and src/driver/motor_driver_48-pinout.csv
 /// (enc_i is omitted).
-static constexpr stfoc::As5047pSensorConfig angle_sensor_config() {
+static constexpr stfoc::As5047pSensorConfig GetAngleSensorConfig() {
   return stfoc::As5047pSensorConfig{
       .spi_instance = HAL_SPI2,
       .sck =
@@ -162,7 +163,7 @@ static constexpr stfoc::As5047pSensorConfig angle_sensor_config() {
 /// docs/motor_selftest_wiring.md and src/driver/motor_driver_48-pinout.csv:
 ///   - drv_sense_a: PA1 -> ADC1_IN1
 ///   - drv_sense_b: PA2 -> ADC2_IN2
-static constexpr stfoc::StAdcCurrentSenseConfig current_sense_config(
+static constexpr stfoc::StAdcCurrentSenseConfig GetCurrentSenseConfig(
     float shunt_resistance = 0.005f, float amp_gain = 20.0f) {
   return stfoc::StAdcCurrentSenseConfig{
       .phase_a =
@@ -196,7 +197,7 @@ static constexpr stfoc::StAdcCurrentSenseConfig current_sense_config(
 ///   - brake_en: PA3 -> COMP1_OUT (AF14), disabled on Nucleo-C552RE where PA3
 ///     is connected to the ST-Link VCP RX bridge
 ///   - COMP1_INM: internal DAC1_CH1 (disconnected from PA4 / enc_i)
-static constexpr stfoc::StBatteryBrakeConfig battery_brake_config(
+static constexpr stfoc::StBatteryBrakeConfig GetBatteryBrakeConfig(
     float brake_threshold_v = 22.0f, float r_top_ohms = 8250.0f,
     float r_bottom_ohms = 1100.0f) {
   return stfoc::StBatteryBrakeConfig{
@@ -219,6 +220,39 @@ static constexpr stfoc::StBatteryBrakeConfig battery_brake_config(
       .brake_threshold_v = brake_threshold_v,
       .v_ref = 3.3f,
       .calibrate_vdda = true,
+  };
+}
+
+/// Returns the FDCAN1 configuration matching src/driver/motor_driver_48-pinout.csv:
+///   - FDCAN1_TX: PA12 (AF9)
+///   - FDCAN1_RX: PB12 (AF9)
+static constexpr stfoc::StCanDriverConfig GetCanDriverConfig(
+    hal_fdcan_mode_t mode = HAL_FDCAN_MODE_NORMAL) {
+  return stfoc::StCanDriverConfig{
+      .fdcan_instance = HAL_FDCAN1,
+      .tx =
+          {
+              .port = HAL_GPIOA,
+              .pin = HAL_GPIO_PIN_12,
+              .alternate = HAL_GPIO_AF_9,
+          },
+      .rx =
+          {
+              .port = HAL_GPIOB,
+              .pin = HAL_GPIO_PIN_12,
+              .alternate = HAL_GPIO_AF_9,
+          },
+      .nominal_bit_timing =
+          {
+              .nominal_prescaler = 1U,
+              .nominal_jump_width = 1U,
+              .nominal_time_seg1 = 251U,
+              .nominal_time_seg2 = 36U,
+          },
+      .frame_format = HAL_FDCAN_FRAME_FORMAT_FD_NO_BRS,
+      .mode = mode,
+      .enable_gpio = (mode != HAL_FDCAN_MODE_INTERNAL_LOOPBACK),
+      .device_id_override = 0U,
   };
 }
 

@@ -62,7 +62,7 @@ class StAdcCurrentSense final : public CurrentSense {
   /// `set_cal_mode` is configured. Returns 0 (`Error::kOk`) on success, or a
   /// non-zero `Error` code on failure.
   int init() override;
-  void deinit();
+  void Deinit();
 
   /// Configures a timer compare unit and TRGO2 to trigger injected ADC
   /// conversions `delay_ns` nanoseconds after the center of the low-side

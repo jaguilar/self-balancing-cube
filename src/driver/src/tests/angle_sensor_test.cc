@@ -323,7 +323,7 @@ TEST_GROUP(AngleSensor) {
 
   void setup() override {
     harness.Init();
-    auto cfg = board::angle_sensor_config();
+    auto cfg = board::GetAngleSensorConfig();
     cfg.startup_delay_ms = 0U;
     sensor.emplace(cfg);
   }
@@ -496,7 +496,7 @@ TEST(AngleSensor, InitFailsOnSettings2VerifyMismatch) {
 }
 
 TEST(AngleSensor, InitFailsOnSpiTimeout) {
-  auto cfg = board::angle_sensor_config();
+  auto cfg = board::GetAngleSensorConfig();
   cfg.startup_delay_ms = 0U;
   cfg.spi_timeout_ms = 0U;
   sensor.emplace(cfg);

@@ -63,7 +63,7 @@ class As5047pAngleSensor final : public Sensor {
   As5047pAngleSensor& operator=(const As5047pAngleSensor&) = delete;
 
   void init() override;
-  void deinit();
+  void Deinit();
   void update() override;
 
   float getSensorAngle() override;

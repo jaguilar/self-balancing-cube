@@ -147,7 +147,7 @@ StAdcCurrentSense::StAdcCurrentSense(const StAdcCurrentSenseConfig& config)
   gain_c = config_.amp_gain;
 }
 
-StAdcCurrentSense::~StAdcCurrentSense() { deinit(); }
+StAdcCurrentSense::~StAdcCurrentSense() { Deinit(); }
 
 const char* StAdcCurrentSense::ErrorToString(Error error) {
   switch (error) {
@@ -288,7 +288,7 @@ int StAdcCurrentSense::init() {
   const Error err_a = InitSingleAdc(&hadc_a_, config_.phase_a);
   if (err_a != Error::kOk) {
     last_error_ = err_a;
-    deinit();
+    Deinit();
     return static_cast<int>(last_error_);
   }
   adc_a_initialized_ = true;
@@ -296,7 +296,7 @@ int StAdcCurrentSense::init() {
   const Error err_b = InitSingleAdc(&hadc_b_, config_.phase_b);
   if (err_b != Error::kOk) {
     last_error_ = err_b;
-    deinit();
+    Deinit();
     return static_cast<int>(last_error_);
   }
   adc_b_initialized_ = true;
@@ -304,7 +304,7 @@ int StAdcCurrentSense::init() {
   const Error cal_err = CalibrateZeroOffsets();
   if (cal_err != Error::kOk) {
     last_error_ = cal_err;
-    deinit();
+    Deinit();
     return static_cast<int>(last_error_);
   }
 
@@ -315,7 +315,7 @@ int StAdcCurrentSense::init() {
   return static_cast<int>(Error::kOk);
 }
 
-void StAdcCurrentSense::deinit() {
+void StAdcCurrentSense::Deinit() {
   if (trigger_enabled_) {
     if (adc_a_initialized_) {
       (void)HAL_ADC_INJ_StopConv(&hadc_a_);

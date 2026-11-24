@@ -110,7 +110,7 @@ TEST_GROUP(CurrentSense) {
 
   void setup() override {
     harness.Init();
-    driver.emplace(board::motor_driver_config(kPwmFreqHz));
+    driver.emplace(board::GetMotorDriverConfig(kPwmFreqHz));
     driver->voltage_power_supply = 12.0f;
     driver->voltage_limit = 12.0f;
     LONGS_EQUAL(1, driver->init());
@@ -124,7 +124,7 @@ TEST_GROUP(CurrentSense) {
 
 TEST(CurrentSense, PhaseACurrentMatchesConfiguredGain20VV) {
   constexpr float kGainVV = 20.0f;
-  auto cfg = board::current_sense_config(kShuntOhms, kGainVV);
+  auto cfg = board::GetCurrentSenseConfig(kShuntOhms, kGainVV);
   cfg.v_ref = kVref;
   cfg.set_cal_mode = &Tim15StimHarness::SetCalModeCallback;
   cfg.cal_ctx = &harness;
@@ -168,7 +168,7 @@ TEST(CurrentSense, PhaseACurrentMatchesConfiguredGain20VV) {
 
 TEST(CurrentSense, PhaseACurrentScalesWithGain10VV) {
   constexpr float kGainVV = 10.0f;
-  auto cfg = board::current_sense_config(kShuntOhms, kGainVV);
+  auto cfg = board::GetCurrentSenseConfig(kShuntOhms, kGainVV);
   cfg.v_ref = kVref;
   cfg.set_cal_mode = &Tim15StimHarness::SetCalModeCallback;
   cfg.cal_ctx = &harness;

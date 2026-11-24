@@ -158,7 +158,7 @@ void EnableDwtCycleCounter() {
 As5047pAngleSensor::As5047pAngleSensor(const As5047pSensorConfig& config)
     : config_(config) {}
 
-As5047pAngleSensor::~As5047pAngleSensor() { deinit(); }
+As5047pAngleSensor::~As5047pAngleSensor() { Deinit(); }
 
 const char* As5047pAngleSensor::ErrorToString(Error error) {
   switch (error) {
@@ -188,7 +188,7 @@ const char* As5047pAngleSensor::ErrorToString(Error error) {
 
 void As5047pAngleSensor::init() {
   if (initialized_ || spi_initialized_ || timer_initialized_) {
-    deinit();
+    Deinit();
   }
   last_error_ = Error::kNone;
   last_diagnostics_ = 0U;
@@ -196,7 +196,7 @@ void As5047pAngleSensor::init() {
   EnableDwtCycleCounter();
 
   if (!InitSpi()) {
-    deinit();
+    Deinit();
     return;
   }
 
@@ -206,14 +206,14 @@ void As5047pAngleSensor::init() {
 
   uint16_t initial_angle_14bit = 0U;
   if (!ConfigureAs5047p(initial_angle_14bit)) {
-    deinit();
+    Deinit();
     return;
   }
 
   const uint16_t initial_abi =
       static_cast<uint16_t>((initial_angle_14bit >> 2) & kCountMask);
   if (!InitEncoderTimer(initial_abi)) {
-    deinit();
+    Deinit();
     return;
   }
 
@@ -225,7 +225,7 @@ void As5047pAngleSensor::init() {
   initialized_ = true;
 }
 
-void As5047pAngleSensor::deinit() {
+void As5047pAngleSensor::Deinit() {
   DeinitEncoderTimer();
   DeinitSpi();
   initialized_ = false;

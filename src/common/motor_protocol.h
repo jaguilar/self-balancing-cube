@@ -9,6 +9,18 @@ namespace stfoc {
 
 inline constexpr size_t kNumMotors = 3;
 
+// Standard 11-bit CAN IDs (lower ID = higher bus arbitration priority).
+// Controller commands have the highest priority; motor speed responses follow
+// immediately at one priority level lower, further offset by motor index
+// (0, 1, or 2).
+inline constexpr uint32_t kCanIdControllerCommand = 0x100U;
+inline constexpr uint32_t kCanIdDriverSpeedBase = kCanIdControllerCommand + 1U;
+inline constexpr uint32_t kCanIdDriverAnnounceId = 0x200U;
+
+constexpr uint32_t DriverSpeedCanId(uint8_t motor_index) {
+  return kCanIdDriverSpeedBase + static_cast<uint32_t>(motor_index);
+}
+
 // Wire sizes (bytes):
 //   Controller -> Driver: 1-byte CommandType + 3 x 4-byte little-endian floats
 //   Driver -> Controller: 1-byte DriverMessageTag + 2 x 4-byte little-endian fields

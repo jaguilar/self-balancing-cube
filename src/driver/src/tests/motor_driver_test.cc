@@ -258,7 +258,7 @@ TEST_GROUP(MotorDriver) {
 
   void setup() override {
     harness.Init();
-    driver.emplace(board::motor_driver_config(kPwmFreqHz));
+    driver.emplace(board::GetMotorDriverConfig(kPwmFreqHz));
   }
 
   void teardown() override {
@@ -381,20 +381,20 @@ TEST(MotorDriver, CoastControl) {
   driver->voltage_limit = 12.0f;
 
   LONGS_EQUAL(1, driver->init());
-  CHECK_FALSE(driver->isCoasting());
+  CHECK_FALSE(driver->IsCoasting());
   CHECK_FALSE(harness.ReadCoastOutput());
 
   driver->enable();
   CHECK_TRUE(harness.ReadDrvEn());
   CHECK_TRUE(harness.ReadCoastOutput());
 
-  driver->setCoast(true);
-  CHECK_TRUE(driver->isCoasting());
+  driver->SetCoast(true);
+  CHECK_TRUE(driver->IsCoasting());
   CHECK_TRUE(harness.ReadDrvEn());
   CHECK_FALSE(harness.ReadCoastOutput());
 
-  driver->setCoast(false);
-  CHECK_FALSE(driver->isCoasting());
+  driver->SetCoast(false);
+  CHECK_FALSE(driver->IsCoasting());
   CHECK_TRUE(harness.ReadCoastOutput());
 
   driver->disable();
@@ -402,13 +402,13 @@ TEST(MotorDriver, CoastControl) {
   CHECK_FALSE(harness.ReadCoastOutput());
 
   // Entering coast mode while disabled keeps coast pin low upon enable().
-  driver->setCoast(true);
+  driver->SetCoast(true);
   CHECK_FALSE(harness.ReadCoastOutput());
   driver->enable();
   CHECK_TRUE(harness.ReadDrvEn());
   CHECK_FALSE(harness.ReadCoastOutput());
 
-  driver->setCoast(false);
+  driver->SetCoast(false);
   CHECK_TRUE(harness.ReadCoastOutput());
 }
 
@@ -417,8 +417,8 @@ TEST(MotorDriver, FaultImmediatelyDisablesOutput) {
   driver->voltage_limit = 12.0f;
 
   LONGS_EQUAL(1, driver->init());
-  CHECK_FALSE(driver->hasFault());
-  CHECK_FALSE(driver->isFaultPinActive());
+  CHECK_FALSE(driver->HasFault());
+  CHECK_FALSE(driver->IsFaultPinActive());
 
   driver->enable();
   CHECK_TRUE(harness.ReadDrvEn());
@@ -429,8 +429,8 @@ TEST(MotorDriver, FaultImmediatelyDisablesOutput) {
   // Inject active-low fault on PC5 -> PB7 (drv_nfault).
   harness.SetFault(true);
 
-  CHECK_TRUE(driver->hasFault());
-  CHECK_TRUE(driver->isFaultPinActive());
+  CHECK_TRUE(driver->HasFault());
+  CHECK_TRUE(driver->IsFaultPinActive());
   CHECK_FALSE(harness.ReadDrvEn());
   CHECK_FALSE(harness.ReadCoastOutput());
   for (std::size_t i = 0; i < 3; ++i) {
@@ -446,15 +446,15 @@ TEST(MotorDriver, FaultImmediatelyDisablesOutput) {
 
   // Release fault pin: latched flag remains set for the FOC loop to observe.
   harness.SetFault(false);
-  CHECK_FALSE(driver->isFaultPinActive());
-  CHECK_TRUE(driver->hasFault());
+  CHECK_FALSE(driver->IsFaultPinActive());
+  CHECK_TRUE(driver->HasFault());
 
   driver->enable();
   CHECK_FALSE(harness.ReadDrvEn());
 
   // Clearing the latched fault allows re-enabling the driver.
-  driver->clearFault();
-  CHECK_FALSE(driver->hasFault());
+  driver->ClearFault();
+  CHECK_FALSE(driver->HasFault());
 
   driver->enable();
   CHECK_TRUE(harness.ReadDrvEn());

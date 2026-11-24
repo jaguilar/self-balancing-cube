@@ -134,7 +134,7 @@ StTimerMotorDriver::StTimerMotorDriver(const StTimerMotorConfig& config)
   pwm_frequency = static_cast<long>(config_.pwm_freq);
 }
 
-StTimerMotorDriver::~StTimerMotorDriver() { deinit(); }
+StTimerMotorDriver::~StTimerMotorDriver() { Deinit(); }
 
 int StTimerMotorDriver::init() {
   if (voltage_power_supply <= 0.0f || voltage_limit <= 0.0f ||
@@ -281,7 +281,7 @@ int StTimerMotorDriver::init() {
     NVIC_ClearPendingIRQ(irqn);
     NVIC_EnableIRQ(irqn);
 
-    if (isFaultPinActive()) {
+    if (IsFaultPinActive()) {
       fault_latched_.store(true, std::memory_order_release);
     }
   }
@@ -289,7 +289,7 @@ int StTimerMotorDriver::init() {
   return 1;
 }
 
-void StTimerMotorDriver::deinit() {
+void StTimerMotorDriver::Deinit() {
   if (!initialized) {
     return;
   }
@@ -325,21 +325,21 @@ void StTimerMotorDriver::enable() {
   if (!initialized) {
     return;
   }
-  if (isFaultPinActive()) {
+  if (IsFaultPinActive()) {
     fault_latched_.store(true, std::memory_order_release);
   }
-  if (hasFault()) {
+  if (HasFault()) {
     return;
   }
   HAL_GPIO_WritePin(config_.drv_en.port, config_.drv_en.pin, HAL_GPIO_PIN_SET);
   HAL_Delay(1);
-  if (hasFault() || isFaultPinActive()) {
+  if (HasFault() || IsFaultPinActive()) {
     fault_latched_.store(true, std::memory_order_release);
     disable();
     return;
   }
   enabled_ = true;
-  updateCoastPin();
+  UpdateCoastPin();
 
   for (std::size_t i = 0; i < phases_.size(); ++i) {
     if (phase_state_[i] == PhaseState::PHASE_ON && !channel_active_[i]) {
@@ -360,19 +360,19 @@ void StTimerMotorDriver::disable() {
     }
   }
   enabled_ = false;
-  updateCoastPin();
+  UpdateCoastPin();
   HAL_GPIO_WritePin(config_.drv_en.port, config_.drv_en.pin,
                     HAL_GPIO_PIN_RESET);
 }
 
-void StTimerMotorDriver::setCoast(bool coast) {
+void StTimerMotorDriver::SetCoast(bool coast) {
   coast_mode_ = coast;
   if (initialized) {
-    updateCoastPin();
+    UpdateCoastPin();
   }
 }
 
-bool StTimerMotorDriver::isFaultPinActive() const {
+bool StTimerMotorDriver::IsFaultPinActive() const {
   if (config_.drv_nfault.pin == 0U) {
     return false;
   }
@@ -380,7 +380,7 @@ bool StTimerMotorDriver::isFaultPinActive() const {
          HAL_GPIO_PIN_RESET;
 }
 
-void StTimerMotorDriver::handleFaultIrq() {
+void StTimerMotorDriver::HandleFaultIrq() {
   if (config_.drv_nfault.pin != 0U) {
     LL_EXTI_ClearFallingFlag_0_31(config_.drv_nfault.pin);
   }
@@ -388,7 +388,7 @@ void StTimerMotorDriver::handleFaultIrq() {
   disable();
 }
 
-void StTimerMotorDriver::updateCoastPin() {
+void StTimerMotorDriver::UpdateCoastPin() {
   if (config_.drv_coast.pin == 0U) {
     return;
   }
@@ -450,7 +450,7 @@ void StTimerMotorDriver::setPhaseState(PhaseState sa, PhaseState sb,
 
 extern "C" void EXTI7_IRQHandler(void) {
   if (auto* driver = stfoc::g_fault_drivers[7]; driver != nullptr) {
-    driver->handleFaultIrq();
+    driver->HandleFaultIrq();
   } else {
     LL_EXTI_ClearFallingFlag_0_31(LL_EXTI_LINE_7);
   }
