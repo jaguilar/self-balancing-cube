@@ -78,6 +78,20 @@ cc_library(
     alwayslink = True,
 )
 
+cc_library(
+    name = "can_driver_test_lib",
+    srcs = ["can_driver_test.cc"],
+    copts = ["-std=c++23"],
+    deps = [
+        "//src/common:motor_protocol",
+        "//src/driver/src:board_config",
+        "//src/driver/src:can_driver",
+        "//src/driver/src:stm32c5_hal_drivers",
+        "@cpputest//:cpputest",
+    ],
+    alwayslink = True,
+)
+
 cc_binary(
     name = "test_runner_firmware",
     srcs = ["test_runner_main.cc"],
@@ -85,6 +99,7 @@ cc_binary(
     deps = [
         ":angle_sensor_test_lib",
         ":battery_brake_test_lib",
+        ":can_driver_test_lib",
         ":current_sense_test_lib",
         ":hello_world",
         ":motor_driver_test_lib",
@@ -140,4 +155,9 @@ mcu_py_test(
 mcu_py_test(
     name = "battery_brake_test",
     srcs = ["battery_brake_test.py"],
+)
+
+mcu_py_test(
+    name = "can_driver_test",
+    srcs = ["can_driver_test.py"],
 )

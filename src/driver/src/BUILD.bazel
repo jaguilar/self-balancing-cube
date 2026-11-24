@@ -214,6 +214,7 @@ cc_library(
     deps = [
         ":angle_sensor",
         ":battery_brake",
+        ":can_driver",
         ":current_sense",
         ":motor_driver",
         ":stm32c5_hal_drivers",
@@ -279,6 +280,18 @@ cc_library(
     includes = ["."],
     deps = [
         ":stm32c5_hal_drivers",
+    ],
+)
+
+cc_library(
+    name = "can_driver",
+    srcs = ["can_driver.cc"],
+    hdrs = ["can_driver.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":stm32c5_hal_drivers",
+        "//src/common:motor_protocol",
     ],
 )
 
