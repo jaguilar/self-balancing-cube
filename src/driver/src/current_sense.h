@@ -29,36 +29,6 @@ struct StAdcCurrentSenseConfig {
   void* cal_ctx = nullptr;
 };
 
-/// Default current sense configuration matching docs/motor_selftest_wiring.md
-/// and src/driver/motor_driver_48-pinout.csv:
-///   - drv_sense_a: PA1 -> ADC1_IN1
-///   - drv_sense_b: PA2 -> ADC2_IN2
-constexpr StAdcCurrentSenseConfig DefaultCurrentSenseConfig(
-    float shunt_resistance = 0.005f, float amp_gain = 20.0f) {
-  return StAdcCurrentSenseConfig{
-      .phase_a =
-          {
-              .adc_instance = HAL_ADC1,
-              .channel = HAL_ADC_CHANNEL_1,
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_1,
-          },
-      .phase_b =
-          {
-              .adc_instance = HAL_ADC2,
-              .channel = HAL_ADC_CHANNEL_2,
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_2,
-          },
-      .shunt_resistance = shunt_resistance,
-      .amp_gain = amp_gain,
-      .v_ref = 3.3f,
-      .cal_a = 1.0f,
-      .cal_b = 1.0f,
-      .sampling_time = HAL_ADC_SAMPLING_TIME_13CYCLES,
-  };
-}
-
 /// Phase current sensor using STM32C5 injected ADC conversions on phase A and
 /// phase B, with phase C inferred as -(ia + ib).
 ///

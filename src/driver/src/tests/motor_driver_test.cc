@@ -6,6 +6,7 @@
 #include <optional>
 
 #include "CppUTest/TestHarness.h"
+#include "board_config.h"
 #include "stm32_hal.h"
 
 namespace {
@@ -234,7 +235,7 @@ TEST_GROUP(MotorDriver) {
 
   void setup() override {
     harness.Init();
-    driver.emplace(stfoc::DefaultMotorDriverConfig(kPwmFreqHz));
+    driver.emplace(board::motor_driver_config(kPwmFreqHz));
   }
 
   void teardown() override {

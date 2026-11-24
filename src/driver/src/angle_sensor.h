@@ -36,61 +36,6 @@ struct As5047pSensorConfig {
   uint32_t spi_timeout_ms = 10U;
 };
 
-/// Default AS5047P configuration matching docs/motor_selftest_wiring.md and
-/// src/driver/motor_driver_48-pinout.csv (enc_i is omitted).
-constexpr As5047pSensorConfig DefaultAngleSensorConfig() {
-  return As5047pSensorConfig{
-      .spi_instance = HAL_SPI2,
-      .sck =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_5,
-              .alternate = HAL_GPIO_AF_6,
-          },
-      .miso =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_7,
-              .alternate = HAL_GPIO_AF_6,
-          },
-      .mosi =
-          {
-              .port = HAL_GPIOB,
-              .pin = HAL_GPIO_PIN_15,
-              .alternate = HAL_GPIO_AF_5,
-          },
-      .nss =
-          {
-              .port = HAL_GPIOB,
-              .pin = HAL_GPIO_PIN_1,
-              .alternate = HAL_GPIO_AF_5,
-          },
-      // 144 MHz / 16 = 9 MHz (AS5047P max SCLK is 10 MHz).
-      .spi_prescaler = HAL_SPI_BAUD_RATE_PRESCALER_16,
-      .timer_instance = HAL_TIM5,
-      .enc_a =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_0,
-              .alternate = HAL_GPIO_AF_2,
-              .channel = HAL_TIM_CHANNEL_1,
-              .capture_unit = HAL_TIM_IC_CAPTURE_UNIT_1,
-              .input_source = HAL_TIM_INPUT_TIM5_TI1_GPIO,
-          },
-      .enc_b =
-          {
-              .port = HAL_GPIOB,
-              .pin = HAL_GPIO_PIN_5,
-              .alternate = HAL_GPIO_AF_2,
-              .channel = HAL_TIM_CHANNEL_2,
-              .capture_unit = HAL_TIM_IC_CAPTURE_UNIT_2,
-              .input_source = HAL_TIM_INPUT_TIM5_TI2_GPIO,
-          },
-      .startup_delay_ms = 10U,
-      .spi_timeout_ms = 10U,
-  };
-}
-
 /// AS5047P angle sensor driver using SPI for initialization/configuration and
 /// a hardware quadrature timer (ABI) for low-latency runtime angle tracking.
 class As5047pAngleSensor final : public Sensor {

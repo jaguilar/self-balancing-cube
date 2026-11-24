@@ -30,42 +30,6 @@ struct StTimerMotorConfig {
   uint32_t pwm_freq;
 };
 
-constexpr StTimerMotorConfig DefaultMotorDriverConfig(uint32_t pwm_freq = 25000U) {
-  return StTimerMotorConfig{
-      .timer_instance = HAL_TIM1,
-      .phase_a =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_8,
-              .alternate = HAL_GPIO_AF_1,
-              .channel = HAL_TIM_CHANNEL_1,
-              .compare_unit = HAL_TIM_OC_COMPARE_UNIT_1,
-          },
-      .phase_b =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_9,
-              .alternate = HAL_GPIO_AF_1,
-              .channel = HAL_TIM_CHANNEL_2,
-              .compare_unit = HAL_TIM_OC_COMPARE_UNIT_2,
-          },
-      .phase_c =
-          {
-              .port = HAL_GPIOA,
-              .pin = HAL_GPIO_PIN_11,
-              .alternate = HAL_GPIO_AF_1,
-              .channel = HAL_TIM_CHANNEL_4,
-              .compare_unit = HAL_TIM_OC_COMPARE_UNIT_4,
-          },
-      .drv_en =
-          {
-              .port = HAL_GPIOB,
-              .pin = HAL_GPIO_PIN_6,
-          },
-      .pwm_freq = pwm_freq,
-  };
-}
-
 class StTimerMotorDriver : public BLDCDriver {
  public:
   explicit StTimerMotorDriver(const StTimerMotorConfig& config);

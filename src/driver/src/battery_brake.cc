@@ -369,8 +369,7 @@ StBatteryBrake::Error StBatteryBrake::InitDac() {
   LL_DAC_Disable(DAC1, LL_DAC_CHANNEL_1);
   LL_DAC_DisableTrigger(DAC1, LL_DAC_CHANNEL_1);
   // NORMAL + BUFFER_DISABLE + CONNECT_INTERNAL routes DAC1_CH1 strictly to
-  // internal peripherals (COMP1_INM) and keeps external pin PA4 (enc_i)
-  // disconnected.
+  // internal peripherals (COMP1_INM) and keeps external pin PA4 disconnected.
   LL_DAC_ConfigOutput(DAC1, LL_DAC_CHANNEL_1, LL_DAC_OUTPUT_MODE_NORMAL,
                       LL_DAC_OUTPUT_BUFFER_DISABLE,
                       LL_DAC_OUTPUT_CONNECT_INTERNAL);
@@ -436,7 +435,7 @@ StBatteryBrake::Error StBatteryBrake::Init(hal_adc_handle_t* shared_adc2,
     v_dda_v_ = measured_vdda;
   }
 
-  // Configure shared analog input pin (PB0: COMP1_INP2 + ADC2_IN6).
+  // Configure shared analog input pin (COMP_INP + ADC).
   EnableGpioClock(config_.sense_port);
   hal_gpio_config_t sense_gpio{};
   sense_gpio.mode = HAL_GPIO_MODE_ANALOG;
@@ -447,7 +446,7 @@ StBatteryBrake::Error StBatteryBrake::Init(hal_adc_handle_t* shared_adc2,
     return last_error_;
   }
 
-  // Optionally route COMP1_OUT to the brake enable pin (PA3 AF14).
+  // Optionally route comparator output to the configured brake enable pin.
   if (config_.enable_output_pin) {
     EnableGpioClock(config_.output_port);
     hal_gpio_config_t out_gpio{};

@@ -211,7 +211,13 @@ cc_library(
         "//conditions:default": [],
     }),
     includes = ["."],
-    deps = [":stm32c5_hal_drivers"],
+    deps = [
+        ":angle_sensor",
+        ":battery_brake",
+        ":current_sense",
+        ":motor_driver",
+        ":stm32c5_hal_drivers",
+    ],
 )
 
 cc_library(

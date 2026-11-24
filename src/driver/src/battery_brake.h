@@ -7,37 +7,34 @@
 namespace stfoc {
 
 struct StBatteryBrakeConfig {
-  hal_adc_t adc_instance = HAL_ADC2;
-  hal_adc_channel_t adc_channel = HAL_ADC_CHANNEL_6;
+  hal_adc_t adc_instance;
+  hal_adc_channel_t adc_channel;
   hal_adc_sampling_time_t adc_sampling_time = HAL_ADC_SAMPLING_TIME_48CYCLES;
 
-  hal_comp_t comp_instance = HAL_COMP1;
-  hal_comp_input_plus_t comp_input_plus = HAL_COMP_INPUT_PLUS_IO2;
-  hal_comp_input_minus_t comp_input_minus = HAL_COMP_INPUT_MINUS_DAC1_CH1;
+  hal_comp_t comp_instance;
+  hal_comp_input_plus_t comp_input_plus;
+  hal_comp_input_minus_t comp_input_minus;
   hal_comp_input_hysteresis_t comp_hysteresis = HAL_COMP_INPUT_HYSTERESIS_HIGH;
   hal_comp_power_mode_t comp_power_mode = HAL_COMP_POWER_MODE_HIGH_SPEED;
 
-  // Shared analog input pin (PB0: COMP1_INP2 + ADC2_IN6).
-  hal_gpio_t sense_port = HAL_GPIOB;
-  uint32_t sense_pin = HAL_GPIO_PIN_0;
+  // Shared analog input pin (COMP_INP + ADC).
+  hal_gpio_t sense_port;
+  uint32_t sense_pin;
 
-  // Comparator output pin (PA3: COMP1_OUT AF14 -> brake_en).
-  // Set enable_output_pin = false on Nucleo-C562RE when PA3 is connected to
-  // the ST-Link VCP RX bridge.
-  bool enable_output_pin = true;
-  hal_gpio_t output_port = HAL_GPIOA;
-  uint32_t output_pin = HAL_GPIO_PIN_3;
-  hal_gpio_af_t output_af = HAL_GPIO_AF_14;
+  // Optional comparator output pin (COMP_OUT AF -> brake_en).
+  // When enable_output_pin is false, output_port/pin/af are unused.
+  bool enable_output_pin = false;
+  hal_gpio_t output_port{};
+  uint32_t output_pin = 0U;
+  hal_gpio_af_t output_af{};
 
   // Voltage divider resistors: V_pin = V_m * R_bottom / (R_top + R_bottom).
-  // Defaults match hw/motor_driver/controller.kicad_sch (R23 = 8k25 0.1%,
-  // R24 = 1k1 0.1%, 8.5:1 ratio -> 0-28.05 V full scale at 3.3 V V_DDA).
-  float r_top_ohms = 8250.0f;
-  float r_bottom_ohms = 1100.0f;
+  float r_top_ohms;
+  float r_bottom_ohms;
 
-  // Target VM voltage at which COMP1 asserts brake_en (used when
+  // Target VM voltage at which COMP asserts brake_en (used when
   // comp_input_minus == HAL_COMP_INPUT_MINUS_DAC1_CH1).
-  float brake_threshold_v = 22.0f;
+  float brake_threshold_v;
 
   // Nominal V_DDA / V_REF+ in Volts. When calibrate_vdda is true, Init()
   // measures actual V_DDA via ADC1 VREFINT + factory VREFINT_CAL for accurate
@@ -46,27 +43,12 @@ struct StBatteryBrakeConfig {
   bool calibrate_vdda = true;
 };
 
-/// Default battery voltage sensing and brake comparator configuration matching
-/// src/driver/motor_driver_48-pinout.csv and hw/motor_driver/controller.kicad_sch:
-///   - vm_sense: PB0 -> COMP1_INP2 + ADC2_IN6 (8k25 / 1k1 0.1% divider)
-///   - brake_en: PA3 -> COMP1_OUT (AF14)
-///   - COMP1_INM: internal DAC1_CH1 (disconnected from PA4), default 22.0 V
-constexpr StBatteryBrakeConfig DefaultBatteryBrakeConfig(
-    float brake_threshold_v = 22.0f, float r_top_ohms = 8250.0f,
-    float r_bottom_ohms = 1100.0f) {
-  StBatteryBrakeConfig cfg{};
-  cfg.brake_threshold_v = brake_threshold_v;
-  cfg.r_top_ohms = r_top_ohms;
-  cfg.r_bottom_ohms = r_bottom_ohms;
-  return cfg;
-}
-
 /// Battery voltage (VM) ADC monitor and hardware brake-resistor comparator.
 ///
-/// Uses a regular software-triggered single conversion on ADC2 (so it does not
-/// conflict with injected current-sense conversions) and COMP1 comparing
-/// vm_sense against internal DAC1_CH1 (calibrated via VREFINT) with hysteresis
-/// to drive brake_en in hardware.
+/// Uses a regular software-triggered single conversion on ADC (so it does not
+/// conflict with injected current-sense conversions) and a comparator comparing
+/// the sense pin against internal DAC1_CH1 (calibrated via VREFINT) with
+/// hysteresis to drive brake_en in hardware.
 class StBatteryBrake {
  public:
   enum class Error : uint8_t {
@@ -87,8 +69,7 @@ class StBatteryBrake {
     kConversionStartFailed,
   };
 
-  explicit StBatteryBrake(
-      const StBatteryBrakeConfig& config = DefaultBatteryBrakeConfig());
+  explicit StBatteryBrake(const StBatteryBrakeConfig& config);
   ~StBatteryBrake();
 
   StBatteryBrake(const StBatteryBrake&) = delete;
@@ -173,7 +154,7 @@ class StBatteryBrake {
   bool comp_started_{false};
 
   float v_dda_v_{3.3f};
-  float brake_threshold_v_{22.0f};
+  float brake_threshold_v_{0.0f};
   bool initialized_{false};
   Error last_error_{Error::kOk};
 };
