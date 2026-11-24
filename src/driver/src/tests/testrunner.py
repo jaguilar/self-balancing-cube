@@ -16,6 +16,8 @@ import time
 _READY_RE = re.compile(r"^READY\s+([0-9a-fA-F]+)\s*$")
 _RESULT_RE = re.compile(r"^RESULT\s+(-?\d+)\s*$")
 _RAN_RE = re.compile(r"\b(\d+)\s+ran\b")
+_FAILURE_MARKER = "error: Failure in TEST("
+_FAILURE_IDLE_TIMEOUT_S = 0.25
 
 _RTT_ADDR = "0x20000000"
 _RTT_SIZE = "0x100"
@@ -82,10 +84,15 @@ class _RttClient:
         self,
         stop_predicate,
         timeout_s: float,
-    ) -> tuple[list[str], object]:
+        *,
+        early_fail_substring: str | None = None,
+        idle_timeout_s: float = _FAILURE_IDLE_TIMEOUT_S,
+    ) -> tuple[list[str], object, bool]:
         assert self._sock is not None
         deadline = time.monotonic() + timeout_s
         lines: list[str] = []
+        failure_detected = False
+        last_activity = time.monotonic()
 
         while True:
             while b"\n" in self._buf:
@@ -93,22 +100,28 @@ class _RttClient:
                 self._buf = bytearray(rest)
                 line = raw_line.decode("utf-8", errors="replace").rstrip("\r")
                 lines.append(line)
+                if early_fail_substring and not failure_detected and early_fail_substring in line:
+                    failure_detected = True
+                    last_activity = time.monotonic()
                 match = stop_predicate(line)
                 if match is not None:
-                    return lines, match
+                    return lines, match, failure_detected
 
-            remaining = deadline - time.monotonic()
+            now = time.monotonic()
+            effective_deadline = min(deadline, last_activity + idle_timeout_s) if failure_detected else deadline
+            remaining = effective_deadline - now
             if remaining <= 0:
                 if self._buf:
                     lines.append(self._buf.decode("utf-8", errors="replace"))
                     self._buf.clear()
-                return lines, None
+                return lines, None, failure_detected
 
-            r, _, _ = select.select([self._sock], [], [], min(remaining, 0.1))
+            r, _, _ = select.select([self._sock], [], [], min(remaining, 0.05))
             if r:
                 chunk = self._sock.recv(4096)
                 if chunk:
                     self._buf.extend(chunk)
+                    last_activity = time.monotonic()
                 else:
                     # Server closed connection; reconnect and keep waiting within deadline.
                     time.sleep(0.05)
@@ -249,7 +262,7 @@ def _flash_firmware(elf_path: Path, host: str, tcl_port: int) -> None:
 
 
 def _wait_for_ready(client: _RttClient, timeout_s: float) -> str | None:
-    _, match = client.read_lines_until(_READY_RE.match, timeout_s)
+    _, match, _ = client.read_lines_until(_READY_RE.match, timeout_s)
     if match is None:
         return None
     return match.group(1).lower()
@@ -335,11 +348,21 @@ def run_test(
             print(f"[testrunner] Sending: {cmd.strip()}", flush=True)
             client.write(cmd.encode("ascii"))
 
-            lines, result_match = client.read_lines_until(_RESULT_RE.match, effective_timeout)
+            lines, result_match, failure_detected = client.read_lines_until(
+                _RESULT_RE.match,
+                effective_timeout,
+                early_fail_substring=_FAILURE_MARKER,
+                idle_timeout_s=_FAILURE_IDLE_TIMEOUT_S,
+            )
             transcript = "\n".join(lines)
             print(transcript, flush=True)
 
             if result_match is None:
+                if failure_detected:
+                    raise AssertionError(
+                        f"CppUTest suite {suite!r} failed (detected {_FAILURE_MARKER!r}; "
+                        f"stream idle for {_FAILURE_IDLE_TIMEOUT_S:.2f}s)"
+                    )
                 raise TimeoutError(
                     f"Timed out after {effective_timeout}s waiting for RESULT from {cmd.strip()}"
                 )
