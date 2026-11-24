@@ -265,6 +265,17 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "battery_brake",
+    srcs = ["battery_brake.cc"],
+    hdrs = ["battery_brake.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":stm32c5_hal_drivers",
+    ],
+)
+
 cc_binary(
     name = "driver_app",
     srcs = ["project/main.c"],

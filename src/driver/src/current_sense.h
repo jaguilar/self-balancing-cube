@@ -117,6 +117,9 @@ class StAdcCurrentSense final : public CurrentSense {
   uint16_t raw_a() const;
   uint16_t raw_b() const;
 
+  hal_adc_handle_t* adc_a_handle() { return &hadc_a_; }
+  hal_adc_handle_t* adc_b_handle() { return &hadc_b_; }
+
  private:
   Error InitSingleAdc(hal_adc_handle_t* hadc, const AdcChannelConfig& ch);
   bool ApplyInjectedConfig(hal_adc_handle_t* hadc,
