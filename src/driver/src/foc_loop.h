@@ -30,6 +30,7 @@ struct FocLoopConfig {
   MotionControlType controller = MotionControlType::velocity_openloop;
   TorqueControlType torque_controller = TorqueControlType::voltage;
   bool link_current_sense = false;
+  float target_ramp_ms = 2.0f;
 
   hal_tim_oc_compare_unit_t adc_trigger_compare_unit{};
   uint32_t adc_trigger_delay_ns = 0U;
@@ -101,6 +102,12 @@ class FocLoop {
   std::optional<BLDCMotor> motor_;
 
   std::atomic<float> target_{0.0f};
+  float last_target_{0.0f};
+  float effective_target_{0.0f};
+  float target_step_{0.0f};
+  float inv_ramp_steps_{0.0f};
+  uint32_t ramp_steps_{0U};
+  uint32_t steps_remaining_{0U};
   std::atomic<uint32_t> isr_count_{0U};
   uint64_t isr_cycles_sum_{0U};
   std::atomic<uint32_t> isr_cycles_max_{0U};

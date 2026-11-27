@@ -1,5 +1,7 @@
 #include "foc_loop.h"
 
+#include <cmath>
+
 #include "board_config.h"
 #include "cordic_trig.h"
 
@@ -127,6 +129,22 @@ bool FocLoop::Init() {
   isr_count_.store(0U, std::memory_order_relaxed);
   isr_cycles_sum_ = 0U;
   isr_cycles_max_.store(0U, std::memory_order_relaxed);
+  if (config_.target_ramp_ms > 0.0f &&
+      config_.motor_driver_config.pwm_freq > 0U) {
+    const float steps_f =
+        config_.target_ramp_ms * 1e-3f *
+        static_cast<float>(config_.motor_driver_config.pwm_freq);
+    ramp_steps_ = static_cast<uint32_t>(std::lround(steps_f));
+  } else {
+    ramp_steps_ = 0U;
+  }
+  inv_ramp_steps_ =
+      (ramp_steps_ > 1U) ? (1.0f / static_cast<float>(ramp_steps_)) : 0.0f;
+  const float initial_target = target_.load(std::memory_order_relaxed);
+  last_target_ = initial_target;
+  effective_target_ = initial_target;
+  target_step_ = 0.0f;
+  steps_remaining_ = 0U;
   last_ia_ = 0.0f;
   last_ib_ = 0.0f;
   last_ic_ = 0.0f;
@@ -178,19 +196,28 @@ void FocLoop::DoFOC() {
   last_ib_ = currents.b;
   last_ic_ = currents.c;
 
-  float effective_target = target_.load(std::memory_order_relaxed);
-  const float max_vel = config_.max_velocity_rad_s;
-  if (config_.controller == MotionControlType::velocity ||
-      config_.controller == MotionControlType::velocity_openloop) {
-    if (effective_target > max_vel) {
-      effective_target = max_vel;
-    } else if (effective_target < -max_vel) {
-      effective_target = -max_vel;
+  const float cmd = target_.load(std::memory_order_relaxed);
+  if (cmd != last_target_) {
+    last_target_ = cmd;
+    if (ramp_steps_ <= 1U) {
+      effective_target_ = cmd;
+      steps_remaining_ = 0U;
+    } else {
+      target_step_ = (cmd - effective_target_) * inv_ramp_steps_;
+      steps_remaining_ = ramp_steps_;
+    }
+  }
+
+  if (steps_remaining_ > 0U) {
+    if (--steps_remaining_ == 0U) {
+      effective_target_ = last_target_;
+    } else {
+      effective_target_ += target_step_;
     }
   }
 
   motor_->loopFOC();
-  motor_->move(effective_target);
+  motor_->move(effective_target_);
 
   const uint32_t elapsed = DWT->CYCCNT - t0;
   isr_cycles_sum_ += elapsed;
