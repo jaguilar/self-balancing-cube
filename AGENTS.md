@@ -13,3 +13,4 @@
 - **Struct data members:** `snake_case` (no trailing underscore)
 - **Constants & enumerators:** `kPascalCase`
 - **Macros:** `UPPER_SNAKE_CASE`
+- **Integral types:** Prefer std types that specify width (e.g. `int32_t`, not `long`).

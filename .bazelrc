@@ -2,6 +2,10 @@
 build --platforms=//bazel/platforms:stm32g4
 test --platforms=@platforms//host
 
+# HIL test configurations
+test:selftest --platforms=//bazel/platforms:host_selftest
+test:drv8304h_hil_test --platforms=//bazel/platforms:host_drv8304h_hil_test --extra_execution_platforms=//bazel/platforms:host_drv8304h_hil_test
+
 # Common build flags
 build --cxxopt=-std=c++20
 build --copt=-std=c11

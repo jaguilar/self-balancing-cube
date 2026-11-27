@@ -259,6 +259,32 @@ cc_library(
 )
 
 cc_library(
+    name = "as5048a_angle_sensor",
+    srcs = ["as5048a_angle_sensor.cc"],
+    hdrs = ["as5048a_angle_sensor.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":angle_sensor",
+        ":arduino_time_shim",
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_base_headers",
+        "//lib:arduino_foc_sensor",
+    ],
+)
+
+cc_library(
+    name = "drv8304h_hil_config",
+    hdrs = ["drv8304h_hil_config.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":as5048a_angle_sensor",
+        ":board_config",
+    ],
+)
+
+cc_library(
     name = "current_sense",
     srcs = ["current_sense.cc"],
     hdrs = ["current_sense.h"],

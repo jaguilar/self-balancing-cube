@@ -256,6 +256,9 @@ static constexpr stfoc::StCanDriverConfig GetCanDriverConfig(
   };
 }
 
+inline constexpr hal_dma_channel_t kAngleSensorTxDmaChannel = HAL_LPDMA1_CH0;
+inline constexpr hal_dma_channel_t kAngleSensorRxDmaChannel = HAL_LPDMA1_CH1;
+
 /// Initializes the debug UART peripheral and its GPIO pins for the active board.
 /// Returns nullptr on failure.
 hal_uart_handle_t* InitDebugUart();

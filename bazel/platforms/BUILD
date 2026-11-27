@@ -24,6 +24,34 @@ constraint_value(
     constraint_setting = ":board",
 )
 
+constraint_setting(name = "hil_wiring")
+
+constraint_value(
+    name = "hil_selftest",
+    constraint_setting = ":hil_wiring",
+)
+
+constraint_value(
+    name = "drv8304h_hil_test",
+    constraint_setting = ":hil_wiring",
+)
+
+platform(
+    name = "host_selftest",
+    constraint_values = [
+        ":hil_selftest",
+    ],
+    parents = ["@platforms//host"],
+)
+
+platform(
+    name = "host_drv8304h_hil_test",
+    constraint_values = [
+        ":drv8304h_hil_test",
+    ],
+    parents = ["@platforms//host"],
+)
+
 platform(
     name = "stm32g4",
     constraint_values = [

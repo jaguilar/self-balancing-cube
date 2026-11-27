@@ -4,10 +4,13 @@ load(":firmware_test.bzl", "mcu_py_test", "stamped_firmware")
 
 package(default_visibility = ["//visibility:public"])
 
+STM32C5_COMPAT = ["//bazel/platforms:stm32c5_mcu"]
+
 cc_library(
     name = "hello_world",
     srcs = ["hello_world.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = ["@cpputest//:cpputest"],
     alwayslink = True,
 )
@@ -16,6 +19,7 @@ cc_library(
     name = "selftest_wiring",
     srcs = ["selftest_wiring_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/driver/src:stm32c5_hal_drivers",
         "@cpputest//:cpputest",
@@ -27,6 +31,7 @@ cc_library(
     name = "motor_driver_test_lib",
     srcs = ["motor_driver_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/driver/src:board_config",
         "//src/driver/src:motor_driver",
@@ -40,6 +45,7 @@ cc_library(
     name = "angle_sensor_test_lib",
     srcs = ["angle_sensor_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/driver/src:angle_sensor",
         "//src/driver/src:board_config",
@@ -50,9 +56,24 @@ cc_library(
 )
 
 cc_library(
+    name = "as5048a_angle_sensor_test_lib",
+    srcs = ["as5048a_angle_sensor_test.cc"],
+    copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
+    deps = [
+        "//src/driver/src:as5048a_angle_sensor",
+        "//src/driver/src:drv8304h_hil_config",
+        "//src/driver/src:stm32c5_hal_drivers",
+        "@cpputest//:cpputest",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
     name = "current_sense_test_lib",
     srcs = ["current_sense_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/driver/src:board_config",
         "//src/driver/src:current_sense",
@@ -67,6 +88,7 @@ cc_library(
     name = "battery_brake_test_lib",
     srcs = ["battery_brake_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/driver/src:battery_brake",
         "//src/driver/src:board_config",
@@ -82,6 +104,7 @@ cc_library(
     name = "can_driver_test_lib",
     srcs = ["can_driver_test.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         "//src/common:motor_protocol",
         "//src/driver/src:board_config",
@@ -96,8 +119,10 @@ cc_binary(
     name = "test_runner_firmware",
     srcs = ["test_runner_main.cc"],
     copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
     deps = [
         ":angle_sensor_test_lib",
+        ":as5048a_angle_sensor_test_lib",
         ":battery_brake_test_lib",
         ":can_driver_test_lib",
         ":current_sense_test_lib",
@@ -127,37 +152,79 @@ py_library(
     imports = ["."],
 )
 
+SELFTEST_HIL_COMPAT = ["//bazel/platforms:hil_selftest"]
+
+SELFTEST_HIL_TAGS = [
+    "hil",
+    "selftest",
+]
+
 mcu_py_test(
     name = "hello_world_test",
     srcs = ["hello_world_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "selftest_wiring_test",
     srcs = ["selftest_wiring_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "motor_driver_test",
     srcs = ["motor_driver_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "angle_sensor_test",
     srcs = ["angle_sensor_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "current_sense_test",
     srcs = ["current_sense_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "battery_brake_test",
     srcs = ["battery_brake_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
 )
 
 mcu_py_test(
     name = "can_driver_test",
     srcs = ["can_driver_test.py"],
+    tags = SELFTEST_HIL_TAGS,
+    target_compatible_with = SELFTEST_HIL_COMPAT,
+)
+
+DRV8304H_HIL_COMPAT = ["//bazel/platforms:drv8304h_hil_test"]
+
+DRV8304H_HIL_TAGS = [
+    "hil",
+    "drv8304h_hil_test",
+]
+
+mcu_py_test(
+    name = "as5048a_angle_sensor_test",
+    srcs = ["as5048a_angle_sensor_test.py"],
+    tags = DRV8304H_HIL_TAGS,
+    target_compatible_with = DRV8304H_HIL_COMPAT,
+)
+
+mcu_py_test(
+    name = "as5048a_manual_spin_test",
+    srcs = ["as5048a_manual_spin_test.py"],
+    tags = DRV8304H_HIL_TAGS + ["manual"],
+    target_compatible_with = DRV8304H_HIL_COMPAT,
 )
