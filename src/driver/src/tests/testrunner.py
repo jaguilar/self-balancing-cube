@@ -358,6 +358,12 @@ def run_test(
             print(transcript, flush=True)
 
             if result_match is None:
+                # Reset the MCU so any active motor/PWM outputs are disabled
+                # even if the test timed out, hung, or aborted before teardown.
+                try:
+                    _openocd_tcl("reset run", effective_host, effective_tcl_port, timeout_s=5.0)
+                except OSError:
+                    pass
                 if failure_detected:
                     raise AssertionError(
                         f"CppUTest suite {suite!r} failed (detected {_FAILURE_MARKER!r}; "

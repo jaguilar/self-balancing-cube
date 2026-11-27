@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <numbers>
 
 #include "angle_sensor.h"
 #include "battery_brake.h"
@@ -262,5 +263,51 @@ inline constexpr hal_dma_channel_t kAngleSensorRxDmaChannel = HAL_LPDMA1_CH1;
 /// Initializes the debug UART peripheral and its GPIO pins for the active board.
 /// Returns nullptr on failure.
 hal_uart_handle_t* InitDebugUart();
+
+/// Returns the hardware DRV8304 CAL pin configuration (PC7 on Nucleo-C562RE
+/// per docs/nucleo_c562re_motor_wiring.md).
+static constexpr stfoc::GpioPinConfig GetDrvCalPinConfig() {
+  return stfoc::GpioPinConfig{
+      .port = HAL_GPIOC,
+      .pin = HAL_GPIO_PIN_7,
+  };
+}
+
+/// Callback compatible with StAdcCurrentSenseConfig::set_cal_mode that toggles
+/// a hardware DRV8304 CAL GPIO pin. If `ctx` is non-null it is interpreted as
+/// `const stfoc::GpioPinConfig*`; otherwise `GetDrvCalPinConfig()` is used.
+void SetHardwareCalMode(bool enable, void* ctx);
+
+struct FocDefaults {
+  int32_t pole_pairs;
+  float phase_resistance;
+  float kv_rating;
+  float supply_voltage;
+  float voltage_limit;
+  float voltage_sensor_align;
+  float current_limit;
+  float max_velocity_rad_s;
+  hal_tim_oc_compare_unit_t adc_trigger_compare_unit;
+  uint32_t adc_trigger_delay_ns;
+  uint32_t adc_irq_priority;
+};
+
+/// Returns the default motor and FOC timing parameters for the active board.
+static constexpr FocDefaults GetFocDefaults() {
+  return FocDefaults{
+      .pole_pairs = 11,
+      .phase_resistance = 0.07f,
+      .kv_rating = 380.0f,
+      .supply_voltage = 12.0f,
+      .voltage_limit = 0.5f,
+      .voltage_sensor_align = 0.5f,
+      .current_limit = 2.0f,
+      .max_velocity_rad_s =
+          500.0f * 2.0f * std::numbers::pi_v<float> / 60.0f,
+      .adc_trigger_compare_unit = HAL_TIM_OC_COMPARE_UNIT_3,
+      .adc_trigger_delay_ns = 500U,
+      .adc_irq_priority = 1U,
+  };
+}
 
 }  // namespace board

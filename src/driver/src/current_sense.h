@@ -76,8 +76,17 @@ class StAdcCurrentSense final : public CurrentSense {
                               hal_tim_oc_compare_unit_t compare_unit,
                               uint32_t delay_ns);
 
+  using ConvCpltCallback = void (*)(void* ctx);
+
   Error EnableTrigger();
   Error DisableTrigger();
+
+  /// Enables the phase-A ADC injected sequence-complete interrupt (`JEOS`) and
+  /// invokes `callback(ctx)` on every triggered conversion cycle.
+  Error EnableInterrupt(ConvCpltCallback callback, void* ctx,
+                        uint32_t nvic_priority = 1U);
+  void DisableInterrupt();
+  void HandleAdcIrq();
 
   PhaseCurrent_s getPhaseCurrents() override;
 
@@ -96,6 +105,7 @@ class StAdcCurrentSense final : public CurrentSense {
                            hal_adc_inj_trig_src_t trigger_src,
                            hal_adc_inj_trig_edge_t trigger_edge);
   Error CalibrateZeroOffsets();
+  static void OnInjSeqConvCplt(hal_adc_handle_t* hadc);
 
   StAdcCurrentSenseConfig config_;
   hal_adc_handle_t hadc_a_{};
@@ -106,6 +116,9 @@ class StAdcCurrentSense final : public CurrentSense {
   bool adc_b_initialized_{false};
   bool trigger_configured_{false};
   bool trigger_enabled_{false};
+  bool irq_enabled_{false};
+  ConvCpltCallback conv_cplt_cb_{nullptr};
+  void* conv_cplt_ctx_{nullptr};
 };
 
 }  // namespace stfoc

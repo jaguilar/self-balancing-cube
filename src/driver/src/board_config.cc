@@ -86,4 +86,24 @@ hal_uart_handle_t* InitDebugUart() {
   return &debug_uart_handle;
 }
 
+void SetHardwareCalMode(bool enable, void* ctx) {
+  const stfoc::GpioPinConfig pin_cfg =
+      (ctx != nullptr) ? *static_cast<const stfoc::GpioPinConfig*>(ctx)
+                       : GetDrvCalPinConfig();
+
+  EnableGpioClock(pin_cfg.port);
+
+  hal_gpio_config_t gpio_cfg{};
+  gpio_cfg.mode = HAL_GPIO_MODE_OUTPUT;
+  gpio_cfg.output_type = HAL_GPIO_OUTPUT_PUSHPULL;
+  gpio_cfg.pull = HAL_GPIO_PULL_NO;
+  gpio_cfg.speed = HAL_GPIO_SPEED_FREQ_LOW;
+  gpio_cfg.init_state = enable ? HAL_GPIO_PIN_SET : HAL_GPIO_PIN_RESET;
+  (void)HAL_GPIO_Init(pin_cfg.port, pin_cfg.pin, &gpio_cfg);
+  HAL_GPIO_WritePin(pin_cfg.port, pin_cfg.pin,
+                    enable ? HAL_GPIO_PIN_SET : HAL_GPIO_PIN_RESET);
+  // DRV8304H CAL settling time is ~100 us; wait 1 ms for margin.
+  HAL_Delay(1);
+}
+
 }  // namespace board

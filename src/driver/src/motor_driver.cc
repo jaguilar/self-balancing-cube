@@ -331,9 +331,27 @@ void StTimerMotorDriver::enable() {
   if (HasFault()) {
     return;
   }
+  // Mask the nFAULT EXTI interrupt during DRV8304 wake-up (t_READY ~ 1 ms) so
+  // a transient power-up glitch on nFAULT cannot trigger HandleFaultIrq() and
+  // pull drv_en back low before wake-up completes.
+  if (config_.drv_nfault.pin != 0U) {
+    const uint32_t pin_idx = GetPinIndex(config_.drv_nfault.pin);
+    NVIC_DisableIRQ(GetExtiIrqn(pin_idx));
+  }
+
   HAL_GPIO_WritePin(config_.drv_en.port, config_.drv_en.pin, HAL_GPIO_PIN_SET);
-  HAL_Delay(1);
-  if (HasFault() || IsFaultPinActive()) {
+  HAL_Delay(2);
+
+  if (config_.drv_nfault.pin != 0U) {
+    const uint32_t pin_idx = GetPinIndex(config_.drv_nfault.pin);
+    const IRQn_Type irqn = GetExtiIrqn(pin_idx);
+    LL_EXTI_ClearFallingFlag_0_31(config_.drv_nfault.pin);
+    NVIC_ClearPendingIRQ(irqn);
+    fault_latched_.store(false, std::memory_order_release);
+    NVIC_EnableIRQ(irqn);
+  }
+
+  if (IsFaultPinActive()) {
     fault_latched_.store(true, std::memory_order_release);
     disable();
     return;

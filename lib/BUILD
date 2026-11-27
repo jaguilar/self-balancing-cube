@@ -41,6 +41,7 @@ cc_library(
         "Arduino-FOC/src/common/base_classes/CurrentSense.cpp",
         "Arduino-FOC/src/common/foc_utils.cpp",
         "Arduino-FOC/src/common/time_utils.cpp",
+        "Arduino-FOC/src/communication/SimpleFOCDebug.cpp",
     ],
     hdrs = [
         "Arduino-FOC/src/common/base_classes/CurrentSense.h",
@@ -49,10 +50,33 @@ cc_library(
         "Arduino-FOC/src/common/time_utils.h",
         "Arduino-FOC/src/communication/SimpleFOCDebug.h",
     ],
-    defines = ["SIMPLEFOC_DISABLE_DEBUG"],
     includes = ["Arduino-FOC/src"],
     deps = [
         ":arduino_foc_base_headers",
+        "//src/driver/src:stm32c5_dfp_headers",
+    ],
+)
+
+cc_library(
+    name = "arduino_foc_motor",
+    srcs = [
+        "Arduino-FOC/src/BLDCMotor.cpp",
+        "Arduino-FOC/src/common/base_classes/FOCMotor.cpp",
+        "Arduino-FOC/src/common/lowpass_filter.cpp",
+        "Arduino-FOC/src/common/pid.cpp",
+    ],
+    hdrs = [
+        "Arduino-FOC/src/BLDCMotor.h",
+        "Arduino-FOC/src/common/base_classes/FOCMotor.h",
+        "Arduino-FOC/src/common/defaults.h",
+        "Arduino-FOC/src/common/lowpass_filter.h",
+        "Arduino-FOC/src/common/pid.h",
+    ],
+    includes = ["Arduino-FOC/src"],
+    deps = [
+        ":arduino_foc_base_headers",
+        ":arduino_foc_current_sense",
+        ":arduino_foc_sensor",
         "//src/driver/src:stm32c5_dfp_headers",
     ],
 )

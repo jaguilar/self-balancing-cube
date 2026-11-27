@@ -48,4 +48,23 @@ static constexpr stfoc::As5048aSensorConfig GetAs5048aSensorConfig() {
   };
 }
 
+/// Returns the current sense configuration for the DRV8304H HIL test wiring
+/// (docs/nucleo_c562re_motor_wiring.md):
+///   - drv_sense_a: PA1 -> ADC1_IN1 (CN7-30)
+///   - drv_sense_b: PC5 -> ADC2_IN5 (CN7-36, remapped from PA2)
+///   - drv_cal:     PC7 -> GPIO out (CN10-4, hardware CAL pin)
+static constexpr stfoc::StAdcCurrentSenseConfig GetCurrentSenseConfig(
+    float shunt_resistance = 0.005f, float amp_gain = 20.0f) {
+  auto cfg = board::GetCurrentSenseConfig(shunt_resistance, amp_gain);
+  cfg.phase_b = stfoc::AdcChannelConfig{
+      .adc_instance = HAL_ADC2,
+      .channel = HAL_ADC_CHANNEL_5,
+      .port = HAL_GPIOC,
+      .pin = HAL_GPIO_PIN_5,
+  };
+  cfg.set_cal_mode = &board::SetHardwareCalMode;
+  cfg.cal_ctx = nullptr;
+  return cfg;
+}
+
 }  // namespace board::drv8304h_hil

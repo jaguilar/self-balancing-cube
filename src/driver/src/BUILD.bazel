@@ -321,6 +321,24 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "foc_loop",
+    srcs = ["foc_loop.cc"],
+    hdrs = ["foc_loop.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":angle_sensor",
+        ":arduino_time_shim",
+        ":as5048a_angle_sensor",
+        ":board_config",
+        ":current_sense",
+        ":motor_driver",
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_motor",
+    ],
+)
+
 cc_binary(
     name = "driver_app",
     srcs = ["project/main.c"],

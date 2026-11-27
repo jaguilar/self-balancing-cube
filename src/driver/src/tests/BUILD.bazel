@@ -115,6 +115,21 @@ cc_library(
     alwayslink = True,
 )
 
+cc_library(
+    name = "foc_loop_test_lib",
+    srcs = ["foc_loop_test.cc"],
+    copts = ["-std=c++23"],
+    target_compatible_with = STM32C5_COMPAT,
+    deps = [
+        "//src/driver/src:board_config",
+        "//src/driver/src:drv8304h_hil_config",
+        "//src/driver/src:foc_loop",
+        "//src/driver/src:stm32c5_hal_drivers",
+        "@cpputest//:cpputest",
+    ],
+    alwayslink = True,
+)
+
 cc_binary(
     name = "test_runner_firmware",
     srcs = ["test_runner_main.cc"],
@@ -126,6 +141,7 @@ cc_binary(
         ":battery_brake_test_lib",
         ":can_driver_test_lib",
         ":current_sense_test_lib",
+        ":foc_loop_test_lib",
         ":hello_world",
         ":motor_driver_test_lib",
         ":selftest_wiring",
@@ -226,5 +242,12 @@ mcu_py_test(
     name = "as5048a_manual_spin_test",
     srcs = ["as5048a_manual_spin_test.py"],
     tags = DRV8304H_HIL_TAGS + ["manual"],
+    target_compatible_with = DRV8304H_HIL_COMPAT,
+)
+
+mcu_py_test(
+    name = "foc_loop_test",
+    srcs = ["foc_loop_test.py"],
+    tags = DRV8304H_HIL_TAGS,
     target_compatible_with = DRV8304H_HIL_COMPAT,
 )

@@ -84,6 +84,24 @@ def _impl(ctx):
                 ),
             ],
         ),
+        feature(
+            name = "opt",
+            flag_sets = [
+                flag_set(
+                    actions = [ACTION_NAMES.c_compile, ACTION_NAMES.cpp_compile],
+                    flag_groups = [flag_group(flags = ["-O2", "-g"])],
+                ),
+            ],
+        ),
+        feature(
+            name = "dbg",
+            flag_sets = [
+                flag_set(
+                    actions = [ACTION_NAMES.c_compile, ACTION_NAMES.cpp_compile],
+                    flag_groups = [flag_group(flags = ["-Og", "-g"])],
+                ),
+            ],
+        ),
     ]
 
     return cc_common.create_cc_toolchain_config_info(

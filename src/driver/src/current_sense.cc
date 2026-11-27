@@ -6,6 +6,23 @@
 namespace stfoc {
 namespace {
 
+StAdcCurrentSense* g_adc1_owner = nullptr;
+StAdcCurrentSense* g_adc2_owner = nullptr;
+
+StAdcCurrentSense*& GetAdcOwnerSlot(hal_adc_t instance) {
+  if (instance == HAL_ADC2) {
+    return g_adc2_owner;
+  }
+  return g_adc1_owner;
+}
+
+IRQn_Type GetAdcIrqn(hal_adc_t instance) {
+  if (instance == HAL_ADC2) {
+    return ADC2_IRQn;
+  }
+  return ADC1_IRQn;
+}
+
 void EnableGpioClock(hal_gpio_t port) {
   switch (port) {
     case HAL_GPIOA:
@@ -139,6 +156,9 @@ bool SampleInjectedAverage(hal_adc_handle_t* hadc, uint32_t samples,
 
 StAdcCurrentSense::StAdcCurrentSense(const StAdcCurrentSenseConfig& config)
     : config_(config) {
+  pinA = 0;
+  pinB = 1;
+  pinC = NOT_SET;
   offset_ia = config_.v_ref * 0.5f;
   offset_ib = config_.v_ref * 0.5f;
   offset_ic = 0.0f;
@@ -316,6 +336,8 @@ int StAdcCurrentSense::init() {
 }
 
 void StAdcCurrentSense::Deinit() {
+  DisableInterrupt();
+
   if (trigger_enabled_) {
     if (adc_a_initialized_) {
       (void)HAL_ADC_INJ_StopConv(&hadc_a_);
@@ -435,8 +457,11 @@ StAdcCurrentSense::Error StAdcCurrentSense::EnableTrigger() {
     return last_error_;
   }
 
-  if (HAL_ADC_INJ_StartConv(&hadc_a_) != HAL_OK ||
-      HAL_ADC_INJ_StartConv(&hadc_b_) != HAL_OK) {
+  const hal_status_t start_a =
+      irq_enabled_
+          ? HAL_ADC_INJ_StartConv_IT_Opt(&hadc_a_, HAL_ADC_OPT_IT_INJ_EOS)
+          : HAL_ADC_INJ_StartConv(&hadc_a_);
+  if (start_a != HAL_OK || HAL_ADC_INJ_StartConv(&hadc_b_) != HAL_OK) {
     last_error_ = Error::kTriggerEnableFailed;
     return last_error_;
   }
@@ -452,11 +477,94 @@ StAdcCurrentSense::Error StAdcCurrentSense::DisableTrigger() {
     return last_error_;
   }
 
-  const bool ok_a = (HAL_ADC_INJ_StopConv(&hadc_a_) == HAL_OK);
+  const bool ok_a =
+      irq_enabled_ ? (HAL_ADC_INJ_StopConv_IT(&hadc_a_) == HAL_OK)
+                   : (HAL_ADC_INJ_StopConv(&hadc_a_) == HAL_OK);
   const bool ok_b = (HAL_ADC_INJ_StopConv(&hadc_b_) == HAL_OK);
   trigger_enabled_ = false;
   last_error_ = (ok_a && ok_b) ? Error::kOk : Error::kTriggerDisableFailed;
   return last_error_;
+}
+
+StAdcCurrentSense::Error StAdcCurrentSense::EnableInterrupt(
+    ConvCpltCallback callback, void* ctx, uint32_t nvic_priority) {
+  if (!initialized) {
+    last_error_ = Error::kNotInitialized;
+    return last_error_;
+  }
+  if (callback == nullptr) {
+    last_error_ = Error::kInvalidConfig;
+    return last_error_;
+  }
+
+  DisableInterrupt();
+
+  conv_cplt_cb_ = callback;
+  conv_cplt_ctx_ = ctx;
+  GetAdcOwnerSlot(config_.phase_a.adc_instance) = this;
+
+  if (HAL_ADC_RegisterInjSequenceConvCpltCallback(
+          &hadc_a_, &StAdcCurrentSense::OnInjSeqConvCplt) != HAL_OK) {
+    GetAdcOwnerSlot(config_.phase_a.adc_instance) = nullptr;
+    conv_cplt_cb_ = nullptr;
+    conv_cplt_ctx_ = nullptr;
+    last_error_ = Error::kTriggerEnableFailed;
+    return last_error_;
+  }
+
+  if (trigger_enabled_) {
+    (void)HAL_ADC_INJ_StopConv(&hadc_a_);
+    if (HAL_ADC_INJ_StartConv_IT_Opt(&hadc_a_, HAL_ADC_OPT_IT_INJ_EOS) !=
+        HAL_OK) {
+      GetAdcOwnerSlot(config_.phase_a.adc_instance) = nullptr;
+      conv_cplt_cb_ = nullptr;
+      conv_cplt_ctx_ = nullptr;
+      last_error_ = Error::kTriggerEnableFailed;
+      return last_error_;
+    }
+  }
+
+  const IRQn_Type irqn = GetAdcIrqn(config_.phase_a.adc_instance);
+  NVIC_SetPriority(irqn, nvic_priority);
+  NVIC_ClearPendingIRQ(irqn);
+  NVIC_EnableIRQ(irqn);
+  irq_enabled_ = true;
+  last_error_ = Error::kOk;
+  return last_error_;
+}
+
+void StAdcCurrentSense::DisableInterrupt() {
+  if (!irq_enabled_) {
+    return;
+  }
+
+  const IRQn_Type irqn = GetAdcIrqn(config_.phase_a.adc_instance);
+  NVIC_DisableIRQ(irqn);
+  NVIC_ClearPendingIRQ(irqn);
+
+  if (adc_a_initialized_ && trigger_enabled_) {
+    (void)HAL_ADC_INJ_StopConv_IT(&hadc_a_);
+    (void)HAL_ADC_INJ_StartConv(&hadc_a_);
+  }
+
+  if (GetAdcOwnerSlot(config_.phase_a.adc_instance) == this) {
+    GetAdcOwnerSlot(config_.phase_a.adc_instance) = nullptr;
+  }
+  conv_cplt_cb_ = nullptr;
+  conv_cplt_ctx_ = nullptr;
+  irq_enabled_ = false;
+}
+
+void StAdcCurrentSense::HandleAdcIrq() { HAL_ADC_IRQHandler_INJ(&hadc_a_); }
+
+void StAdcCurrentSense::OnInjSeqConvCplt(hal_adc_handle_t* hadc) {
+  if (hadc == nullptr) {
+    return;
+  }
+  StAdcCurrentSense* owner = GetAdcOwnerSlot(hadc->instance);
+  if (owner != nullptr && owner->conv_cplt_cb_ != nullptr) {
+    owner->conv_cplt_cb_(owner->conv_cplt_ctx_);
+  }
 }
 
 uint16_t StAdcCurrentSense::raw_a() const {
@@ -472,17 +580,38 @@ uint16_t StAdcCurrentSense::raw_b() const {
 PhaseCurrent_s StAdcCurrentSense::getPhaseCurrents() {
   const uint16_t val_a = raw_a();
   const uint16_t val_b = raw_b();
-
   const float counts_to_volts = config_.v_ref / 4096.0f;
-  const float volts_per_amp = config_.shunt_resistance * config_.amp_gain;
 
-  const float ia =
-      ((static_cast<float>(val_a) * counts_to_volts) - offset_ia) /
-      volts_per_amp * config_.cal_a;
-  const float ib =
-      ((static_cast<float>(val_b) * counts_to_volts) - offset_ib) /
-      volts_per_amp * config_.cal_b;
-  const float ic = -(ia + ib);
+  auto read_pin = [&](int pin, float offset, float gain) -> float {
+    if (pin == 0) {
+      return ((static_cast<float>(val_a) * counts_to_volts) - offset) /
+             (config_.shunt_resistance * gain) * config_.cal_a;
+    }
+    if (pin == 1) {
+      return ((static_cast<float>(val_b) * counts_to_volts) - offset) /
+             (config_.shunt_resistance * gain) * config_.cal_b;
+    }
+    return 0.0f;
+  };
+
+  float ia = 0.0f;
+  float ib = 0.0f;
+  float ic = 0.0f;
+  const bool has_a = (pinA == 0 || pinA == 1);
+  const bool has_b = (pinB == 0 || pinB == 1);
+  const bool has_c = (pinC == 0 || pinC == 1);
+
+  if (has_a) ia = read_pin(pinA, offset_ia, gain_a);
+  if (has_b) ib = read_pin(pinB, offset_ib, gain_b);
+  if (has_c) ic = read_pin(pinC, offset_ic, gain_c);
+
+  if (!has_c) {
+    ic = -(ia + ib);
+  } else if (!has_b) {
+    ib = -(ia + ic);
+  } else if (!has_a) {
+    ia = -(ib + ic);
+  }
 
   return {ia, ib, ic};
 }
@@ -503,3 +632,15 @@ bool SampleInjectedAverage(hal_adc_handle_t* hadc, uint32_t samples,
 }
 
 }  // namespace stfoc
+
+extern "C" void ADC1_IRQHandler(void) {
+  if (stfoc::g_adc1_owner != nullptr) {
+    stfoc::g_adc1_owner->HandleAdcIrq();
+  }
+}
+
+extern "C" void ADC2_IRQHandler(void) {
+  if (stfoc::g_adc2_owner != nullptr) {
+    stfoc::g_adc2_owner->HandleAdcIrq();
+  }
+}
