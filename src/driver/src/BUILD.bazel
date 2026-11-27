@@ -322,6 +322,19 @@ cc_library(
 )
 
 cc_library(
+    name = "cordic_trig",
+    srcs = ["cordic_trig.cc"],
+    hdrs = ["cordic_trig.h"],
+    copts = ["-std=c++23"],
+    includes = ["."],
+    deps = [
+        ":stm32c5_hal_drivers",
+        "//lib:arduino_foc_current_sense",
+    ],
+    alwayslink = True,
+)
+
+cc_library(
     name = "foc_loop",
     srcs = ["foc_loop.cc"],
     hdrs = ["foc_loop.h"],
@@ -332,6 +345,7 @@ cc_library(
         ":arduino_time_shim",
         ":as5048a_angle_sensor",
         ":board_config",
+        ":cordic_trig",
         ":current_sense",
         ":motor_driver",
         ":stm32c5_hal_drivers",

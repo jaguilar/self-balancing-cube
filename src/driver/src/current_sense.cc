@@ -155,7 +155,18 @@ bool SampleInjectedAverage(hal_adc_handle_t* hadc, uint32_t samples,
 }  // namespace
 
 StAdcCurrentSense::StAdcCurrentSense(const StAdcCurrentSenseConfig& config)
-    : config_(config) {
+    : config_(config),
+      adc_a_reg_(reinterpret_cast<ADC_TypeDef*>(
+          static_cast<uintptr_t>(config.phase_a.adc_instance))),
+      adc_b_reg_(reinterpret_cast<ADC_TypeDef*>(
+          static_cast<uintptr_t>(config.phase_b.adc_instance))),
+      counts_to_volts_(config.v_ref / 4096.0f) {
+  if (config_.shunt_resistance > 0.0f && config_.amp_gain > 0.0f) {
+    const float inv_r_gain =
+        1.0f / (config_.shunt_resistance * config_.amp_gain);
+    inv_r_gain_a_ = config_.cal_a * inv_r_gain;
+    inv_r_gain_b_ = config_.cal_b * inv_r_gain;
+  }
   pinA = 0;
   pinB = 1;
   pinC = NOT_SET;
@@ -568,28 +579,25 @@ void StAdcCurrentSense::OnInjSeqConvCplt(hal_adc_handle_t* hadc) {
 }
 
 uint16_t StAdcCurrentSense::raw_a() const {
-  return static_cast<uint16_t>(
-      HAL_ADC_INJ_ReadConversionDataRank(&hadc_a_, 1U) & 0xFFFF);
+  return static_cast<uint16_t>(adc_a_reg_->JDR[0] & 0xFFFFU);
 }
 
 uint16_t StAdcCurrentSense::raw_b() const {
-  return static_cast<uint16_t>(
-      HAL_ADC_INJ_ReadConversionDataRank(&hadc_b_, 1U) & 0xFFFF);
+  return static_cast<uint16_t>(adc_b_reg_->JDR[0] & 0xFFFFU);
 }
 
 PhaseCurrent_s StAdcCurrentSense::getPhaseCurrents() {
   const uint16_t val_a = raw_a();
   const uint16_t val_b = raw_b();
-  const float counts_to_volts = config_.v_ref / 4096.0f;
 
   auto read_pin = [&](int pin, float offset, float gain) -> float {
     if (pin == 0) {
-      return ((static_cast<float>(val_a) * counts_to_volts) - offset) /
-             (config_.shunt_resistance * gain) * config_.cal_a;
+      const float scale = (gain >= 0.0f) ? inv_r_gain_a_ : -inv_r_gain_a_;
+      return ((static_cast<float>(val_a) * counts_to_volts_) - offset) * scale;
     }
     if (pin == 1) {
-      return ((static_cast<float>(val_b) * counts_to_volts) - offset) /
-             (config_.shunt_resistance * gain) * config_.cal_b;
+      const float scale = (gain >= 0.0f) ? inv_r_gain_b_ : -inv_r_gain_b_;
+      return ((static_cast<float>(val_b) * counts_to_volts_) - offset) * scale;
     }
     return 0.0f;
   };

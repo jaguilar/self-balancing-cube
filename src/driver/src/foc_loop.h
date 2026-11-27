@@ -71,6 +71,11 @@ class FocLoop {
   uint32_t isr_count() const {
     return isr_count_.load(std::memory_order_relaxed);
   }
+  uint64_t isr_cycles_sum() const;
+  uint32_t isr_cycles_max() const {
+    return isr_cycles_max_.load(std::memory_order_relaxed);
+  }
+  void ResetIsrTiming();
 
   PhaseCurrent_s last_currents() const;
 
@@ -97,6 +102,8 @@ class FocLoop {
 
   std::atomic<float> target_{0.0f};
   std::atomic<uint32_t> isr_count_{0U};
+  uint64_t isr_cycles_sum_{0U};
+  std::atomic<uint32_t> isr_cycles_max_{0U};
   float last_ia_{0.0f};
   float last_ib_{0.0f};
   float last_ic_{0.0f};

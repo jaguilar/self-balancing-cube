@@ -110,6 +110,11 @@ class StAdcCurrentSense final : public CurrentSense {
   StAdcCurrentSenseConfig config_;
   hal_adc_handle_t hadc_a_{};
   hal_adc_handle_t hadc_b_{};
+  ADC_TypeDef* adc_a_reg_{nullptr};
+  ADC_TypeDef* adc_b_reg_{nullptr};
+  float counts_to_volts_{0.0f};
+  float inv_r_gain_a_{0.0f};
+  float inv_r_gain_b_{0.0f};
   hal_adc_inj_trig_src_t trigger_src_{HAL_ADC_INJ_TRIG_SOFTWARE};
   Error last_error_{Error::kOk};
   bool adc_a_initialized_{false};

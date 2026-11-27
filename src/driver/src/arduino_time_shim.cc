@@ -8,6 +8,7 @@
 
 namespace {
 PrintfPrint g_serial_instance;
+uint32_t g_cycles_per_us = 0U;
 }  // namespace
 
 PrintfPrint* SerialPtr = &g_serial_instance;
@@ -23,7 +24,12 @@ void delayMicroseconds(uint32_t us) {
 
 uint32_t millis() { return HAL_GetTick(); }
 
-uint32_t micros() { return DWT->CYCCNT / (SystemCoreClock / 1'000'000U); }
+uint32_t micros() {
+  if (g_cycles_per_us == 0U) {
+    g_cycles_per_us = SystemCoreClock / 1'000'000U;
+  }
+  return DWT->CYCCNT / g_cycles_per_us;
+}
 
 std::size_t PrintfPrint::write(const uint8_t* buffer, std::size_t size) {
   const std::size_t written = std::fwrite(buffer, 1, size, stdout);

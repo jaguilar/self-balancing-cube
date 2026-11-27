@@ -124,6 +124,27 @@ uint32_t GetTimerClockFreq(hal_tim_t instance) {
   }
 }
 
+volatile uint32_t* GetCompareRegister(TIM_TypeDef* tim,
+                                      hal_tim_oc_compare_unit_t compare_unit) {
+  switch (compare_unit) {
+    case HAL_TIM_OC_COMPARE_UNIT_1:
+      return &tim->CCR1;
+    case HAL_TIM_OC_COMPARE_UNIT_2:
+      return &tim->CCR2;
+    case HAL_TIM_OC_COMPARE_UNIT_3:
+      return &tim->CCR3;
+    case HAL_TIM_OC_COMPARE_UNIT_4:
+      return &tim->CCR4;
+    case HAL_TIM_OC_COMPARE_UNIT_5:
+      return &tim->CCR5;
+    case HAL_TIM_OC_COMPARE_UNIT_6:
+      return &tim->CCR6;
+    default:
+      assert(false && "Unsupported timer compare unit");
+      return &tim->CCR1;
+  }
+}
+
 }  // namespace
 
 StTimerMotorDriver::StTimerMotorDriver(const StTimerMotorConfig& config)
@@ -210,6 +231,12 @@ int StTimerMotorDriver::init() {
   arr_value_ = tim_clk_hz / (2U * config_.pwm_freq);
   if (arr_value_ == 0U) {
     return 0;
+  }
+  arr_value_f_ = static_cast<float>(arr_value_);
+  TIM_TypeDef* const tim_regs = reinterpret_cast<TIM_TypeDef*>(
+      static_cast<uintptr_t>(config_.timer_instance));
+  for (std::size_t i = 0; i < phases_.size(); ++i) {
+    ccr_regs_[i] = GetCompareRegister(tim_regs, phases_[i].compare_unit);
   }
 
   hal_tim_config_t tim_cfg{};
@@ -425,18 +452,13 @@ void StTimerMotorDriver::setPwm(float ua, float ub, float uc) {
   dc_c = std::clamp(uc * inv_voltage_power_supply_, 0.0f, 1.0f);
 
   const auto to_pulse = [this](float duty) -> uint32_t {
-    const float scaled = (1.0f - duty) * static_cast<float>(arr_value_);
-    const long rounded = std::lround(scaled);
-    return static_cast<uint32_t>(
-        std::clamp<long>(rounded, 0L, static_cast<long>(arr_value_)));
+    const float scaled = (1.0f - duty) * arr_value_f_;
+    return static_cast<uint32_t>(scaled + 0.5f);
   };
 
-  (void)HAL_TIM_OC_SetCompareUnitPulse(&htim_, phases_[0].compare_unit,
-                                       to_pulse(dc_a));
-  (void)HAL_TIM_OC_SetCompareUnitPulse(&htim_, phases_[1].compare_unit,
-                                       to_pulse(dc_b));
-  (void)HAL_TIM_OC_SetCompareUnitPulse(&htim_, phases_[2].compare_unit,
-                                       to_pulse(dc_c));
+  *ccr_regs_[0] = to_pulse(dc_a);
+  *ccr_regs_[1] = to_pulse(dc_b);
+  *ccr_regs_[2] = to_pulse(dc_c);
 }
 
 void StTimerMotorDriver::setPhaseState(PhaseState sa, PhaseState sb,

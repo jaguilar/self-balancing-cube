@@ -75,7 +75,9 @@ class StTimerMotorDriver : public BLDCDriver {
   std::array<bool, 3> channel_active_{false, false, false};
 
   hal_tim_handle_t htim_{};
+  std::array<volatile uint32_t*, 3> ccr_regs_{nullptr, nullptr, nullptr};
   uint32_t arr_value_{0};
+  float arr_value_f_{0.0f};
   float inv_voltage_power_supply_{0.0f};
   bool enabled_{false};
   bool coast_mode_{false};

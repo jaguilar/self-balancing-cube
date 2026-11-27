@@ -1,6 +1,7 @@
 #include "foc_loop.h"
 
 #include "board_config.h"
+#include "cordic_trig.h"
 
 namespace stfoc {
 
@@ -34,6 +35,8 @@ bool FocLoop::Init() {
   if (initialized_) {
     return true;
   }
+
+  InitCordicTrig();
 
   // 1. Initialize motor PWM driver first so TIM1 is running for both the
   //    AS5048A DMA trigger and the current-sense ADC TRGO2 trigger.
@@ -110,7 +113,7 @@ bool FocLoop::Init() {
   motor_->current_limit = config_.current_limit;
   motor_->velocity_limit = config_.max_velocity_rad_s;
   motor_->voltage_sensor_align = config_.voltage_sensor_align;
-  motor_->foc_modulation = FOCModulationType::SinePWM;
+  motor_->foc_modulation = FOCModulationType::SpaceVectorPWM;
 
   if (motor_->init() != 1) {
     Deinit();
@@ -122,6 +125,8 @@ bool FocLoop::Init() {
   }
 
   isr_count_.store(0U, std::memory_order_relaxed);
+  isr_cycles_sum_ = 0U;
+  isr_cycles_max_.store(0U, std::memory_order_relaxed);
   last_ia_ = 0.0f;
   last_ib_ = 0.0f;
   last_ic_ = 0.0f;
@@ -164,6 +169,8 @@ void FocLoop::DoFOC() {
     return;
   }
 
+  const uint32_t t0 = DWT->CYCCNT;
+
   isr_count_.fetch_add(1U, std::memory_order_relaxed);
 
   const PhaseCurrent_s currents = current_sense_->getPhaseCurrents();
@@ -184,6 +191,30 @@ void FocLoop::DoFOC() {
 
   motor_->loopFOC();
   motor_->move(effective_target);
+
+  const uint32_t elapsed = DWT->CYCCNT - t0;
+  isr_cycles_sum_ += elapsed;
+  uint32_t prev_max = isr_cycles_max_.load(std::memory_order_relaxed);
+  if (elapsed > prev_max) {
+    isr_cycles_max_.store(elapsed, std::memory_order_relaxed);
+  }
+}
+
+uint64_t FocLoop::isr_cycles_sum() const {
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  const uint64_t sum = isr_cycles_sum_;
+  __set_PRIMASK(primask);
+  return sum;
+}
+
+void FocLoop::ResetIsrTiming() {
+  const uint32_t primask = __get_PRIMASK();
+  __disable_irq();
+  isr_cycles_sum_ = 0U;
+  isr_cycles_max_.store(0U, std::memory_order_relaxed);
+  isr_count_.store(0U, std::memory_order_relaxed);
+  __set_PRIMASK(primask);
 }
 
 PhaseCurrent_s FocLoop::last_currents() const {

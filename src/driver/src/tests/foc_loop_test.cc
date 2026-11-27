@@ -295,13 +295,25 @@ TEST(FocLoopTorqueControl, SweepsCurrentTargetsOver5Seconds) {
 
   const uint32_t end_ms = HAL_GetTick();
   const uint32_t end_isr = foc_loop->isr_count();
+  const uint64_t end_cycles = foc_loop->isr_cycles_sum();
+  const uint32_t max_cycles = foc_loop->isr_cycles_max();
   const float dt_s = static_cast<float>(end_ms - start_ms) * 1e-3f;
   const float isr_rate_hz = static_cast<float>(end_isr - start_isr) / dt_s;
+  const float avg_cycles =
+      (end_isr > 0U)
+          ? static_cast<float>(end_cycles) / static_cast<float>(end_isr)
+          : 0.0f;
+  const float cycles_per_us = static_cast<float>(SystemCoreClock) * 1e-6f;
 
   std::printf(
       "[FocLoopTorque] done: dt=%.2fs isr_rate=%.0fHz "
+      "isr_avg=%.1f cyc (%.2fus) isr_max=%lu cyc (%.2fus) "
       "max|iq|=%.2fA max|vel|=%.1frad/s fault=%d\r\n",
       static_cast<double>(dt_s), static_cast<double>(isr_rate_hz),
+      static_cast<double>(avg_cycles),
+      static_cast<double>(avg_cycles / cycles_per_us),
+      static_cast<unsigned long>(max_cycles),
+      static_cast<double>(static_cast<float>(max_cycles) / cycles_per_us),
       static_cast<double>(max_abs_iq), static_cast<double>(max_abs_vel),
       foc_loop->motor_driver()->HasFault() ? 1 : 0);
 
